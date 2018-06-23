@@ -101,6 +101,7 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\site.css" />
     <Content Include="Controls\VueControl.ascx" />
+    <Content Include="Controls\VueControl.ascx.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
