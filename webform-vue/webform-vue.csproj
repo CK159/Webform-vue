@@ -100,6 +100,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\site.css" />
+    <Content Include="Content\VueModal.css" />
     <Content Include="Controls\VueControl.ascx" />
     <Content Include="Controls\VueControl.ascx.js" />
     <Content Include="favicon.ico" />
@@ -117,6 +118,7 @@
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\misc.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
@@ -130,7 +132,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content" />
     <Folder Include="Models" />
   </ItemGroup>
   <ItemGroup>
