@@ -81,7 +81,27 @@ var vueApp = new Vue({
 			"Select",
 			"Buttons",
 			"Mildly Inconvenient Text Box"
-		]
+		],
+		
+		//Remaining Examples
+		recordPreview: [
+			/*{id: 1, name: "first", active: true, date: "2018-06-23"},
+			{id: 2, name: "Something", active: true, date: "2018-06-24"},
+			{id: 3, name: "Inactive item", active: false, date: "2018-06-25"}*/
+		],
+		recordPreviewState: "unloaded", //unloaded, loading, loaded
+		recordState: "unloaded", //unloaded, loading, loaded, new
+		recordDetail: {
+			id: "",
+			name: "",
+			description: "",
+			active: false,
+			date: ""
+		},
+		
+		//Neverending Examples...
+		artificialDelay: 250,
+		endpoint: ["asmx"] //asmx, mvc
 	},
 	computed: {
 		//Left panel examples
@@ -89,14 +109,18 @@ var vueApp = new Vue({
 			return 30 - this.simpleMessage.length;
 		},
 		simple2sComplement: function () {
-			var sum = this.simpleCheckboxes.reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
+			var sum = this.simpleCheckboxes.reduce(function (a, b) {
+				return parseInt(a, 10) + parseInt(b, 10);
+			}, 0);
 			return window.toTwosComplement(sum, 5);
 		}
 	},
 	methods: {
 		//Right panel examples
 		multiInputAdd: function () {
-			var nextID = this.multiInputData.reduce((max, p) => p.id > max ? p.id : max, 0) + 1;
+			var nextID = this.multiInputData.reduce(function (max, p) {
+				return p.id > max ? p.id : max;
+			}, 0) + 1;;
 			this.multiInputData.push({id: nextID, type: this.multiInputSelect, value: "New " + nextID});
 		},
 		multiInputRandomize: function () {
@@ -106,6 +130,129 @@ var vueApp = new Vue({
 		},
 		multiInputRemove: function (index) {
 			this.multiInputData.splice(index, 1);
+		},
+
+		//Remaining Examples
+		ezAjax: function (argOpts) {
+			var opt = $.extend({
+				action: "",
+				data: {},
+				dataType: "json",
+				done: null,
+				fail: function (jqXHR, textStatus){
+					console.log("Error: " + textStatus, jqXHR);
+					alert( "Error: " + textStatus);
+				},
+				always: null
+			}, argOpts);
+			
+			var url = "/application/ApiThingy.asmx/" + opt.action;
+			
+			setTimeout(function(){
+				$.ajax({
+					url: url,
+					data: opt.data,
+					method: "POST",
+					dataType: opt.dataType
+				})
+					.done(function(data) {
+						if (typeof opt.done === "function") { opt.done(data); }
+					})
+					.fail(function(jqXHR, textStatus) {
+						if (typeof opt.fail === "function") { opt.fail(jqXHR, textStatus); }
+					})
+					.always(function() {
+						if (typeof opt.always === "function") { opt.always(); }
+					});
+			}, this.artificialDelay);
+		},
+		recordPreviewLoad: function () {
+			var vm = this;
+			this.recordPreviewState = "loading";
+			
+			this.ezAjax({
+				action: "GetRecordPreview",
+				data: {},
+				done: function (data) {
+					vm.recordPreview = data;
+				},
+				always: function () {
+					vm.recordPreviewState = "loaded";
+				}
+			});
+		},
+		recordLoad: function (id) {
+			var vm = this;
+			this.recordState = "loading";
+			
+			this.ezAjax({
+				action: "GetRecordDetail",
+				data: {id: id},
+				done: function (data) {
+					vm.recordDetail = data;
+				},
+				always: function () {
+					vm.recordState = "loaded";
+				}
+			});
+		},
+		recordSave: function () {
+			if (this.recordState != "loaded" && this.recordState != "new"){
+				return; //Only allow saving loaded or new records.
+			}
+			
+			var vm = this;
+			this.recordState = "loading";
+
+			this.ezAjax({
+				action: "SaveRecordDetail",
+				data: {json: JSON.stringify(vm.recordDetail)},
+				done: function (data) {
+					vm.recordDetail.id = data.id; //Update id of this record (for new records)
+					vm.recordPreviewLoad(); //Refresh preview (if name or other properties changes)
+				},
+				always: function () {
+					vm.recordState = "loaded";
+				}
+			});
+		},
+		recordCancel: function () {
+			this.recordState = "unloaded";
+			this.recordDetail.id = "";
+		},
+		recordNew: function () {
+			this.recordState = "new";
+			this.recordDetail = {
+				id: -1,
+				name: "",
+				description: "",
+				active: false,
+				date: ""
+			};
+		},
+		recordDelete: function () {
+			if (this.recordState != "loaded"){
+				return; //Only allow deleting existing records. If unloaded, do nothing.
+			}
+			
+			var vm = this;
+			this.recordState = "loading";
+
+			this.ezAjax({
+				action: "DeleteRecordDetail",
+				data: {id: vm.recordDetail.id},
+				dataType: "text", //No response content is returned, cant be set to json
+				done: function (data) {
+					vm.recordPreviewLoad(); //Refresh preview to removel deleted element
+				},
+				always: function () {
+					vm.recordState = "unloaded";
+					vm.recordDetail.id = "";
+				}
+			});
 		}
+	},
+	created: function () {
+		this.recordPreviewLoad();
 	}
 });

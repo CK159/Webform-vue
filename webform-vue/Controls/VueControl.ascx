@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" CodeBehind="VueControl.aspx.cs" Inherits="WebformVue.VueControl" AutoEventWireup="true" %>
 
-<h2>Vue.js ASCX custom control</h2>
+<h2>Web Forms ASCX custom control</h2>
 <asp:Button id="Button1" runat="server" onclick="Button1_Click" Text="Cause Postback"></asp:Button>
 <asp:Label id="Label1" runat="server" Visible="false"></asp:Label>
 
@@ -14,7 +14,7 @@
 		
 		<div class="panel-body">
 			<div class="row">
-				<%--Left panel--%>
+				<%--Upper Left section--%>
 				<div class="col-md-6">
 					<h2>Examples</h2><hr />
 					
@@ -52,7 +52,7 @@
 					</div>
 				</div>
 				
-				<%--Right panel--%>
+				<%--Upper Right section--%>
 				<div class="col-md-6">
 					<h2>More Examples</h2><hr />
 					
@@ -98,8 +98,117 @@
 			<%--Middle section--%>
 			<h2>Remaining Examples</h2><hr />
 			
-			<h2>Neverending Examples....</h2><hr />
+			<%--Preview Table--%>
+			<div class="table-responsive" style="position: relative;">
+				<%--TODO: Nicer loading bar--%>
+				<div class="jumbotron" v-if="recordPreviewState == 'loading'" style="position: absolute; left: 0; right: 0;">
+					<h1 class="text-center">IT'S LOADING!!!!!</h1>
+				</div>
+				<table class="table table-hover table-bordered table-striped table-condensed">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Active</th>
+							<th>Date Created</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr 
+							v-for="item in recordPreview"
+							:key="item.id"
+							v-on:click="recordLoad(item.id)"
+							v-bind:class="{'info': item.id == recordDetail.id}"> <%--Highlight active row--%>
+							
+							<td>{{item.id}}</td>
+							<td>{{item.name}}</td>
+							<td>
+								<span class="text-success" v-if="item.active">&#10004;</span>
+								<span class="text-danger" v-if="!item.active">&#10008;</span>
+							</td>
+							<td>{{item.date}}</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<%--<h1 v-if="recordPreviewState == 'loading'" style="position: absolute; background-color: white;">IT'S LOADING!!!!!</h1>--%>
+			</div>
+				
+			<%--Action buttons--%>
+			<p class="text-right">
+				<button type="button" class="btn btn-info" v-on:click="recordNew">New</button>
+				<button type="button" class="btn btn-danger" v-on:click="recordDelete">Delete</button>
+			</p>
+			<div class="row">
+				<div class="col-lg-10 col-md-9 col-sm-8">
+					<button type="button" class="btn btn-success btn-block" v-on:click="recordSave">Save</button>
+				</div>
+				<div class="col-lg-2 col-md-3 col-sm-4">
+					<button type="button" class="btn btn-danger btn-block" v-on:click="recordCancel">Cancel</button>
+				</div>
+			</div>
 			
+			<p class="text-muted">State: {{recordState}}</p> <%--Debugging / visualization--%>
+			
+			<%--Details Section--%>
+			<div class="row" v-if="recordState != 'unloaded'" style="position: relative;">
+				<div class="col-md-6">
+					<p class="text-muted">ID: {{recordDetail.id}}</p>
+					<div class="form-group">
+						<label>Name</label>
+						<input class="form-control" v-model="recordDetail.name" />
+					</div>
+					<div class="form-group">
+						<label>Description</label>
+						<textarea class="form-control" v-model="recordDetail.description"></textarea>
+					</div>
+					<div class="form-group">
+						<label>Date</label>
+						<input class="form-control" v-model="recordDetail.date" /> <%--TODO: Datepicker options?--%>
+					</div>
+				</div>
+				
+				<div class="col-md-6">
+					<div class="form-group">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" v-model="recordDetail.active"> Active
+							</label>
+						</div>
+					</div>
+					
+					<span class="text-muted">TODO:</span> <label>Array of sub-items</label>
+				</div>
+				
+				<%--TODO: Nicer loading bar--%>
+				<div class="jumbotron" v-if="recordState == 'loading'" style="position: absolute; left: 0; right: 0;">
+					<h1 class="text-center">IT'S LOADING!!!!!</h1>
+				</div>
+			</div>
+			
+			<%--Bottom section--%>
+			<h2>Neverending Examples...</h2><hr />
+			<div class="row">
+				<div class="col-lg-4 col-md-6">
+					<div class="form-group">
+						<my-theme-changer></my-theme-changer>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<label>AJAX Artificial Delay</label>
+					<div class="form-group input-group">
+						<input class="form-control" v-model="artificialDelay" />
+						<span class="input-group-addon">ms.</span>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<label>AJAX Endpoint</label>
+					<div class="form-group">
+						<label class="checkbox-inline"><input type="checkbox" value="asmx" v-model="endpoint" disabled>ApiThingy.asmx</label>
+						<label class="checkbox-inline"><input type="checkbox" value="mvc" v-model="endpoint" disabled>ApiThingyController</label>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -107,8 +216,8 @@
 <script type="text/x-template" id="my-checkbox-template">
 	<div class="my-checkbox-wrapper" v-on:click="check">
 		<span :class="{ checkbox: true, checked: checked }"></span>
-		<span v-if="checked">&#10004;</span>
-		<span v-if="!checked">&#10008;</span>
+		<span class="text-success" v-if="checked">&#10004;</span>
+		<span class="text-danger" v-if="!checked">&#10008;</span>
 		<span class="title">{{title}}</span>
 	</div>
 </script>
@@ -186,5 +295,6 @@
 
 <script src="/Scripts/misc.js"></script>
 <script src="/Scripts/vue.js"></script>
+<script src="/Scripts/themeChanger.js"></script>
 <script src="/Controls/VueControl.ascx.js"></script>
 <link rel="stylesheet" href="/Content/VueModal.css" />
