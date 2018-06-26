@@ -175,6 +175,7 @@
 				
 				<div class="col-md-6">
 					<div class="form-group">
+						<label>Item Active</label>
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" v-model="recordDetail.active"> Active
@@ -182,7 +183,39 @@
 						</div>
 					</div>
 					
-					<span class="text-muted">TODO:</span> <label>Array of sub-items</label>
+					<%--Prices list section--%>
+					<label>Array of sub-items</label>
+					<button type="button" class="btn btn-primary btn-xs" v-on:click="priceAdd()">+</button>
+					
+					<div class="form-group"
+						v-for="(item, index) in recordDetail.prices"
+						:key="item.id">
+						
+						<div class="text-right">
+							<span class="text-muted ">ID: {{item.id}}</span>
+							<button type="button" class="btn btn-default btn-xs" v-on:click="priceRemove(index)">X</button>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<label>Name</label> 
+								<input class="form-control" v-model="item.name"/>
+							</div>
+							<div class="col-md-4">
+								<label>Type</label> 
+								<select class="form-control" v-model="item.type">
+									<option v-for="(item, index) in recordPriceTypes" :value="index">{{item}}</option>
+								</select>
+							</div>
+							<div class="col-md-4">
+								<label>Price</label>
+								<div class="input-group">
+									<span class="input-group-addon">$</span>
+									<input class="form-control" v-model.number="item.price" type="number" step="0.01" />
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				
 				<div class="jumbotron" v-if="recordState == 'loading'" style="position: absolute; left: 0; right: 0;">

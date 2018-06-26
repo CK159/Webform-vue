@@ -100,8 +100,17 @@ var vueApp = new Vue({
 			name: "",
 			description: "",
 			active: false,
-			date: ""
+			date: "",
+			prices: [/*{id: 0, type: 0, amount: 0, name: ""}*/]
 		},
+		recordPriceTypes: [
+			"Price",
+			"Shipping",
+			"Fee",
+			"Misc.",
+			"Other",
+			"N/A",
+		],
 		
 		//Neverending Examples...
 		artificialDelay: 250,
@@ -124,7 +133,7 @@ var vueApp = new Vue({
 		multiInputAdd: function () {
 			var nextID = this.multiInputData.reduce(function (max, p) {
 				return p.id > max ? p.id : max;
-			}, 0) + 1;;
+			}, 0) + 1;
 			this.multiInputData.push({id: nextID, type: this.multiInputSelect, value: "New " + nextID});
 		},
 		multiInputRandomize: function () {
@@ -137,6 +146,7 @@ var vueApp = new Vue({
 		},
 
 		//Remaining Examples
+		//Sumplified API interaction function with useful default values
 		ezAjax: function (argOpts) {
 			var opt = $.extend({
 				action: "",
@@ -170,6 +180,7 @@ var vueApp = new Vue({
 					});
 			}, this.artificialDelay);
 		},
+		//Manipulation functions for record preview and detail
 		recordPreviewLoad: function () {
 			var vm = this;
 			this.recordPreviewState = "loading";
@@ -230,7 +241,8 @@ var vueApp = new Vue({
 				name: "",
 				description: "",
 				active: false,
-				date: ""
+				date: "",
+				prices: []
 			};
 		},
 		recordDelete: function () {
@@ -251,6 +263,25 @@ var vueApp = new Vue({
 				always: function () {
 					vm.recordState = "unloaded";
 				}
+			});
+		},
+		//Manipulation functions for record detail prices
+		priceRemove: function (index) {
+			console.log(index);
+			this.recordDetail.prices.splice(index, 1);
+		},
+		priceAdd: function () {
+			//Find the next available ID to use
+			var nextID = this.recordDetail.prices.reduce(function (max, p) {
+				return p.id > max ? p.id : max;
+			}, 0) + 1;
+			
+			//Put new entry at the top
+			this.recordDetail.prices.unshift({
+				id: nextID,
+				type: 0,
+				price: 0,
+				name: "New Price"
 			});
 		}
 	},
