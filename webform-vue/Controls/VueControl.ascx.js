@@ -58,6 +58,14 @@ Vue.component('modal', {
 	template: '#modal-template'
 });
 
+// Middle section - global filter used to format dates for display in preview table
+Vue.filter('formatDate', function(value) {
+	if (value) {
+		if (!value) return ""; 
+		return new Date(value).toLocaleDateString("en-US", {day: "2-digit", month: "2-digit", year: "numeric"});
+	}
+});
+
 var vueApp = new Vue({
 	el: "#vueContainer",
 	data: {
@@ -84,11 +92,7 @@ var vueApp = new Vue({
 		],
 		
 		//Remaining Examples
-		recordPreview: [
-			/*{id: 1, name: "first", active: true, date: "2018-06-23"},
-			{id: 2, name: "Something", active: true, date: "2018-06-24"},
-			{id: 3, name: "Inactive item", active: false, date: "2018-06-25"}*/
-		],
+		recordPreview: [/*{id: 1, name: "first", active: true, date: "2018-06-23"}*/],
 		recordPreviewState: "unloaded", //unloaded, loading, loaded
 		recordState: "unloaded", //unloaded, loading, loaded, new
 		recordDetail: {
@@ -218,7 +222,6 @@ var vueApp = new Vue({
 		},
 		recordCancel: function () {
 			this.recordState = "unloaded";
-			this.recordDetail.id = "";
 		},
 		recordNew: function () {
 			this.recordState = "new";
@@ -247,12 +250,14 @@ var vueApp = new Vue({
 				},
 				always: function () {
 					vm.recordState = "unloaded";
-					vm.recordDetail.id = "";
 				}
 			});
 		}
 	},
 	created: function () {
 		this.recordPreviewLoad();
+	},
+	components: {
+		vuejsDatepicker
 	}
 });

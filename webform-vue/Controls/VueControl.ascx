@@ -100,10 +100,10 @@
 			
 			<%--Preview Table--%>
 			<div class="table-responsive" style="position: relative;">
-				<%--TODO: Nicer loading bar--%>
 				<div class="jumbotron" v-if="recordPreviewState == 'loading'" style="position: absolute; left: 0; right: 0;">
 					<h1 class="text-center">IT'S LOADING!!!!!</h1>
 				</div>
+				
 				<table class="table table-hover table-bordered table-striped table-condensed">
 					<thead>
 						<tr>
@@ -118,7 +118,7 @@
 							v-for="item in recordPreview"
 							:key="item.id"
 							v-on:click="recordLoad(item.id)"
-							v-bind:class="{'info': item.id == recordDetail.id}"> <%--Highlight active row--%>
+							v-bind:class="{'info': item.id == recordDetail.id && recordState == 'loaded'}"> <%--Highlight active row--%>
 							
 							<td>{{item.id}}</td>
 							<td>{{item.name}}</td>
@@ -126,18 +126,17 @@
 								<span class="text-success" v-if="item.active">&#10004;</span>
 								<span class="text-danger" v-if="!item.active">&#10008;</span>
 							</td>
-							<td>{{item.date}}</td>
+							<%--Use custom formatter to display date as standard mm/dd/yyyy--%>
+							<td>{{item.date | formatDate}}</td>
 						</tr>
 					</tbody>
 				</table>
-				
-				<%--<h1 v-if="recordPreviewState == 'loading'" style="position: absolute; background-color: white;">IT'S LOADING!!!!!</h1>--%>
 			</div>
 				
 			<%--Action buttons--%>
-			<p class="text-right">
+			<p>
+				<button type="button" class="btn btn-danger pull-right" v-on:click="recordDelete">Delete</button>
 				<button type="button" class="btn btn-info" v-on:click="recordNew">New</button>
-				<button type="button" class="btn btn-danger" v-on:click="recordDelete">Delete</button>
 			</p>
 			<div class="row">
 				<div class="col-lg-10 col-md-9 col-sm-8">
@@ -164,7 +163,13 @@
 					</div>
 					<div class="form-group">
 						<label>Date</label>
-						<input class="form-control" v-model="recordDetail.date" /> <%--TODO: Datepicker options?--%>
+						<%--<input class="form-control" v-model="recordDetail.date" />--%>
+						<vuejs-datepicker 
+							v-model="recordDetail.date"
+							input-class="form-control"
+							format="MM/dd/yyyy"
+							:highlighted="{'dates': [new Date()]}">
+						</vuejs-datepicker>
 					</div>
 				</div>
 				
@@ -180,7 +185,6 @@
 					<span class="text-muted">TODO:</span> <label>Array of sub-items</label>
 				</div>
 				
-				<%--TODO: Nicer loading bar--%>
 				<div class="jumbotron" v-if="recordState == 'loading'" style="position: absolute; left: 0; right: 0;">
 					<h1 class="text-center">IT'S LOADING!!!!!</h1>
 				</div>
@@ -295,6 +299,7 @@
 
 <script src="/Scripts/misc.js"></script>
 <script src="/Scripts/vue.js"></script>
+<script src="/Scripts/vuejs-datepicker.js"></script>
 <script src="/Scripts/themeChanger.js"></script>
 <script src="/Controls/VueControl.ascx.js"></script>
 <link rel="stylesheet" href="/Content/VueModal.css" />
