@@ -1,6 +1,6 @@
 //Helper functions
 
-//Get random int in range [min, max] a.k.a. Can incluse min value and max value in result
+//Get random int in range [min, max] -> Can include min and max values in result
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -17,3 +17,10 @@ function toTwosComplement(value, numberBits) {
 	return value;
 }
 
+// Global filter used to format dates for display in preview table and elsewhere
+Vue.filter('formatDate', function(value) {
+	if (value) {
+		if (!value) return "";
+		return new Date(value).toLocaleDateString("en-US", {day: "2-digit", month: "2-digit", year: "numeric"});
+	}
+});

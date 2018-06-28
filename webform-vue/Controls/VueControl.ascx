@@ -1,4 +1,6 @@
-﻿<%@ Control Language="C#" CodeBehind="VueControl.aspx.cs" Inherits="WebformVue.VueControl" AutoEventWireup="true" %>
+<%@ Control Language="C#" CodeBehind="VueControl.aspx.cs" Inherits="WebformVue.VueControl" AutoEventWireup="true" %>
+
+<link rel="stylesheet" href="/Content/site-vue.css"/>
 
 <h2>Web Forms ASCX custom control</h2>
 <asp:Button id="Button1" runat="server" onclick="Button1_Click" Text="Cause Postback"></asp:Button>
@@ -250,89 +252,18 @@
 	</div>
 </div>
 
-<script type="text/x-template" id="my-checkbox-template">
-	<div class="my-checkbox-wrapper" v-on:click="check">
-		<span :class="{ checkbox: true, checked: checked }"></span>
-		<span class="text-success" v-if="checked">&#10004;</span>
-		<span class="text-danger" v-if="!checked">&#10008;</span>
-		<span class="title">{{title}}</span>
-	</div>
-</script>
-
-<script type="text/x-template" id="my-input-template">
-	<div class="my-input-wrapper"> <%--Component outer--%>
-		<div v-if="type == 1"> <%--Specific input types--%>
-			<input class="form-control" v-model="intVal" />
-		</div>
-		<div v-if="type == 2">
-			<textarea class="form-control" v-model="intVal">b</textarea>
-		</div>
-		<div v-if="type == 3">
-			<select class="form-control" v-model="intValQ">
-				<option>a</option>
-				<option>b</option>
-				<option>c</option>
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-				<option>?</option>
-			</select>
-		</div>
-		<div v-if="type == 4">
-			<%--This really should be its own component, rendered with v-for to remove duplicaiton--%>
-			<button type="button" class="btn" v-bind:class="{'btn-success': intValQ == 'a', 'btn-default': intValQ != 'a'}" v-on:click="intValQ = 'a'">a</button>
-			<button type="button" class="btn" v-bind:class="{'btn-success': intValQ == 'b', 'btn-default': intValQ != 'b'}" v-on:click="intValQ = 'b'">b</button>
-			<button type="button" class="btn" v-bind:class="{'btn-success': intValQ == 'c', 'btn-default': intValQ != 'c'}" v-on:click="intValQ = 'c'">c</button>
-			<button type="button" class="btn" v-bind:class="{'btn-success': intValQ == '1', 'btn-default': intValQ != '1'}" v-on:click="intValQ = '1'">1</button>
-			<button type="button" class="btn" v-bind:class="{'btn-success': intValQ == '2', 'btn-default': intValQ != '2'}" v-on:click="intValQ = '2'">2</button>
-			<button type="button" class="btn" v-bind:class="{'btn-success': intValQ == '3', 'btn-default': intValQ != '3'}" v-on:click="intValQ = '3'">3</button>
-			<button type="button" class="btn" v-bind:class="{'btn-success': intValQ == '?', 'btn-default': intValQ != '?'}" v-on:click="intValQ = '?'">?</button>
-		</div>
-		<div v-if="type == 5">
-			<label>Text input with extra steps!</label>
-			<input class="form-control" v-model="intVal" v-on:click="showModal = true" />
-		</div>
-		<modal v-if="showModal" v-on:close="showModal = false">
-			<div slot="body">
-				<label>Enter some text...</label>
-				<input class="form-control" v-model="intVal" />
-			</div>
-			<h3 slot="header">Edit Text Box Text...In A Pop-up</h3>
-		</modal>
-	</div>
-</script>
-
-<!-- template for the modal component -->
-<!-- https://vuejs.org/v2/examples/modal.html -->
-<script type="text/x-template" id="modal-template">
-	<transition name="modal">
-		<div class="modal-mask">
-			<div class="modal-wrapper">
-				<div class="modal-container">
-
-					<div class="modal-header">
-						<slot name="header">Alert</slot>
-					</div>
-
-					<div class="modal-body">
-						<slot name="body"></slot>
-					</div>
-
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" @click="$emit('close')">
-							Close
-						</button>
-						<slot name="footer"></slot>
-					</div>
-				</div>
-			</div>
-		</div>
-	</transition>
-</script>
-
-<script src="/Scripts/misc.js"></script>
 <script src="/Scripts/vue.js"></script>
+<script src="/Scripts/utilities.js"></script>
 <script src="/Scripts/vuejs-datepicker.js"></script>
-<script src="/Scripts/themeChanger.js"></script>
+<script src="/ControlsView/themeChanger.js"></script>
+
+<%@ Register TagPrefix="uc" TagName="modal" Src="~/ControlsView/modal.ascx" %>
+<uc:modal runat="server"></uc:modal>
+
+<%@ Register TagPrefix="uc" TagName="MyCheckbox" Src="~/ControlsView/MyCheckbox.ascx" %>
+<uc:MyCheckbox runat="server"></uc:MyCheckbox>
+
+<%@ Register TagPrefix="uc" TagName="MyMultiInput" Src="~/ControlsView/MyMultiInput.ascx" %>
+<uc:MyMultiInput runat="server"></uc:MyMultiInput>
+
 <script src="/Controls/VueControl.ascx.js"></script>
-<link rel="stylesheet" href="/Content/VueModal.css" />

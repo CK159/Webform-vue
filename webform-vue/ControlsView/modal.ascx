@@ -1,0 +1,37 @@
+﻿<%@ Control %>
+
+<!-- https://vuejs.org/v2/examples/modal.html -->
+<link rel="stylesheet" href="/ControlsView/modal.ascx.css" />
+
+<div id="modal-template" class="vue-template">
+	<transition name="modal">
+		<div class="modal-mask">
+			<div class="modal-wrapper">
+				<div class="modal-container">
+
+					<div class="modal-header">
+						<slot name="header">Alert</slot>
+					</div>
+
+					<div class="modal-body">
+						<slot name="body"></slot>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" @click="$emit('close')">
+							Close
+						</button>
+						<slot name="footer"></slot>
+					</div>
+				</div>
+			</div>
+		</div>
+	</transition>
+</div>
+
+<script>
+	// register modal component
+	Vue.component('modal', {
+		template: '#modal-template'
+	});
+</script>
