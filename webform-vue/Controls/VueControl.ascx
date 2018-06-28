@@ -1,4 +1,4 @@
-<%@ Control Language="C#" CodeBehind="VueControl.aspx.cs" Inherits="WebformVue.VueControl" AutoEventWireup="true" %>
+﻿<%@ Control Language="C#" CodeBehind="VueControl.aspx.cs" Inherits="WebformVue.VueControl" AutoEventWireup="true" %>
 
 <link rel="stylesheet" href="/Content/site-vue.css"/>
 
@@ -112,11 +112,12 @@
 							<th>ID</th>
 							<th>Name</th>
 							<th>Active</th>
-							<th>Date Created</th>
+							<th>Date</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr 
+							class="pointer"
 							v-for="item in recordPreview"
 							:key="item.id"
 							v-on:click="recordLoad(item.id)"
@@ -213,7 +214,7 @@
 								<label>Price</label>
 								<div class="input-group">
 									<span class="input-group-addon">$</span>
-									<input class="form-control" v-model.number="item.price" type="number" step="0.01" />
+									<input class="form-control" v-model.number="item.amount" type="number" step="0.01" />
 								</div>
 							</div>
 						</div>
