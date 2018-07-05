@@ -17,7 +17,9 @@
 		<asp:Label id="Label1" runat="server" Text="Label"></asp:Label>
 		<br/>
 		<asp:Button id="Button1" runat="server" onclick="Button1_Click" Text="Button"></asp:Button>
-		<cc:vueControl runat="server"></cc:vueControl>
+		<%--<cc:vueControl runat="server"></cc:vueControl>--%>
+		<asp:PlaceHolder runat="server" ID="ControlContainer"></asp:PlaceHolder>
+		<asp:label ID="WarningLabel" runat="server" Visible="False" CssClass="text-danger">No / Unknown user control specified!</asp:label>
 	</div>
 </form>
 </body>

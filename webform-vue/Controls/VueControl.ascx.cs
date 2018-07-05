@@ -28,10 +28,5 @@ namespace WebformVue
 				Label1.Visible = true;
 			}
 		}
-		
-		protected void Button1_Click(object sender, EventArgs e)
-		{
-			
-		}
 	}
 }

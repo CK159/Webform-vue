@@ -5,3 +5,7 @@
 .pointer {
 	cursor: pointer;
 }
+
+.preview-detail-container .detail-message {
+	margin-top: 10px;
+}

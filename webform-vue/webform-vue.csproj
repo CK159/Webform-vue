@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\ApiThingy.asmx.cs" />
+    <Compile Include="Application\ApiThingyController.cs" />
     <Compile Include="Application\VuePage.aspx.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -108,10 +109,14 @@
     <Content Include="ControlsView\MyCheckbox.ascx.js" />
     <Content Include="ControlsView\MyMultiInput.ascx" />
     <Content Include="ControlsView\MyMultiInput.ascx.js" />
+    <Content Include="ControlsView\PreviewDetail.ascx" />
+    <Content Include="ControlsView\PreviewDetail.ascx.js" />
     <Content Include="ControlsView\themeChanger.js" />
     <Content Include="ControlsView\modal.ascx.css" />
+    <Content Include="Controls\VuePreviewDetail.ascx" />
     <Content Include="Controls\VueControl.ascx" />
     <Content Include="Controls\VueControl.ascx.js" />
+    <Content Include="Controls\VuePreviewDetail.ascx.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

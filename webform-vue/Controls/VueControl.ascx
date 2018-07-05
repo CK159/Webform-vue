@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="/Content/site-vue.css"/>
 
 <h2>Web Forms ASCX custom control</h2>
-<asp:Button id="Button1" runat="server" onclick="Button1_Click" Text="Cause Postback"></asp:Button>
+<asp:Button id="Button1" runat="server" Text="Cause Postback"></asp:Button>
 <asp:Label id="Label1" runat="server" Visible="false"></asp:Label>
 
 <div>&nbsp;</div>
