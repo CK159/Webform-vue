@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Http;
 
-namespace webform_vue
+namespace WebformVue
 {
     public class Global : HttpApplication
     {

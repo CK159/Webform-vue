@@ -1,1 +1,1 @@
-﻿<%@ Application Inherits="webform_vue.Global" %>
+﻿<%@ Application Inherits="WebformVue.Global" %>

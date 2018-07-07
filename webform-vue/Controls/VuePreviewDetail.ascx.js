@@ -15,10 +15,10 @@ var vueApp = new Vue({
 				detailConfig: []
 			},
 			apiActions: {
-				previewLoad: "",
-				detailLoad: "",
-				detailSave: "",
-				detailDelete: "",
+				previewLoad: "ApiThingyController.cs/PreviewDetail/Preview",
+				detailLoad: "ApiThingyController.cs/PreviewDetail/Load",
+				detailSave: "ApiThingyController.cs/PreviewDetail/Save",
+				detailDelete: "ApiThingyController.cs/PreviewDetail/Delete",
 			}
 		}
 	},
