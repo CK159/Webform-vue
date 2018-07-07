@@ -95,7 +95,7 @@ namespace WebformVue
 
 		private string GetPath()
 		{
-			return AppDomain.CurrentDomain.BaseDirectory + "\\records.json";
+			return AppDomain.CurrentDomain.BaseDirectory + "\\nosql-db\\records.json";
 		}
 	}
 
