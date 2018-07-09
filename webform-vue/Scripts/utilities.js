@@ -40,7 +40,7 @@ Vue.mixin({
 				
 				/*Uncommon properties*/
 				dataType: "json",
-				baseURL: "/application/ApiThingy.asmx/",
+				baseURL: "",
 				method: "POST",
 				doneHandler: function (data) {
 					if (data.error === false) {

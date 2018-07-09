@@ -15,7 +15,8 @@
 				v-bind:preview.sync="preview"
 				v-bind:detail.sync="detail"
 				v-bind:new-detail="newDetail"
-				v-bind:api-actions="apiActions"
+				v-bind:pk="pk"
+				v-bind:api-endpoints="apiEndpoints"
 				ref="pdRef">
 				
 				<div slot="preview">
@@ -27,8 +28,6 @@
 								<th>Name</th>
 								<th>Category</th>
 								<th>Code</th>
-								<th>Value</th>
-								<th>Status</th>
 								<th>Active</th>
 							</tr>
 						</thead>
@@ -36,36 +35,33 @@
 							<tr 
 								class="pointer"
 								v-for="item in preview"
-								:key="item.id"
-								v-on:click="$refs['pdRef'].detailLoad(item.id)"
+								:key="item.PreviewDetailId"
+								v-on:click="$refs['pdRef'].detailLoad(item.PreviewDetailId)"
 								<%--Highlight active row--%>
-								v-bind:class="{'info': itemActive(item.id)}"> <%--TODO: Refs issue--%>
+								v-bind:class="{'info': itemActive(item.PreviewDetailId)}"> <%--TODO: Refs issue--%>
 								
-								<td>{{item.date | formatDate}}</td> <%--Use custom formatter to display date as standard mm/dd/yyyy--%>
-								<td>{{item.id}}</td>
-								<td>{{item.name}}</td>
-								<td>{{item.category}}</td>
-								<td>{{item.code}}</td>
-								<td>{{item.value}}</td>
-								<td>{{item.status}}</td>
+								<td>{{item.Date | formatDate}}</td> <%--Use custom formatter to display date as standard mm/dd/yyyy--%>
+								<td>{{item.PreviewDetailId}}</td>
+								<td>{{item.Name}}</td>
+								<td>{{item.Categories}}</td>
+								<td>{{item.Codes}}</td>
 								<td>
-									<span class="text-success" v-if="item.active">&#10004;</span>
-									<span class="text-danger" v-if="!item.active">&#10008;</span>
+									<span class="text-success" v-if="item.Active">&#10004;</span>
+									<span class="text-danger" v-if="!item.Active">&#10008;</span>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
+				
 				<div slot="detail">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Name</label>
-								<input class="form-control" v-model="detail.name" />
+								<input class="form-control" v-model="detail.Name" />
 								<label>Description</label>
-								<input class="form-control" v-model="detail.description" />
-								<label>Status</label>
-								<input class="form-control" v-model="detail.status" /> <%--TODO: searchable dropdown--%>
+								<input class="form-control" v-model="detail.Description" />
 							</div>
 						</div>
 						
@@ -74,12 +70,12 @@
 								<label>Active</label>
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" v-model="detail.active" />
+										<input type="checkbox" v-model="detail.Active" />
 										Item Active
 									</label>
 								</div>
 								<label>Date Created</label>
-								<input class="form-control" v-bind="detail.date" disabled /> <%--TODO: Needs | formatDate--%>
+								<input class="form-control" v-bind="detail.Date" disabled /> <%--TODO: Needs | formatDate--%>
 							</div>
 						</div>
 					</div>

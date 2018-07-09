@@ -6,7 +6,8 @@ Vue.component("preview-detail", {
 	],
 	props: {
 		newDetail: Object, //What should be assigned to the detailData when 'new' button is clicked
-		apiActions: Object //{previewLoad: "", detailLoad: "", detailSave: "", detailDelete: ""}
+		pk: String, //The primary key in the detail object (for loading and saving details)
+		apiEndpoints: Object //{baseURL: "", previewLoad: "", detailLoad: "", detailSave: "", detailDelete: ""}
 	},
 	data: function () {
 		return {
@@ -30,7 +31,8 @@ Vue.component("preview-detail", {
 			this.previewState = "loading";
 
 			this.api({
-				action: this.apiActions.previewLoad,
+				baseURL: this.apiEndpoints.baseURL,
+				action: this.apiEndpoints.previewLoad,
 				data: {},
 				done: function (data) {
 					vm.preview = data;
@@ -46,8 +48,9 @@ Vue.component("preview-detail", {
 			this.detailState = "loading";
 
 			this.api({
-				action: this.apiActions.detailLoad,
-				data: {id: id},
+				baseURL: this.apiEndpoints.baseURL,
+				action: this.apiEndpoints.detailLoad,
+				data: {[this.pk]: id},
 				done: function (data) {
 					vm.detail = data;
 				},
@@ -66,10 +69,11 @@ Vue.component("preview-detail", {
 			this.detailState = "loading";
 
 			this.api({
-				action: this.apiActions.detailSave,
+				baseURL: this.apiEndpoints.baseURL,
+				action: this.apiEndpoints.detailSave,
 				data: {json: JSON.stringify(vm.recordDetail)},
 				done: function (data) {
-					vm.detail.id = data.id; //Update id of this record (for new records)
+					vm.detail[vm.pk] = data[vm.pk]; //Update id of this record (for new records)
 					vm.previewLoad(false); //Refresh preview (if name or other properties changes)
 				},
 				always: function () {
@@ -84,14 +88,7 @@ Vue.component("preview-detail", {
 		detailNew: function () {
 			this.clearMessage();
 			this.recordState = "new";
-			this.detail = {
-				id: -1,
-				name: "",
-				description: "",
-				active: false,
-				date: "",
-				prices: []
-			};
+			this.detail = this.newDetail; //TODO: need to make a copy here?
 		},
 		detailDelete: function () {
 			this.clearMessage();
@@ -103,8 +100,9 @@ Vue.component("preview-detail", {
 			this.recordState = "loading";
 
 			this.api({
-				action: this.apiActions.detailDelete,
-				data: {id: vm.detail.id}, //TODO: make this a prop? Or make the id key a dedicated prop?
+				baseURL: this.apiEndpoints.baseURL,
+				action: this.apiEndpoints.detailDelete,
+				data: {[vm.pk]: vm.detail[vm.pk]},
 				dataType: "text", //No response content is returned, cant be set to json
 				done: function (data) {
 					vm.previewLoad(false); //Refresh preview to remove deleted element
@@ -118,5 +116,8 @@ Vue.component("preview-detail", {
 		clearMessage: function () {
 			this.messageType = "none";
 		}
+	},
+	created: function () {
+		this.previewLoad();
 	}
 });

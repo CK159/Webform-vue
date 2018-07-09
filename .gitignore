@@ -1,4 +1,3 @@
-
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
@@ -20,4 +19,6 @@
 /packages
 /*/bin
 /*/obj
-/webform-vue/nosql-db
+
+/webform-vue/nosql-db/records.json
+/webform-vue/nosql-db/preview-detail.json

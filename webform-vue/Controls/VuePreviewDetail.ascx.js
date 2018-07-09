@@ -7,18 +7,20 @@ var vueApp = new Vue({
 			],
 			detail: {},
 			//Default values used when user creates new record
-			newDetail: {
+			newDetail: { //TODO: Needs updates
 				name: "",
 				description: "",
 				active: false,
 				type: "alpha",
 				detailConfig: []
 			},
-			apiActions: {
-				previewLoad: "ApiThingyController.cs/PreviewDetail/Preview",
-				detailLoad: "ApiThingyController.cs/PreviewDetail/Load",
-				detailSave: "ApiThingyController.cs/PreviewDetail/Save",
-				detailDelete: "ApiThingyController.cs/PreviewDetail/Delete",
+			pk: "PreviewDetailId",
+			apiEndpoints: {
+				baseURL: "/ApiThingyController.cs/PreviewDetail/",
+				previewLoad: "Preview",
+				detailLoad: "Load",
+				detailSave: "Save",
+				detailDelete: "Delete",
 			}
 		}
 	},
