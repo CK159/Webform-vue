@@ -10,8 +10,7 @@ namespace WebformVue
 	[RoutePrefix("ApiThingyController.cs")]
 	public class ApiThingyController : ApiController
 	{
-		[HttpGet]
-		[HttpPost]
+		[HttpGet, HttpPost]
 		[Route("PreviewDetail/Preview")]
 		public List<PreviewDetailDTO> PreviewDetailPreview()
 		{
@@ -21,18 +20,50 @@ namespace WebformVue
 			return entity;
 		}
 
-		[HttpGet]
-		[HttpPost]
-		[MultiParameterSupport]
+		[HttpGet, HttpPost, MultiParameterSupport]
 		[Route("PreviewDetail/Load")]
 		public PreviewDetailEntity PreviewDetailLoad(int PreviewDetailId)
 		{
 			return LoadFromFile<List<PreviewDetailEntity>>("preview-detail").FirstOrDefault(e => e.PreviewDetailId == PreviewDetailId);
 		}
 		
-		private string GetPath(string file)
+		//TODO: Find how to make this a generic method that supports validation and error messages
+		[HttpGet, HttpPost]
+		[Route("PreviewDetail/Save")]
+		public int PreviewDetailSave(PreviewDetailEntity entity)
 		{
-			return AppDomain.CurrentDomain.BaseDirectory + "\\nosql-db\\" + file + ".json";
+			var all = LoadFromFile<List<PreviewDetailEntity>>("preview-detail");
+
+			if (entity.PreviewDetailId <= 0)
+			{
+				//New record
+				entity.PreviewDetailId = (all.OrderByDescending(i => i.PreviewDetailId).FirstOrDefault()?.PreviewDetailId ?? 0) + 1;
+				all.Add(entity);
+			}
+			else
+			{
+				int index = all.FindIndex(r => r.PreviewDetailId == entity.PreviewDetailId);
+				if (index >= 0)
+				{
+					all[index] = entity;
+				}
+			}
+			
+			SaveToFile(all, "preview-detail");
+			return entity.PreviewDetailId;
+		}
+		
+		[HttpGet, HttpPost, MultiParameterSupport]
+		[Route("PreviewDetail/Delete")]
+		public void PreviewDetailDelete(int PreviewDetailId)
+		{
+			var all = LoadFromFile<List<PreviewDetailEntity>>("preview-detail").Where(e => e.PreviewDetailId != PreviewDetailId);
+			SaveToFile(all, "preview-detail");
+		}
+		
+		private string GetPath(string filename)
+		{
+			return AppDomain.CurrentDomain.BaseDirectory + "\\nosql-db\\" + filename + ".json";
 		}
 		
 		private T LoadFromFile<T>(string file) where T : new()
@@ -46,8 +77,15 @@ namespace WebformVue
 
 			return new T();
 		}
+		
+		private void SaveToFile(object items, string filename)
+		{
+			string path = GetPath(filename);
+			File.WriteAllText(path, JsonConvert.SerializeObject(items));
+		}
 	}
 
+	#region DTO
 	//Used for showing in the preview table
 	public class PreviewDetailDTO
 	{
@@ -73,7 +111,9 @@ namespace WebformVue
 			return dto;
 		}
 	}
+	#endregion
 
+	#region Entity
 	public class PreviewDetailEntity
 	{
 		public int PreviewDetailId { get; set; }
@@ -110,4 +150,5 @@ namespace WebformVue
 		public int AttributeValueId { get; set; }
 		public string ValueName { get; set; }
 	}
+	#endregion
 }

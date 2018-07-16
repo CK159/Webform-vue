@@ -31,19 +31,20 @@ Vue.mixin({
 			var opt = $.extend({
 				/*Common properties*/
 				action: "",
-				data: {},
+				formData: null,
+				jsonData: null,
 				done: null,
 				fail: function (message, details) {
 					alert("Error: " + message);
 				},
 				always: null,
-				
+
 				/*Uncommon properties*/
 				dataType: "json",
 				baseURL: "",
 				method: "POST",
 				doneHandler: function (data) {
-					if (data.error === false) {
+					if (typeof data !== "undefined" && data.hasOwnProperty("error") && data.error === false) {
 						opt.failHandler(data.message, data)
 					}
 					else if (typeof opt.done === "function") {
@@ -53,14 +54,34 @@ Vue.mixin({
 				failHandler: function (message, details) {
 					console.log("Error: " + message, details);
 					if (typeof opt.done === "function") {
-						opt.fail(message,  details);
+						opt.fail(message, details);
 					}
 				},
 			}, argOpts);
+			
+			var finalData = null;
+			var contentType = "application/json";
+			
+			//Validation
+			if (opt.hasOwnProperty("data")) {
+				console.log("Use formData or jsonData instead of just 'data'. Always pass in an object (no serialization).", opt);
+			}
+			if (opt.formData != null && opt.jsonData != null) {
+				console.log("Use either formData or jsonData, not both.", opt);
+			}
+
+			if (opt.formData != null) {
+				finalData = opt.formData;
+				contentType = "application/x-www-form-urlencoded";
+			}
+			else {
+				finalData = JSON.stringify(opt.jsonData);
+			}
 
 			$.ajax({
 				url: opt.baseURL + opt.action,
-				data: opt.data,
+				contentType: contentType,
+				data: finalData,
 				method: opt.method,
 				dataType: opt.dataType
 			})
@@ -78,22 +99,22 @@ Vue.mixin({
 	//Allows specifying sync: ["prop1", "prop2"] on components for automatic 2-way data binding
 	//Parent component just need to use v-bind.sync
 	//https://jsfiddle.net/Herteby/daL40n19
-	beforeCreate(){
+	beforeCreate() {
 		const sync = this.$options.sync;
-		if(sync){
-			if(!this.$options.computed){
+		if (sync) {
+			if (!this.$options.computed) {
 				this.$options.computed = {}
 			}
 			const attrs = Object.keys(this.$attrs);
 			sync.forEach(key => {
-				if(!attrs.includes(key)){
+				if (!attrs.includes(key)) {
 					Vue.util.warn(`Missing required sync-prop: "${key}"`, this)
 				}
 				this.$options.computed[key] = {
-					get(){
+					get() {
 						return this.$attrs[key]
 					},
-					set(val){
+					set(val) {
 						this.$emit('update:' + key, val)
 					}
 				}
@@ -101,3 +122,35 @@ Vue.mixin({
 		}
 	}
 });
+
+//Object.Assign polyfill. Because care about IE I guess...
+//from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+if (typeof Object.assign != 'function') {
+	// Must be writable: true, enumerable: false, configurable: true
+	Object.defineProperty(Object, "assign", {
+		value: function assign(target, varArgs) { // .length of function is 2
+			'use strict';
+			if (target == null) { // TypeError if undefined or null
+				throw new TypeError('Cannot convert undefined or null to object');
+			}
+
+			var to = Object(target);
+
+			for (var index = 1; index < arguments.length; index++) {
+				var nextSource = arguments[index];
+
+				if (nextSource != null) { // Skip over if undefined or null
+					for (var nextKey in nextSource) {
+						// Avoid bugs when hasOwnProperty is shadowed
+						if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+							to[nextKey] = nextSource[nextKey];
+						}
+					}
+				}
+			}
+			return to;
+		},
+		writable: true,
+		configurable: true
+	});
+}

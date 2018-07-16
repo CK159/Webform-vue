@@ -11,8 +11,8 @@ Vue.component("preview-detail", {
 	},
 	data: function () {
 		return {
-			previewState: "loaded", //unloaded, loading, loaded
-			detailState: "loaded", //unloaded, loading, loaded, new
+			previewState: "unloaded", //unloaded, loading, loaded
+			detailState: "unloaded", //unloaded, loading, loaded, new
 			messageType: "none", //none, success, error
 			messageText: "" //Displayed in message box when messageType != "none"
 		}
@@ -33,7 +33,6 @@ Vue.component("preview-detail", {
 			this.api({
 				baseURL: this.apiEndpoints.baseURL,
 				action: this.apiEndpoints.previewLoad,
-				data: {},
 				done: function (data) {
 					vm.preview = data;
 				},
@@ -50,7 +49,7 @@ Vue.component("preview-detail", {
 			this.api({
 				baseURL: this.apiEndpoints.baseURL,
 				action: this.apiEndpoints.detailLoad,
-				data: {[this.pk]: id},
+				formData: {[this.pk]: id},
 				done: function (data) {
 					vm.detail = data;
 				},
@@ -71,9 +70,9 @@ Vue.component("preview-detail", {
 			this.api({
 				baseURL: this.apiEndpoints.baseURL,
 				action: this.apiEndpoints.detailSave,
-				data: {json: JSON.stringify(vm.recordDetail)},
+				jsonData: vm.detail,
 				done: function (data) {
-					vm.detail[vm.pk] = data[vm.pk]; //Update id of this record (for new records)
+					vm.detail[vm.pk] = data; //Update id of this record (for new records)
 					vm.previewLoad(false); //Refresh preview (if name or other properties changes)
 				},
 				always: function () {
@@ -83,32 +82,32 @@ Vue.component("preview-detail", {
 		},
 		detailCancel: function () {
 			this.clearMessage();
-			this.recordState = "unloaded";
+			this.detailState = "unloaded";
 		},
 		detailNew: function () {
 			this.clearMessage();
-			this.recordState = "new";
-			this.detail = this.newDetail; //TODO: need to make a copy here?
+			this.detailState = "new";
+			this.detail = Object.assign({}, this.newDetail); 
 		},
 		detailDelete: function () {
 			this.clearMessage();
-			if (this.recordState !== "loaded"){
+			if (this.detailState !== "loaded"){
 				return; //Only allow deleting existing records. If unloaded, do nothing.
 			}
 
 			var vm = this;
-			this.recordState = "loading";
+			this.detailState = "loading";
 
 			this.api({
 				baseURL: this.apiEndpoints.baseURL,
 				action: this.apiEndpoints.detailDelete,
-				data: {[vm.pk]: vm.detail[vm.pk]},
+				formData: {[vm.pk]: vm.detail[vm.pk]},
 				dataType: "text", //No response content is returned, cant be set to json
 				done: function (data) {
 					vm.previewLoad(false); //Refresh preview to remove deleted element
 				},
 				always: function () {
-					vm.recordState = "unloaded";
+					vm.detailState = "unloaded"; //TODO: Don't set to unloaded on failure
 				}
 			});
 		},
