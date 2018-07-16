@@ -75,7 +75,7 @@
 									</label>
 								</div>
 								<label>Date Created</label>
-								<input class="form-control" v-bind="detail.Date" disabled /> <%--TODO: Needs | formatDate--%>
+								<input class="form-control" v-model="detail.Date" disabled /> <%--TODO: Needs | formatDate--%>
 							</div>
 						</div>
 					</div>

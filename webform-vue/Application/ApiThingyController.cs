@@ -30,7 +30,7 @@ namespace WebformVue
 		//TODO: Find how to make this a generic method that supports validation and error messages
 		[HttpGet, HttpPost]
 		[Route("PreviewDetail/Save")]
-		public int PreviewDetailSave(PreviewDetailEntity entity)
+		public PreviewDetailEntity PreviewDetailSave(PreviewDetailEntity entity)
 		{
 			var all = LoadFromFile<List<PreviewDetailEntity>>("preview-detail");
 
@@ -38,6 +38,7 @@ namespace WebformVue
 			{
 				//New record
 				entity.PreviewDetailId = (all.OrderByDescending(i => i.PreviewDetailId).FirstOrDefault()?.PreviewDetailId ?? 0) + 1;
+				entity.Date = DateTime.Now;
 				all.Add(entity);
 			}
 			else
@@ -50,7 +51,7 @@ namespace WebformVue
 			}
 			
 			SaveToFile(all, "preview-detail");
-			return entity.PreviewDetailId;
+			return entity;
 		}
 		
 		[HttpGet, HttpPost, MultiParameterSupport]

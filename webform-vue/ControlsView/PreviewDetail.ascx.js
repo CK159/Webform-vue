@@ -72,7 +72,7 @@ Vue.component("preview-detail", {
 				action: this.apiEndpoints.detailSave,
 				jsonData: vm.detail,
 				done: function (data) {
-					vm.detail[vm.pk] = data; //Update id of this record (for new records)
+					vm.detail = data; //Get any updates applied by server to record (new ID, created dates, field formatting, etc.)
 					vm.previewLoad(false); //Refresh preview (if name or other properties changes)
 				},
 				always: function () {
