@@ -23,13 +23,10 @@ namespace WebformVue
 
 		[HttpGet]
 		[HttpPost]
+		[MultiParameterSupport]
 		[Route("PreviewDetail/Load")]
-		public PreviewDetailEntity PreviewDetailDetail([FromBody]int PreviewDetailId)
+		public PreviewDetailEntity PreviewDetailLoad(int PreviewDetailId)
 		{
-			var x = LoadFromFile<List<PreviewDetailEntity>>("preview-detail");
-			var y = x.FirstOrDefault(e => e.PreviewDetailId == PreviewDetailId);
-			return y;
-			
 			return LoadFromFile<List<PreviewDetailEntity>>("preview-detail").FirstOrDefault(e => e.PreviewDetailId == PreviewDetailId);
 		}
 		

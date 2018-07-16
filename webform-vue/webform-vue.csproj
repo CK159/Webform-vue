@@ -92,6 +92,8 @@
     <Compile Include="Controls\VueControl.ascx.cs" />
     <Compile Include="Global.asax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SPVPBE\MultiParameterSupportAttribute.cs" />
+    <Compile Include="SPVPBE\SimplePostModelBinding.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".editorconfig" />
@@ -145,6 +147,7 @@
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\vuejs-datepicker.js" />
+    <Content Include="SPVPBE\README.md" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
