@@ -26,11 +26,11 @@ var vueApp = new Vue({
 	},
 	methods: {
 		itemActive: function (previewid) {
-			console.log(this.$refs);
 			if (!this.$refs.hasOwnProperty("pdRef")) {
 				return false;
 			}
-			return this.$refs["pdRef"].itemActive(previewid, this.detail.id);
+			
+			return this.$refs["pdRef"].itemActive(previewid, this.detail.PreviewDetailId);
 		}
 	}
 });
