@@ -3,14 +3,14 @@
 <div id="preview-detail-template" class="vue-template">
 	<div class="preview-detail-container"> <%--Single root element--%>
 		<%--Preview display or table--%>
-		<div style="position: relative;">
-			<slot name="preview">Preview Area</slot>
-			
-			<div class="preview-container">
-				<div class="jumbotron" v-if="previewState == 'loading'" style="position: absolute; left: 0; right: 0;">
+		<div class="preview-container">
+			<transition name="fade">
+				<div v-if="previewState == 'loading'" class="preview-detail-loading">
 					<h1 class="text-center">IT'S LOADING!!!!!</h1>
 				</div>
-			</div>
+			</transition>
+			
+			<slot name="preview">Preview Area</slot>
 		</div>
 		
 		<%--Action buttons--%>
@@ -42,12 +42,14 @@
 		
 		<%--Details display--%>
 		<div class="detail-container" style="position: relative;">
+			<transition name="fade">
+				<div v-if="detailState == 'loading'" class="preview-detail-loading">
+					<h1 class="text-center">IT'S LOADING!!!!!</h1>
+				</div>
+			</transition>
+			
 			<div v-if="detailState != 'unloaded'">
 				<slot name="detail">Detail Area</slot>
-			</div>
-			
-			<div class="jumbotron" v-if="detailState == 'loading'" style="position: absolute; left: 0; right: 0;">
-				<h1 class="text-center">IT'S LOADING!!!!!</h1>
 			</div>
 		</div>
 	</div>

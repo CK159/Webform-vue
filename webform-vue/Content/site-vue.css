@@ -6,6 +6,46 @@
 	cursor: pointer;
 }
 
+/*Vue.js animations*/
+.fade-enter-active {
+	transition: opacity .15s;
+}
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+}
+
+/*Preview-detail component*/
+.preview-detail-container .preview-container {
+	position: relative;
+}
+
 .preview-detail-container .detail-message {
 	margin-top: 10px;
+}
+
+.preview-detail-container .preview-detail-loading {
+	position: absolute;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: repeating-linear-gradient(
+		45deg,
+		#fffae5,
+		#fffae5 30px,
+		#E0E0E0 30px,
+		#E0E0E0 60px
+	);
+	animation: opac 0.15s;
+	min-height: 60px;
+}
+
+.preview-detail-container .preview-detail-loading h1 {
+	font-size: 50px;
+	margin: 0;
+	text-align: center;
 }

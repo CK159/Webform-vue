@@ -39,7 +39,7 @@ Vue.mixin({
 				},
 				always: null,
 
-				/*Uncommon properties*/
+				//Uncommon properties
 				dataType: "json",
 				baseURL: "",
 				method: "POST",
@@ -57,11 +57,14 @@ Vue.mixin({
 						opt.fail(message, details);
 					}
 				},
+				//Minimum time in ms to complete AJAX request. 
+				//Delay will be added if request is shorter than this - for local testing
+				delay: 200
 			}, argOpts);
-			
+
 			var finalData = null;
 			var contentType = "application/json";
-			
+
 			//Validation
 			if (opt.hasOwnProperty("data")) {
 				console.log("Use formData or jsonData instead of just 'data'. Always pass in an object (no serialization).", opt);
@@ -78,22 +81,31 @@ Vue.mixin({
 				finalData = JSON.stringify(opt.jsonData);
 			}
 
-			$.ajax({
-				url: opt.baseURL + opt.action,
-				contentType: contentType,
-				data: finalData,
-				method: opt.method,
-				dataType: opt.dataType
-			})
-				.done(opt.doneHandler)
-				.fail(function (jqXHR, textStatus) {
-					opt.failHandler(textStatus, jqXHR); //Reverse the arguments for standardization
+			if (opt.delay > 0) {
+				window.setTimeout(doTheStuff, opt.delay);
+			}
+			else {
+				doTheStuff();
+			}
+
+			function doTheStuff() {
+				$.ajax({
+					url: opt.baseURL + opt.action,
+					contentType: contentType,
+					data: finalData,
+					method: opt.method,
+					dataType: opt.dataType
 				})
-				.always(function () {
-					if (typeof opt.always === "function") {
-						opt.always();
-					}
-				});
+					.done(opt.doneHandler)
+					.fail(function (jqXHR, textStatus) {
+						opt.failHandler(textStatus, jqXHR); //Reverse the arguments for standardization
+					})
+					.always(function () {
+						if (typeof opt.always === "function") {
+							opt.always();
+						}
+					});
+			}
 		}
 	},
 	//Allows specifying sync: ["prop1", "prop2"] on components for automatic 2-way data binding
