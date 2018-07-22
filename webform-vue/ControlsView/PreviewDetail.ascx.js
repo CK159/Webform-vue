@@ -66,14 +66,17 @@ Vue.component("preview-detail", {
 
 			var vm = this;
 			this.detailState = "loading";
+			
+			var saveLoad = vm.detail[vm.pk] <= 0 ? " created." : " saved.";
 
 			this.api({
 				baseURL: this.apiEndpoints.baseURL,
 				action: this.apiEndpoints.detailSave,
 				jsonData: vm.detail,
 				done: function (data) {
+					vm.showMessage("success", "Item " + data[vm.pk] + saveLoad);
 					vm.detail = data; //Get any updates applied by server to record (new ID, created dates, field formatting, etc.)
-					vm.previewLoad(false); //Refresh preview (if name or other properties changes)
+					vm.previewLoad(); //Refresh preview (if name or other properties changes)
 				},
 				always: function () {
 					vm.detailState = "loaded"; //TODO: don't set to loaded if request fails
@@ -104,7 +107,8 @@ Vue.component("preview-detail", {
 				formData: {[vm.pk]: vm.detail[vm.pk]},
 				dataType: "text", //No response content is returned, cant be set to json
 				done: function (data) {
-					vm.previewLoad(false); //Refresh preview to remove deleted element
+					vm.showMessage("success", "Item " + vm.detail[vm.pk] + " deleted.");
+					vm.previewLoad(); //Refresh preview to remove deleted element
 				},
 				always: function () {
 					vm.detailState = "unloaded"; //TODO: Don't set to unloaded on failure
@@ -114,6 +118,10 @@ Vue.component("preview-detail", {
 		//Hides the success / error message indicator
 		clearMessage: function () {
 			this.messageType = "none";
+		},
+		showMessage: function (type, msg) {
+			this.messageType = type;
+			this.messageText = msg;
 		}
 	},
 	created: function () {

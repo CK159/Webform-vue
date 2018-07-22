@@ -59,7 +59,7 @@ Vue.mixin({
 				},
 				//Minimum time in ms to complete AJAX request. 
 				//Delay will be added if request is shorter than this - for local testing
-				delay: 200
+				delay: 350
 			}, argOpts);
 
 			var finalData = null;
@@ -77,7 +77,7 @@ Vue.mixin({
 				finalData = opt.formData;
 				contentType = "application/x-www-form-urlencoded";
 			}
-			else {
+			else if (opt.jsonData != null) {
 				finalData = JSON.stringify(opt.jsonData);
 			}
 
