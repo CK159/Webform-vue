@@ -63,7 +63,7 @@ Vue.mixin({
 			}, argOpts);
 
 			var finalData = null;
-			var contentType = "application/json";
+			var contentType = null;
 
 			//Validation
 			if (opt.hasOwnProperty("data")) {
@@ -79,6 +79,7 @@ Vue.mixin({
 			}
 			else if (opt.jsonData != null) {
 				finalData = JSON.stringify(opt.jsonData);
+				contentType = "application/json";
 			}
 
 			if (opt.delay > 0) {
