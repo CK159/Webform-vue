@@ -93,8 +93,6 @@
 
 <script src="/Scripts/vue.js"></script>
 <script src="/Scripts/utilities.js"></script>
-
-<%@ Register TagPrefix="uc" TagName="PreviewDetail" Src="~/ControlsView/PreviewDetail.ascx" %>
-<uc:PreviewDetail runat="server"></uc:PreviewDetail>
+<!--#include file="~/ControlsView/PreviewDetail.html"-->
 
 <script src="/Controls/VuePreviewDetail.ascx.js"></script>

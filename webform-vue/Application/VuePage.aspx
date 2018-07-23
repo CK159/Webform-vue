@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" CodeBehind="VuePage.aspx.cs" Inherits="WebformVue.VuePage" AutoEventWireup="true" %>
 <%@ Register TagPrefix="cc" TagName="vueControl" Src="../Controls/VueControl.ascx" %>
-
+<!DOCTYPE html>
 <html>
 <head runat="server">
 	<title>Vue.js In Webforms</title>

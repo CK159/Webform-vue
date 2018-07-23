@@ -1,4 +1,3 @@
-Server-side includes for Vue components
 Simple dropdown component
     Pass array of data and selected value
     Handles if unknown selected value is passed
@@ -20,3 +19,5 @@ API error handling
 API authentication
 Add search capabilities to preview-detail component
 Add paginations to preview-detail component
+
+DONE - Server-side includes for Vue components

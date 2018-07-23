@@ -257,14 +257,8 @@
 <script src="/Scripts/utilities.js"></script>
 <script src="/Scripts/vuejs-datepicker.js"></script>
 <script src="/ControlsView/themeChanger.js"></script>
-
-<%@ Register TagPrefix="uc" TagName="modal" Src="~/ControlsView/modal.ascx" %>
-<uc:modal runat="server"></uc:modal>
-
-<%@ Register TagPrefix="uc" TagName="MyCheckbox" Src="~/ControlsView/MyCheckbox.ascx" %>
-<uc:MyCheckbox runat="server"></uc:MyCheckbox>
-
-<%@ Register TagPrefix="uc" TagName="MyMultiInput" Src="~/ControlsView/MyMultiInput.ascx" %>
-<uc:MyMultiInput runat="server"></uc:MyMultiInput>
+<!--#include file="~/ControlsView/modal.html"-->
+<!--#include file="~/ControlsView/MyCheckbox.html"-->
+<!--#include file="~/ControlsView/MyMultiInput.html"-->
 
 <script src="/Controls/VueControl.ascx.js"></script>

@@ -1,8 +1,6 @@
-﻿<%@ Control %>
-
-<div id="my-multi-input-template" class="vue-template">
-	<div class="my-multi-input-wrapper"> <%--Component outer--%>
-		<div v-if="type == 1"> <%--Specific input types--%>
+﻿<div id="my-multi-input-template" class="vue-template">
+	<div class="my-multi-input-wrapper"> <!--Component outer-->
+		<div v-if="type == 1"> <!--Specific input types-->
 			<input class="form-control" v-model="intVal" />
 		</div>
 		<div v-if="type == 2">
@@ -20,7 +18,7 @@
 			</select>
 		</div>
 		<div v-if="type == 4">
-			<%--This really should be its own component, rendered with v-for to remove duplicaiton--%>
+			<!--This really should be its own component, rendered with v-for to remove duplicaiton-->
 			<button type="button" class="btn" v-bind:class="{'btn-success': intValQ == 'a', 'btn-default': intValQ != 'a'}" v-on:click="intValQ = 'a'">a</button>
 			<button type="button" class="btn" v-bind:class="{'btn-success': intValQ == 'b', 'btn-default': intValQ != 'b'}" v-on:click="intValQ = 'b'">b</button>
 			<button type="button" class="btn" v-bind:class="{'btn-success': intValQ == 'c', 'btn-default': intValQ != 'c'}" v-on:click="intValQ = 'c'">c</button>
@@ -42,4 +40,4 @@
 		</modal>
 	</div>
 </div>
-<script src="/ControlsView/MyMultiInput.ascx.js"></script>
+<script src="/ControlsView/MyMultiInput.html.js"></script>

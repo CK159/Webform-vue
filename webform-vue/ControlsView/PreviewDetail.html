@@ -1,8 +1,6 @@
-﻿<%@ Control %>
-
-<div id="preview-detail-template" class="vue-template">
-	<div class="preview-detail-container"> <%--Single root element--%>
-		<%--Preview display or table--%>
+﻿<div id="preview-detail-template" class="vue-template">
+	<div class="preview-detail-container"> <!--Single root element-->
+		<!--Preview display or table-->
 		<div class="preview-container">
 			<transition name="fade">
 				<div v-if="previewState == 'loading'" class="preview-detail-loading">
@@ -13,7 +11,7 @@
 			<slot name="preview">Preview Area</slot>
 		</div>
 		
-		<%--Action buttons--%>
+		<!--Action buttons-->
 		<div class="detail-actions">
 			<p>
 				<button type="button" class="btn btn-danger pull-right" v-on:click="detailDelete">Delete</button>
@@ -37,10 +35,10 @@
 			{{messageText}}
 		</div>
 		
-		<%--Debugging / visualization--%>
+		<!--Debugging / visualization-->
 		<p class="text-muted">Preview State: {{previewState}} Detail State: {{detailState}}</p>
 		
-		<%--Details display--%>
+		<!--Details display-->
 		<div class="detail-container" style="position: relative;">
 			<transition name="fade">
 				<div v-if="detailState == 'loading'" class="preview-detail-loading">
@@ -54,4 +52,4 @@
 		</div>
 	</div>
 </div>
-<script src="/ControlsView/PreviewDetail.ascx.js"></script>
+<script src="/ControlsView/PreviewDetail.html.js"></script>
