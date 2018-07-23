@@ -1,0 +1,20 @@
+Server-side includes for Vue components
+Simple dropdown component
+    Pass array of data and selected value
+    Handles if unknown selected value is passed
+Dropdown that loads options based on selection of another dropdown
+Advanced dropdown component
+    Can look up values from API
+    Can specifically request unknown value from API by ID
+    Some way to locally store results across multiple dropdown instances on page
+    Support client-side filtering
+    Support server-side searching
+    Support switching to server-side search if total number of results is too large
+    Server-side api supports getting list, getting by ID, list+ID, or search
+Model validation
+Ability to edit categories
+Ability to edit attributes
+Use Entity framework
+Use Automapper
+API error handling
+API authentication
