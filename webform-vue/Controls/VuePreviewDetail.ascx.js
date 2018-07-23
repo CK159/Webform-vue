@@ -21,7 +21,8 @@ var vueApp = new Vue({
 				detailLoad: "Load",
 				detailSave: "Save",
 				detailDelete: "Delete",
-			}
+			},
+			categories: []
 		}
 	},
 	methods: {
@@ -32,5 +33,15 @@ var vueApp = new Vue({
 			
 			return this.$refs["pdRef"].itemActive(previewid, this.detail.PreviewDetailId);
 		}
+	},
+	created: function () {
+		var vm = this;
+		
+		this.api({
+			action: "/ApiThingyController.cs/Category/GetSelect",
+			done: function (data) {
+				vm.categories = data;
+			}
+		});
 	}
 });

@@ -16,7 +16,7 @@ namespace WebformVue
 		{
 			List<PreviewDetailDTO> entity = LoadFromFile<List<PreviewDetailEntity>>("preview-detail")
 				.Select(PreviewDetailDTO.FromEntity).ToList();
-			
+
 			return entity;
 		}
 
@@ -24,9 +24,10 @@ namespace WebformVue
 		[Route("PreviewDetail/Load")]
 		public PreviewDetailEntity PreviewDetailLoad(int PreviewDetailId)
 		{
-			return LoadFromFile<List<PreviewDetailEntity>>("preview-detail").FirstOrDefault(e => e.PreviewDetailId == PreviewDetailId);
+			return LoadFromFile<List<PreviewDetailEntity>>("preview-detail")
+				.FirstOrDefault(e => e.PreviewDetailId == PreviewDetailId);
 		}
-		
+
 		//TODO: Find how to make this a generic method that supports validation and error messages
 		[HttpGet, HttpPost]
 		[Route("PreviewDetail/Save")]
@@ -37,7 +38,8 @@ namespace WebformVue
 			if (entity.PreviewDetailId <= 0)
 			{
 				//New record
-				entity.PreviewDetailId = (all.OrderByDescending(i => i.PreviewDetailId).FirstOrDefault()?.PreviewDetailId ?? 0) + 1;
+				entity.PreviewDetailId =
+					(all.OrderByDescending(i => i.PreviewDetailId).FirstOrDefault()?.PreviewDetailId ?? 0) + 1;
 				entity.Date = DateTime.Now;
 				all.Add(entity);
 			}
@@ -49,28 +51,40 @@ namespace WebformVue
 					all[index] = entity;
 				}
 			}
-			
+
 			SaveToFile(all, "preview-detail");
 			return entity;
 		}
-		
+
 		[HttpGet, HttpPost, MultiParameterSupport]
 		[Route("PreviewDetail/Delete")]
 		public void PreviewDetailDelete(int PreviewDetailId)
 		{
-			var all = LoadFromFile<List<PreviewDetailEntity>>("preview-detail").Where(e => e.PreviewDetailId != PreviewDetailId);
+			var all = LoadFromFile<List<PreviewDetailEntity>>("preview-detail")
+				.Where(e => e.PreviewDetailId != PreviewDetailId);
 			SaveToFile(all, "preview-detail");
 		}
-		
+
+		[HttpGet, HttpPost, MultiParameterSupport]
+		[Route("Category/GetSelect")]
+		public List<CategoryEntity> GetCategorySelect(int? CategoryID, bool? Single)
+		{
+			return LoadFromFile<List<CategoryEntity>>("category")
+				.Where(e => (!Single.GetValueOrDefault() && e.Active) || e.CategoryId == CategoryID)
+				.OrderBy(e => e.CategoryName).ToList();
+		}
+
+		#region Load Save
+
 		private string GetPath(string filename)
 		{
 			return AppDomain.CurrentDomain.BaseDirectory + "\\nosql-db\\" + filename + ".json";
 		}
-		
+
 		private T LoadFromFile<T>(string file) where T : new()
 		{
 			string path = GetPath(file);
-			
+
 			if (File.Exists(path))
 			{
 				return JsonConvert.DeserializeObject<T>(File.ReadAllText(path));
@@ -78,15 +92,18 @@ namespace WebformVue
 
 			return new T();
 		}
-		
+
 		private void SaveToFile(object items, string filename)
 		{
 			string path = GetPath(filename);
 			File.WriteAllText(path, JsonConvert.SerializeObject(items));
 		}
+
+		#endregion
 	}
 
 	#region DTO
+
 	//Used for showing in the preview table
 	public class PreviewDetailDTO
 	{
@@ -112,9 +129,11 @@ namespace WebformVue
 			return dto;
 		}
 	}
+
 	#endregion
 
 	#region Entity
+
 	public class PreviewDetailEntity
 	{
 		public int PreviewDetailId { get; set; }
@@ -128,8 +147,9 @@ namespace WebformVue
 
 	public class CategoryEntity
 	{
-		int CategoryId { get; set; }
-		string CategoryName { get; set; }
+		public int CategoryId { get; set; }
+		public string CategoryName { get; set; }
+		public bool Active { get; set; }
 	}
 
 	public class CodeEntry
@@ -151,5 +171,6 @@ namespace WebformVue
 		public int AttributeValueId { get; set; }
 		public string ValueName { get; set; }
 	}
+
 	#endregion
 }

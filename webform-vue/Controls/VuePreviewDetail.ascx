@@ -60,12 +60,11 @@
 							<div class="form-group">
 								<label>Name</label>
 								<input class="form-control" v-model="detail.Name" />
+							</div>
+							<div class="form-group">
 								<label>Description</label>
 								<input class="form-control" v-model="detail.Description" />
 							</div>
-						</div>
-						
-						<div class="col-md-6">
 							<div class="form-group">
 								<label>Active</label>
 								<div class="checkbox">
@@ -74,8 +73,15 @@
 										Item Active
 									</label>
 								</div>
-								<label>Date Created</label>
-								<input class="form-control" v-model="detail.Date" disabled /> <%--TODO: Needs | formatDate--%>
+							</div>
+						</div>
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Categories</label>
+								<select class="form-control" v-model="detail.CategoryIds" multiple>
+									<option v-for="item in categories" :value="item.CategoryId">{{item.CategoryName}}</option>
+								</select>
 							</div>
 						</div>
 					</div>

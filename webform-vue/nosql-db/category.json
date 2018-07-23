@@ -1,1 +1,1 @@
-[]
+[{"CategoryId": 1, "CategoryName": "Apps", "Active": true},{"CategoryId": 2, "CategoryName": "Apparel", "Active": true},{"CategoryId": 3, "CategoryName": "Books", "Active": true},{"CategoryId": 4, "CategoryName": "Combustables", "Active": true},{"CategoryId": 5, "CategoryName": "Electronics", "Active": true},{"CategoryId": 6, "CategoryName": "Other", "Active": true},{"CategoryId": 7, "CategoryName": "Mystery Goods", "Active": false}]
