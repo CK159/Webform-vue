@@ -26,7 +26,7 @@
 								<th>Date</th>
 								<th>ID</th>
 								<th>Name</th>
-								<th>Category</th>
+								<th>Categories</th>
 								<th>Code</th>
 								<th>Active</th>
 							</tr>

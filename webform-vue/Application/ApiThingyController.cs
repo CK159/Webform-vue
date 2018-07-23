@@ -76,12 +76,12 @@ namespace WebformVue
 
 		#region Load Save
 
-		private string GetPath(string filename)
+		private static string GetPath(string filename)
 		{
 			return AppDomain.CurrentDomain.BaseDirectory + "\\nosql-db\\" + filename + ".json";
 		}
 
-		private T LoadFromFile<T>(string file) where T : new()
+		public static T LoadFromFile<T>(string file) where T : new()
 		{
 			string path = GetPath(file);
 
@@ -116,13 +116,15 @@ namespace WebformVue
 
 		public static PreviewDetailDTO FromEntity(PreviewDetailEntity entity)
 		{
+			List<CategoryEntity> cats = ApiThingyController.LoadFromFile<List<CategoryEntity>>("category");
 			PreviewDetailDTO dto = new PreviewDetailDTO
 			{
 				PreviewDetailId = entity.PreviewDetailId,
 				Name = entity.Name,
 				Active = entity.Active,
 				Date = entity.Date,
-				Categories = "TODO",
+				Categories = string.Join(", ", cats.Where(c => entity.CategoryIds.Any(e => e == c.CategoryId))
+					.Select(s => s.CategoryName).ToList()),
 				Codes = "TODO"
 			};
 
