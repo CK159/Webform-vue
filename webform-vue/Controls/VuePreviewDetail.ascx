@@ -12,6 +12,7 @@
 				
 		<div class="panel-body">
 			<preview-detail
+				v-bind:search="search"
 				v-bind:preview.sync="preview"
 				v-bind:detail.sync="detail"
 				v-bind:new-detail="newDetail"

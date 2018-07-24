@@ -17,7 +17,7 @@ Use Entity framework
 Use Automapper
 API error handling
 API authentication
-Add search capabilities to preview-detail component
+IN PROGRESS - Add search capabilities to preview-detail component
 Add paginations to preview-detail component
 
 DONE - Server-side includes for Vue components

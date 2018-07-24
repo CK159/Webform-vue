@@ -2,6 +2,13 @@ var vueApp = new Vue({
 	el: "#vueContainer",
 	data: function () {
 		return {
+			search: {
+				name: null, //string
+				category: null, //int
+				active: null, //null, true, false
+				startDate: null,
+				endDate: null
+			},
 			preview: [],
 			detail: {},
 			//Default values used when user creates new record TODO: easier way? Lazy-load from server?

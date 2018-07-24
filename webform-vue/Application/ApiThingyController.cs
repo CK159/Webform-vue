@@ -10,14 +10,28 @@ namespace WebformVue
 	[RoutePrefix("ApiThingyController.cs")]
 	public class ApiThingyController : ApiController
 	{
-		[HttpGet, HttpPost]
+		[HttpGet, HttpPost, MultiParameterSupport]
 		[Route("PreviewDetail/Preview")]
-		public List<PreviewDetailDTO> PreviewDetailPreview()
+		public List<PreviewDetailDTO> PreviewDetailPreview(string name, int? categoryId, bool? active, DateTime? startDate, DateTime? endDate)
 		{
-			List<PreviewDetailDTO> entity = LoadFromFile<List<PreviewDetailEntity>>("preview-detail")
-				.Select(PreviewDetailDTO.FromEntity).ToList();
+			var entity = LoadFromFile<List<PreviewDetailEntity>>("preview-detail").AsEnumerable();
 
-			return entity;
+			if (!string.IsNullOrEmpty(name))
+				entity = entity.Where(e => e.Name.IndexOf(name, StringComparison.OrdinalIgnoreCase) >= 0);
+
+			if (categoryId != null)
+				entity = entity.Where(e => e.CategoryIds.Contains(categoryId.GetValueOrDefault()));
+			
+			if (active != null)
+				entity = entity.Where(e => e.Active == active);
+			
+			if (startDate != null)
+				entity = entity.Where(e => e.Date >= startDate);
+			
+			if (endDate != null)
+				entity = entity.Where(e => e.Date <= endDate);
+
+			return entity.Select(PreviewDetailDTO.FromEntity).ToList();
 		}
 
 		[HttpGet, HttpPost, MultiParameterSupport]
