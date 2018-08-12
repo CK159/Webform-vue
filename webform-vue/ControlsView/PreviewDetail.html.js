@@ -125,6 +125,8 @@ Vue.component("preview-detail", {
 		}
 	},
 	created: function () {
+		//Populate detail with default data to prevent undefined data references
+		this.detail = Object.assign({}, this.newDetail);
 		this.previewLoad();
 	}
 });
