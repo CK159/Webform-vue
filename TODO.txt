@@ -22,6 +22,5 @@ Add paginations to preview-detail component
     Handle pages, currentPage, recordCount in selection control
     Changing pages
     Changing page size
-Remove jQuery 1.9.1 from layout
 
 DONE - Server-side includes for Vue components
