@@ -60,7 +60,7 @@
 					
 					<div class="form-group">
 						<label>Input Type</label>
-						<select class="form-control" v-model="multiInputSelect">
+						<select class="form-control" v-model.number="multiInputSelect">
 							<option value="1">input type=text</option>
 							<option value="2">textarea</option>
 							<option value="3">select</option>
