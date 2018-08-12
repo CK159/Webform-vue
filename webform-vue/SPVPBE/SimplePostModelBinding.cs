@@ -6,10 +6,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Helpers;
 using System.Web.Http.Controllers;
 using System.Web.Http.Metadata;
-using System.Web;
 using Newtonsoft.Json;
 
 public class SimplePostVariableParameterBinding : HttpParameterBinding
