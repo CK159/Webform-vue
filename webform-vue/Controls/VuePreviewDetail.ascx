@@ -44,8 +44,8 @@
 								<td>{{item.Date | formatDate}}</td> <%--Use custom formatter to display date as standard mm/dd/yyyy--%>
 								<td>{{item.PreviewDetailId}}</td>
 								<td>{{item.Name}}</td>
-								<td>{{item.Categories}}</td>
-								<td>{{item.Codes}}</td>
+								<td>{{item.Categories.join(", ")}}</td>
+								<td>{{item.Codes.join(", ")}}</td>
 								<td>
 									<span class="text-success" v-if="item.Active">&#10004;</span>
 									<span class="text-danger" v-if="!item.Active">&#10008;</span>

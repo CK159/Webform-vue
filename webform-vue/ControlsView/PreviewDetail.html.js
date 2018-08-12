@@ -34,7 +34,7 @@ Vue.component("preview-detail", {
 				baseURL: this.apiEndpoints.baseURL,
 				action: this.apiEndpoints.previewLoad,
 				done: function (data) {
-					vm.preview = data;
+					vm.preview = data.result;
 				},
 				always: function () {
 					vm.previewState = "loaded";

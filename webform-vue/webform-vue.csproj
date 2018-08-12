@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="Application\ApiThingy.asmx.cs" />
     <Compile Include="Application\ApiThingyController.cs" />
+    <Compile Include="Application\Util.cs" />
     <Compile Include="Application\VuePage.aspx.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
