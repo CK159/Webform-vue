@@ -9,7 +9,7 @@ namespace WebformVue
 	[RoutePrefix("ApiThingyController.cs")]
 	public class ApiThingyController : ApiController
 	{
-		private static readonly int defaultPageSize = 20;
+		private static readonly int defaultPageSize = 10;
 
 		[HttpGet, HttpPost, MultiParameterSupport]
 		[Route("PreviewDetail/Preview")]

@@ -9,7 +9,25 @@
 			</transition>
 			
 			<slot name="preview">Preview Area</slot>
+			
+			<div class="preview-pager">
+				<div class="text-muted">
+					{{recordCount}} record{{recordCount == 1 ? "" : "s"}}.
+					Page {{currentPage + 1}} of {{pages}}.
+				</div>
+				<div class="preview-pager-controls">
+					<button type="button" class="btn"
+							v-for="item in shownPages"
+							:class="{'btn-default': !item.selected, 'btn-success': item.selected}"
+							:disabled="!item.enabled"
+							@click="pageChange(item.page)">
+						{{item.text}}
+					</button>
+				</div>
+			</div>
 		</div>
+		
+		<hr class="preview-split" />
 		
 		<!--Action buttons-->
 		<div class="detail-actions">
