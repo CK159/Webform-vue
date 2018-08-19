@@ -1,10 +1,11 @@
 var vueApp = new Vue({
 	el: "#vueContainer",
+	components: {vuejsDatepicker},
 	data: function () {
 		return {
 			search: {
 				name: null, //string
-				category: null, //int
+				categoryID: null, //int
 				active: null, //null, true, false
 				startDate: null,
 				endDate: null
@@ -37,13 +38,19 @@ var vueApp = new Vue({
 			if (!this.$refs.hasOwnProperty("pdRef")) {
 				return false;
 			}
-			
+
 			return this.$refs["pdRef"].itemActive(previewid, this.detail.PreviewDetailId);
+		},
+		detailLoad: function (id) {
+			this.$refs['pdRef'].detailLoad(id);
+		},
+		previewLoad: function () {
+			this.$refs["pdRef"].previewLoad();
 		}
 	},
 	created: function () {
 		var vm = this;
-		
+
 		this.api({
 			action: "/ApiThingyController.cs/Category/GetSelect",
 			done: function (data) {

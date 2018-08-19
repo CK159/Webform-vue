@@ -41,7 +41,7 @@ namespace WebformVue
 				qry = qry.Where(e => e.previewDetail.Name.IndexOf(name, StringComparison.OrdinalIgnoreCase) >= 0);
 
 			if (categoryId != null)
-				qry = qry.Where(e => e.categories.Any(f => f.CategoryId == categoryId));
+				qry = qry.Where(e => e.categories.Where(w => w != null).Any(f => f.CategoryId == categoryId));
 
 			if (active != null)
 				qry = qry.Where(e => e.previewDetail.Active == active);

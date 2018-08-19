@@ -7,6 +7,16 @@
 					<h1 class="text-center">IT'S LOADING!!!!!</h1>
 				</div>
 			</transition>
+
+			<!--Doesn't work because of global webforms form tag. R.I.P.-->
+			<!--<form class="preview-search" @submit.prevent="previewLoad">
+				<slot name="search"></slot>
+			</form>-->
+			
+			<!-- 😢 -->
+			<div @keydown.enter.prevent="previewLoad">
+				<slot name="search"></slot>
+			</div>
 			
 			<slot name="preview">Preview Area</slot>
 			

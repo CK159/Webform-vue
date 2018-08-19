@@ -22,5 +22,9 @@ Add paginations to preview-detail component
     Handle pages, currentPage, recordCount in selection control
     Changing pages
     Changing page size
+Fix 'Page 1 of 0'
+Make search date clearable
+X to clear search fields
+Cancel button to reset search fields
 
 DONE - Server-side includes for Vue components

@@ -5,6 +5,7 @@ Vue.component("preview-detail", {
 		"detail" //Object to display in details section
 	],
 	props: {
+		search: Object, //Search and filter fields to pass to preview load api
 		newDetail: Object, //What should be assigned to the detailData when 'new' button is clicked
 		pk: String, //The primary key in the detail object (for loading and saving details)
 		apiEndpoints: Object, //{baseURL: "", previewLoad: "", detailLoad: "", detailSave: "", detailDelete: ""}
@@ -26,6 +27,9 @@ Vue.component("preview-detail", {
 		}
 	},
 	computed: {
+		fullPreviewData: function () {
+			return Object.assign({}, this.search, {currentPage: this.currentPage});
+		},
 		shownPages: function () {
 			var start = this.currentPage - Math.ceil(this.pagesShown / 2) + this.selectionOffset;
 			var end = this.currentPage + Math.floor(this.pagesShown / 2) + this.selectionOffset;
@@ -99,10 +103,11 @@ Vue.component("preview-detail", {
 		}
 	},
 	methods: {
+		//To be accessed by parent component to check if a preview row should be highlighted based on loaded detail record
 		itemActive: function (id1, id2) {
 			return id1 === id2 && this.detailState === 'loaded';
 		},
-		//Manipulation functions for record preview and detail
+		//Can be accessed by parent component to search, filter or refresh preview data
 		previewLoad: function (keepMessage) {
 			if (keepMessage === false) {
 				this.clearMessage();
@@ -114,7 +119,7 @@ Vue.component("preview-detail", {
 			this.api({
 				baseURL: this.apiEndpoints.baseURL,
 				action: this.apiEndpoints.previewLoad,
-				formData: {currentPage: vm.currentPage},
+				formData: this.fullPreviewData,
 				done: function (data) {
 					vm.preview = data.result;
 					vm.currentPage = data.currentPage;
