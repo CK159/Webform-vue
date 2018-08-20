@@ -43,6 +43,7 @@ Vue.mixin({
 				dataType: "json",
 				baseURL: "",
 				method: "POST",
+				formDataDateConverter: true,
 				doneHandler: function (data) {
 					if (typeof data !== "undefined" && data.hasOwnProperty("error") && data.error === false) {
 						opt.failHandler(data.message, data)
@@ -75,6 +76,9 @@ Vue.mixin({
 
 			if (opt.formData != null) {
 				finalData = opt.formData;
+				if (opt.formDataDateConverter) {
+					DatesToISO8601(finalData);
+				}
 				contentType = "application/x-www-form-urlencoded";
 			}
 			else if (opt.jsonData != null) {
@@ -166,4 +170,14 @@ if (typeof Object.assign != 'function') {
 		writable: true,
 		configurable: true
 	});
+}
+
+function DatesToISO8601(obj) {
+	for (var prop in obj) {
+		if (obj.hasOwnProperty(prop)) {
+			if (obj[prop] instanceof Date) {
+				obj[prop] = obj[prop].toISOString();
+			}
+		}
+	}
 }
