@@ -1,4 +1,4 @@
-﻿<%@ Control %>
+<%@ Control %>
 
 <link rel="stylesheet" href="/Content/site-vue.css"/>
 <br/>
@@ -30,8 +30,9 @@
 							</div>
 							<div class="form-group">
 								<label>Category ID</label>
+								<clear-btn v-bind:value.sync="search.categoryID"></clear-btn>
 								<%--TODO: Make dropdown--%>
-								<input class="form-control" type="number" v-model.number="search.categoryID"/>
+								<input class="form-control" type="number" min="1" v-model.number="search.categoryID"/>
 							</div>
 						</div>
 
@@ -76,7 +77,7 @@
 							</p>
 							<p class="text-right">
 								<%--TODO: Clear button--%>
-								<button type="button" class="btn btn-danger btn-outline btn-xs" <%--@click="searchClear"--%>>Clear</button>
+								<button type="button" class="btn btn-danger btn-xs" <%--@click="searchClear"--%>>Clear</button>
 							</p>
 						</div>
 					</div>
