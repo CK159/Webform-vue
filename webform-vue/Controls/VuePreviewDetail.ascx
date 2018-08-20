@@ -25,6 +25,7 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Name</label>
+								<clear-btn v-bind:value.sync="search.name"></clear-btn>
 								<input class="form-control" v-model="search.name"/>
 							</div>
 							<div class="form-group">
@@ -37,6 +38,7 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Start Date</label>
+								<clear-btn v-bind:value.sync="search.startDate" v-bind:default="null"></clear-btn>
 								<vuejs-datepicker
 									v-model="search.startDate"
 									input-class="form-control"
@@ -47,6 +49,7 @@
 							
 							<div class="form-group">
 								<label>End Date</label>
+								<clear-btn v-bind:value.sync="search.endDate" v-bind:default="null"></clear-btn>
 								<vuejs-datepicker
 									v-model="search.endDate"
 									input-class="form-control"
@@ -58,17 +61,22 @@
 
 						<div class="col-md-4">
 							<label>Active</label>
+							<clear-btn v-bind:value.sync="search.active" v-bind:default="true"></clear-btn>
 							<div class="form-group">
 								<label class="checkbox-inline">
-									<input type="checkbox"> Active
+									<input type="checkbox" v-model="isActive"> Active
 								</label>
 								<label class="checkbox-inline">
-									<input type="checkbox"> Inactive
+									<input type="checkbox" v-model="isInactive"> Inactive
 								</label>
 							</div>
 
 							<p>
 								<button type="button" class="btn btn-primary btn-block" @click="previewLoad">Search</button>
+							</p>
+							<p class="text-right">
+								<%--TODO: Clear button--%>
+								<button type="button" class="btn btn-danger btn-outline btn-xs" <%--@click="searchClear"--%>>Clear</button>
 							</p>
 						</div>
 					</div>
@@ -151,6 +159,7 @@
 <script src="/Scripts/utilities.js"></script>
 <script src="/Scripts/vuejs-datepicker.js"></script>
 <!--#include file="~/ControlsView/PreviewDetail.html"-->
+<!--#include file="~/ControlsView/ClearBtn.html"-->
 
 <%--Page-specific resources--%>
 <script src="/Controls/VuePreviewDetail.ascx.js"></script>

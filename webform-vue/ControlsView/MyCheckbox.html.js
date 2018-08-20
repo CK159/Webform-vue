@@ -5,6 +5,6 @@ Vue.component("my-checkbox", {
 		checked: Boolean
 	},
 	methods: {
-		check() { this.$emit('update:checked', !this.checked); }
+		check: function() { this.$emit('update:checked', !this.checked); }
 	}
 });

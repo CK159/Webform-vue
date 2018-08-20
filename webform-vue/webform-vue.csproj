@@ -110,6 +110,8 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\site-vue.css" />
     <Content Include="Content\site.css" />
+    <Content Include="ControlsView\ClearBtn.html" />
+    <Content Include="ControlsView\ClearBtn.html.js" />
     <Content Include="ControlsView\modal.html" />
     <Content Include="ControlsView\MyCheckbox.html" />
     <Content Include="ControlsView\MyCheckbox.html.js" />
