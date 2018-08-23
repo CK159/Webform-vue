@@ -23,7 +23,7 @@
 			<div class="preview-pager">
 				<div class="text-muted">
 					{{recordCount}} record{{recordCount == 1 ? "" : "s"}}.
-					Page {{currentPage + 1}} of {{pages}}.
+					Page {{Math.min(currentPage + 1, pages)}} of {{pages}}.
 				</div>
 				<div class="preview-pager-controls">
 					<button type="button" class="btn"

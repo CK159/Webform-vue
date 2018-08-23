@@ -17,13 +17,10 @@ Use Entity framework
 Use Automapper
 API error handling
 API authentication
-IN PROGRESS - Add search capabilities to preview-detail component
 Add paginations to preview-detail component
-    Handle pages, currentPage, recordCount in selection control
-    Changing pages
     Changing page size
-Fix 'Page 1 of 0'
 Cancel button to reset search fields
 Date search from beginning of start day to end of end day - no timezone weirdness
+Searching needs to reset to page 1 to prevent old currentPage being larger than new pageCount
 
 DONE - Server-side includes for Vue components
