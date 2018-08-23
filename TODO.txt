@@ -23,8 +23,7 @@ Add paginations to preview-detail component
     Changing pages
     Changing page size
 Fix 'Page 1 of 0'
-Make search date clearable
-X to clear search fields
 Cancel button to reset search fields
+Date search from beginning of start day to end of end day - no timezone weirdness
 
 DONE - Server-side includes for Vue components

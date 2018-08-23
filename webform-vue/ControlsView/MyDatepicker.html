@@ -1,0 +1,21 @@
+<div id="my-datepicker-template" class="vue-template">
+	<vuejs-datepicker
+		:value="value"
+		@input="updateValue($event)"
+		:format="format"
+		:highlighted="highlighted"
+		:input-class="inputClass"
+		ref="picker">
+		<div slot="beforeCalendarHeader">
+			<div class="row">
+				<div class="col-xs-6">
+					<button type="button" class="btn btn-xs btn-block btn-info" @click="updateValue(new Date())">Today</button>
+				</div>
+				<div class="col-xs-6">
+					<button type="button" class="btn btn-xs btn-block btn-danger" @click="clearAndClose">Clear</button>
+				</div>
+			</div>
+		</div>
+	</vuejs-datepicker>
+</div>
+<script src="/ControlsView/MyDatepicker.html.js"></script>

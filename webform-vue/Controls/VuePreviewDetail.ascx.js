@@ -1,6 +1,5 @@
 var vueApp = new Vue({
 	el: "#vueContainer",
-	components: {vuejsDatepicker},
 	data: function () {
 		return {
 			search: {
@@ -19,7 +18,7 @@ var vueApp = new Vue({
 				"PreviewDetailId": -1,
 				"Name": "",
 				"Description": "",
-				"Active": false,
+				"Active": true,
 				"Date": "0001-01-01T00:00:00",
 				"CategoryIds": [],
 				"CodeIds": []

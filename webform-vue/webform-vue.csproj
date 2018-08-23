@@ -115,6 +115,8 @@
     <Content Include="ControlsView\modal.html" />
     <Content Include="ControlsView\MyCheckbox.html" />
     <Content Include="ControlsView\MyCheckbox.html.js" />
+    <Content Include="ControlsView\MyDatepicker.html" />
+    <Content Include="ControlsView\MyDatepicker.html.js" />
     <Content Include="ControlsView\MyMultiInput.html" />
     <Content Include="ControlsView\MyMultiInput.html.js" />
     <Content Include="ControlsView\PreviewDetail.html" />

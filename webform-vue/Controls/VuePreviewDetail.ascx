@@ -1,4 +1,4 @@
-<%@ Control %>
+﻿<%@ Control %>
 
 <link rel="stylesheet" href="/Content/site-vue.css"/>
 <br/>
@@ -40,23 +40,13 @@
 							<div class="form-group">
 								<label>Start Date</label>
 								<clear-btn v-bind:value.sync="search.startDate" v-bind:default="null"></clear-btn>
-								<vuejs-datepicker
-									v-model="search.startDate"
-									input-class="form-control"
-									format="MM/dd/yyyy"
-									:highlighted="{'dates': [new Date()]}">
-								</vuejs-datepicker>
+								<my-datepicker v-model="search.startDate"></my-datepicker>
 							</div>
 							
 							<div class="form-group">
 								<label>End Date</label>
 								<clear-btn v-bind:value.sync="search.endDate" v-bind:default="null"></clear-btn>
-								<vuejs-datepicker
-									v-model="search.endDate"
-									input-class="form-control"
-									format="MM/dd/yyyy"
-									:highlighted="{'dates': [new Date()]}">
-								</vuejs-datepicker>
+								<my-datepicker v-model="search.endDate"></my-datepicker>
 							</div>
 						</div>
 
@@ -161,6 +151,7 @@
 <script src="/Scripts/vuejs-datepicker.js"></script>
 <!--#include file="~/ControlsView/PreviewDetail.html"-->
 <!--#include file="~/ControlsView/ClearBtn.html"-->
+<!--#include file="~/ControlsView/MyDatepicker.html"-->
 
 <%--Page-specific resources--%>
 <script src="/Controls/VuePreviewDetail.ascx.js"></script>
