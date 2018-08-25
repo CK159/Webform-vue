@@ -36,6 +36,10 @@
 	width: 35px;
 }
 
+.pd-container .pd-page-size {
+	float: right;
+}
+
 .pd-container .pd-loading {
 	position: absolute;
 	left: 0;

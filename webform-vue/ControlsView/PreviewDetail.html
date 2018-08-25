@@ -1,4 +1,4 @@
-<div id="preview-detail-template" class="vue-template">
+﻿<div id="preview-detail-template" class="vue-template">
 	<div class="pd-container"> <!--Single root element-->
 		<!--Preview display or table-->
 		<div class="pd-preview-container">
@@ -25,6 +25,14 @@
 					{{recordCount}} record{{recordCount == 1 ? "" : "s"}}.
 					Page {{Math.min(currentPage + 1, pages)}} of {{pages}}.
 				</div>
+				
+				<div class="pd-page-size form-inline">
+					<span class="text-muted">Page Size:</span>
+					<select class="form-control" v-model="pageSize">
+						<option v-for="size in pageSizes" :value="size">{{size == null ? "All" : size}}</option>
+					</select>
+				</div>
+				
 				<div class="pd-pager-controls">
 					<button type="button" class="btn"
 							v-for="item in shownPages"

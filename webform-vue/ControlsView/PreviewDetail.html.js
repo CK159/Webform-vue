@@ -23,12 +23,17 @@ Vue.component("preview-detail", {
 			messageText: "", //Displayed in message box when messageType != "none"
 			currentPage: 0, //First page is page 0
 			pages: 1,
-			recordCount: 0
+			recordCount: 0,
+			pageSize: 10,
+			pageSizes: [10, 20, 50, 100, 250, null]
 		}
 	},
 	computed: {
 		fullPreviewData: function () {
-			return Object.assign({}, this.search, {currentPage: this.currentPage});
+			return Object.assign({}, this.search, {
+				currentPage: this.currentPage,
+				pageSize: this.pageSize
+			});
 		},
 		shownPages: function () {
 			var start = this.currentPage - Math.ceil(this.pagesShown / 2) + this.selectionOffset;
@@ -215,6 +220,13 @@ Vue.component("preview-detail", {
 		},
 		pageChange: function (page) {
 			this.currentPage = page;
+			this.previewLoad();
+		}
+	},
+	watch: {
+		pageSize: function (newVal) {
+			//The page size selector was altered. Refresh.
+			this.currentPage = 0;
 			this.previewLoad();
 		}
 	},

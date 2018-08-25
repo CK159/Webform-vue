@@ -9,8 +9,6 @@ namespace WebformVue
 	[RoutePrefix("ApiThingyController.cs")]
 	public class ApiThingyController : ApiController
 	{
-		private static readonly int defaultPageSize = 10;
-
 		[HttpGet, HttpPost, MultiParameterSupport]
 		[Route("PreviewDetail/Preview")]
 		public PagedResult<IQueryable<PreviewDetailDTO>> PreviewDetailPreview(
@@ -73,7 +71,7 @@ namespace WebformVue
 			return PagedResult<PreviewDetailDTO>.AutoPage(
 				items,
 				currentPage ?? 0,
-				pageSize ?? defaultPageSize);
+				pageSize);
 		}
 
 		[HttpGet, HttpPost, MultiParameterSupport]

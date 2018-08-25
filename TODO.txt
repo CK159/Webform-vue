@@ -18,8 +18,6 @@ Use Automapper
 API error handling
 API authentication
 Vue CLI
-Add paginations to preview-detail component
-    Changing page size
 Cancel button to reset search fields
 Delete record confirmation popup
 Date search from beginning of start day to end of end day - no timezone weirdness
