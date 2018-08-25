@@ -47,7 +47,12 @@ var vueApp = new Vue({
 		},
 		refreshSearch: function () {
 			this.$refs["pdRef"].refreshSearch();
-		}
+		},
+		resetSearch: function () {
+			//https://stackoverflow.com/a/43643407
+			Object.assign(this.$data.search, this.$options.data.call(this).search);
+			this.refreshSearch();
+		},
 	},
 	watch: {
 		isActive: function(newVal) {

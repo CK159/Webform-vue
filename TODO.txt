@@ -18,6 +18,5 @@ Use Automapper
 API error handling
 API authentication
 Vue CLI
-Cancel button to reset search fields
 Delete record confirmation popup
 Date search from beginning of start day to end of end day - no timezone weirdness

@@ -62,7 +62,7 @@
 								</label>
 							</div>
 							
-							<button type="button" class="btn btn-danger btn-xs pull-right" <%--@click="searchClear"--%>>Clear</button>
+							<button type="button" class="btn btn-danger btn-xs pull-right" @click="resetSearch">Clear</button>
 							<label>&nbsp;</label>
 							<div class="form-group">
 								<button type="button" class="btn btn-primary btn-block" @click="refreshSearch">Search</button>
