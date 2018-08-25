@@ -61,20 +61,18 @@
 									<input type="checkbox" v-model="isInactive"> Inactive
 								</label>
 							</div>
-
-							<p>
+							
+							<button type="button" class="btn btn-danger btn-xs pull-right" <%--@click="searchClear"--%>>Clear</button>
+							<label>&nbsp;</label>
+							<div class="form-group">
 								<button type="button" class="btn btn-primary btn-block" @click="previewLoad">Search</button>
-							</p>
-							<p class="text-right">
-								<%--TODO: Clear button--%>
-								<button type="button" class="btn btn-danger btn-xs" <%--@click="searchClear"--%>>Clear</button>
-							</p>
+							</div>
 						</div>
 					</div>
 				</div>
 
 				<div slot="preview">
-					<table class="table table-hover table-bordered table-striped table-condensed">
+					<table class="table table-hover table-bordered table-striped table-condensed pd-preview-table">
 						<thead>
 						<tr>
 							<th>Date</th>

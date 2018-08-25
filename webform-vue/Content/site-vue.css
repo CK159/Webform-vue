@@ -10,6 +10,7 @@
 .fade-enter-active {
 	transition: opacity .2s;
 }
+
 .fade-enter, .fade-leave-to {
 	opacity: 0;
 }
@@ -21,6 +22,18 @@
 
 .pd-container .pd-message {
 	margin-top: 10px;
+}
+
+.pd-container .pd-preview-table,
+.pd-container .pd-page-count {
+	margin-bottom: 5px;
+}
+
+.pd-container .pd-pager-controls .btn {
+	padding-left: 0;
+	padding-right: 0;
+	margin-right: 2px;
+	width: 35px;
 }
 
 .pd-container .pd-loading {
