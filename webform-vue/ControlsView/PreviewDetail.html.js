@@ -112,7 +112,11 @@ Vue.component("preview-detail", {
 		itemActive: function (id1, id2) {
 			return id1 === id2 && this.detailState === 'loaded';
 		},
-		//Can be accessed by parent component to search, filter or refresh preview data
+		//Can be accessed by parent component to load/reload search results.
+		refreshSearch: function () {
+			this.currentPage = 0;
+			this.previewLoad();
+		},
 		previewLoad: function (keepMessage) {
 			if (keepMessage === false) {
 				this.clearMessage();

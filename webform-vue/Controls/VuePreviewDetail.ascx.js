@@ -45,8 +45,8 @@ var vueApp = new Vue({
 		detailLoad: function (id) {
 			this.$refs['pdRef'].detailLoad(id);
 		},
-		previewLoad: function () {
-			this.$refs["pdRef"].previewLoad();
+		refreshSearch: function () {
+			this.$refs["pdRef"].refreshSearch();
 		}
 	},
 	watch: {
