@@ -15,15 +15,15 @@
 }
 
 /*Preview-detail component*/
-.preview-detail-container .preview-container {
+.pd-container .pd-preview-container {
 	position: relative;
 }
 
-.preview-detail-container .detail-message {
+.pd-container .pd-message {
 	margin-top: 10px;
 }
 
-.preview-detail-container .preview-detail-loading {
+.pd-container .pd-loading {
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -44,7 +44,7 @@
 	min-height: 60px;
 }
 
-.preview-detail-container .preview-detail-loading h1 {
+.pd-container .pd-loading h1 {
 	font-size: 50px;
 	margin: 0;
 	text-align: center;

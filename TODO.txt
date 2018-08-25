@@ -5,7 +5,7 @@ Dropdown that loads options based on selection of another dropdown
 Advanced dropdown component
     Can look up values from API
     Can specifically request unknown value from API by ID
-    Some way to locally store results across multiple dropdown instances on page
+    Some way to locally store results across multiple dropdown instances on page - Vuex
     Support client-side filtering
     Support server-side searching
     Support switching to server-side search if total number of results is too large
@@ -17,10 +17,10 @@ Use Entity framework
 Use Automapper
 API error handling
 API authentication
+Vue CLI
 Add paginations to preview-detail component
     Changing page size
 Cancel button to reset search fields
+Delete record confirmation popup
 Date search from beginning of start day to end of end day - no timezone weirdness
 Searching needs to reset to page 1 to prevent old currentPage being larger than new pageCount
-
-DONE - Server-side includes for Vue components
