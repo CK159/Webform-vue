@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
 namespace WebformVue
@@ -10,27 +11,21 @@ namespace WebformVue
 	    protected PlaceHolder ControlContainer;
 	    protected Label WarningLabel;
 	    
+	    private Dictionary<string, string> pages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+	    {
+		    {"control", "VueControl.ascx"},
+		    {"pd", "VuePreviewDetail.ascx"},
+		    {"select", "VuexSelect.ascx"}
+	    };
+	    
 	    protected override void OnInit(EventArgs e)
 	    {
-		    string name = null;
-
-		    if (Request.QueryString["c"].ToLowerInvariant() == "control")
-		    {
-			    name = "VueControl.ascx";
-		    }
-		    else if (Request.QueryString["c"].ToLowerInvariant() == "pd")
-		    {
-			    name = "VuePreviewDetail.ascx";
-		    }
-
-		    if (name == null)
-		    {
-			    WarningLabel.Visible = true;
-		    }
+		    string pk = Request.QueryString["c"];
+		    
+		    if (pages.ContainsKey(pk))
+			    ControlContainer.Controls.Add(LoadControl("../Controls/" + pages[pk]));
 		    else
-		    {
-			    ControlContainer.Controls.Add(LoadControl("../Controls/" + name));
-		    }
+			    WarningLabel.Visible = true;
 	    }
         
         protected void Button1_Click(object sender, EventArgs e)

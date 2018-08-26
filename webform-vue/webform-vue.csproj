@@ -129,6 +129,8 @@
     <Content Include="Controls\VueControl.ascx" />
     <Content Include="Controls\VueControl.ascx.js" />
     <Content Include="Controls\VuePreviewDetail.ascx.js" />
+    <Content Include="Controls\VuexSelect.ascx" />
+    <Content Include="Controls\VuexSelect.ascx.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
