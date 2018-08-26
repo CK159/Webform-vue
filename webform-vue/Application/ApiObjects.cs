@@ -42,20 +42,33 @@ namespace WebformVue.ApiObjects
 	{
 		public int CodeId { get; set; }
 		public string CodeValue { get; set; }
-		public List<int> CodeAttributeIds { get; set; }
+	}
+
+	public class CodeAttributeEntry
+	{
+		public int CodeAttributeId { get; set; }
+		public int CodeId { get; set; }
+		public int AttributeId { get; set; }
+	}
+
+	public class CodeAttributeValueEntry
+	{
+		public int CodeAttributeValueId { get; set; }
+		public int CodeAttributeId { get; set; }
+		public int AttributeValueId { get; set; }
 	}
 
 	public class AttributeEntry
 	{
-		public int AttributeID { get; set; }
+		public int AttributeId { get; set; }
 		public string AttributeName { get; set; }
-		public List<int> AttributeValueIds { get; set; }
 	}
 
 	public class AttributeValueEntry
 	{
 		public int AttributeValueId { get; set; }
 		public string ValueName { get; set; }
+		public int AttributeId { get; set; }
 	}
 
 	#endregion

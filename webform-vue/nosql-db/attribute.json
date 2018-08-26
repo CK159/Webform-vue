@@ -1,1 +1,22 @@
-[]
+[
+	{
+		"AttributeId": 1,
+		"AttributeName": "Color"
+	},
+	{
+		"AttributeId": 2,
+		"AttributeName": "Size"
+	},
+	{
+		"AttributeId": 3,
+		"AttributeName": "Atomic Composition"
+	},
+	{
+		"AttributeId": 4,
+		"AttributeName": "Carcinogenic Status"
+	},
+	{
+		"AttributeId": 5,
+		"AttributeName": "Empty Attribute"
+	}
+]

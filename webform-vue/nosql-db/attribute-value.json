@@ -1,1 +1,122 @@
-[]
+[
+	{
+		"AttributeValueId": 1,
+		"ValueName": "Red",
+		"AttributeId": 1
+	},
+	{
+		"AttributeValueId": 2,
+		"ValueName": "Blue",
+		"AttributeId": 1
+	},
+	{
+		"AttributeValueId": 3,
+		"ValueName": "Transparent",
+		"AttributeId": 1
+	},
+	{
+		"AttributeValueId": 4,
+		"ValueName": "Ultraviolet",
+		"AttributeId": 1
+	},
+	{
+		"AttributeValueId": 5,
+		"ValueName": "740nm",
+		"AttributeId": 1
+	},
+	{
+		"AttributeValueId": 6,
+		"ValueName": "Small",
+		"AttributeId": 2
+	},
+	{
+		"AttributeValueId": 7,
+		"ValueName": "Medium",
+		"AttributeId": 2
+	},
+	{
+		"AttributeValueId": 8,
+		"ValueName": "Large",
+		"AttributeId": 2
+	},
+	{
+		"AttributeValueId": 9,
+		"ValueName": "Extra Large",
+		"AttributeId": 2
+	},
+	{
+		"AttributeValueId": 10,
+		"ValueName": "Extra Medium",
+		"AttributeId": 2
+	},
+	{
+		"AttributeValueId": 11,
+		"ValueName": "Lithium",
+		"AttributeId": 3
+	},
+	{
+		"AttributeValueId": 12,
+		"ValueName": "Sodium",
+		"AttributeId": 3
+	},
+	{
+		"AttributeValueId": 13,
+		"ValueName": "Oxygen",
+		"AttributeId": 3
+	},
+	{
+		"AttributeValueId": 14,
+		"ValueName": "Carbon",
+		"AttributeId": 3
+	},
+	{
+		"AttributeValueId": 15,
+		"ValueName": "Chlorine",
+		"AttributeId": 3
+	},
+	{
+		"AttributeValueId": 16,
+		"ValueName": "Copper",
+		"AttributeId": 3
+	},
+	{
+		"AttributeValueId": 17,
+		"ValueName": "Tin",
+		"AttributeId": 3
+	},
+	{
+		"AttributeValueId": 18,
+		"ValueName": "Hydrogen",
+		"AttributeId": 3
+	},
+	{
+		"AttributeValueId": 19,
+		"ValueName": "None at this time",
+		"AttributeId": 4
+	},
+	{
+		"AttributeValueId": 20,
+		"ValueName": "US - California Region",
+		"AttributeId": 4
+	},
+	{
+		"AttributeValueId": 21,
+		"ValueName": "US - Non-California Regions",
+		"AttributeId": 4
+	},
+	{
+		"AttributeValueId": 22,
+		"ValueName": "Canada",
+		"AttributeId": 4
+	},
+	{
+		"AttributeValueId": 23,
+		"ValueName": "Europe",
+		"AttributeId": 4
+	},
+	{
+		"AttributeValueId": 24,
+		"ValueName": "Anywhere Else",
+		"AttributeId": 4
+	}
+]

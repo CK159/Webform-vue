@@ -1,1 +1,18 @@
-[]
+[
+	{
+		"CodeId": 1,
+		"CodeValue": "Code #1"
+	},
+	{
+		"CodeId": 2,
+		"CodeValue": "2nd Code"
+	},
+	{
+		"CodeId": 3,
+		"CodeValue": "Third Code"
+	},
+	{
+		"CodeId": 4,
+		"CodeValue": "Code-4"
+	}
+]

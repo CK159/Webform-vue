@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -62,7 +63,7 @@ namespace WebformVue.Util
 			//Like https://stackoverflow.com/questions/7767409/better-way-to-query-a-page-of-data-and-get-total-count-in-entity-framework-4-1
 			int recordCount = q.Count();
 			int pages = 1;
-			
+
 			if (pageSize != null)
 			{
 				int ps = pageSize.GetValueOrDefault();
@@ -72,6 +73,19 @@ namespace WebformVue.Util
 			}
 
 			return new PagedResult<IQueryable<U>>(q, currentPage, pages, recordCount);
+		}
+	}
+
+	public class SimpleSelectResult : Dictionary<int?, string>
+	{
+		public SimpleSelectResult()
+		{
+			
+		}
+
+		public SimpleSelectResult(Dictionary<int?, string> src) : base(src)
+		{
+			
 		}
 	}
 }

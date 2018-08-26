@@ -156,6 +156,7 @@
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\vuejs-datepicker.js" />
+    <Content Include="Scripts\vuex.js" />
     <Content Include="SPVPBE\README.md" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
