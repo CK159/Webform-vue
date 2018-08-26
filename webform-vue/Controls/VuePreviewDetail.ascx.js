@@ -78,7 +78,7 @@ var vueApp = new Vue({
 		var vm = this;
 
 		this.api({
-			action: "/ApiThingyController.cs/Category/GetSelect",
+			action: "/api/category/select",
 			done: function (data) {
 				vm.categories = data;
 			}

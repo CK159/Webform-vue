@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using WebformVue.ApiObjects;
 using WebformVue.Util;
 
 namespace WebformVue
@@ -118,75 +119,5 @@ namespace WebformVue
 				.Where(e => e.PreviewDetailId != PreviewDetailId);
 			Loader.SaveToFile(all, "preview-detail");
 		}
-
-		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("Category/GetSelect")]
-		public List<CategoryEntity> GetCategorySelect(int? CategoryID, bool? Single)
-		{
-			return Loader.LoadFromFile<List<CategoryEntity>>("category")
-				.Where(e => (!Single.GetValueOrDefault() && e.Active) || e.CategoryId == CategoryID)
-				.OrderBy(e => e.CategoryName).ToList();
-		}
-
-		#region Load Save
-
-		#endregion
 	}
-
-	#region DTO
-
-	//Used for showing in the preview table
-	public class PreviewDetailDTO
-	{
-		public int PreviewDetailId { get; set; }
-		public string Name { get; set; }
-		public bool Active { get; set; }
-		public DateTime Date { get; set; }
-		public List<string> Categories { get; set; }
-		public List<string> Codes { get; set; }
-	}
-
-	#endregion
-
-	#region Entity
-
-	public class PreviewDetailEntity
-	{
-		public int PreviewDetailId { get; set; }
-		public string Name { get; set; }
-		public string Description { get; set; }
-		public bool Active { get; set; }
-		public DateTime Date { get; set; }
-		public List<int> CategoryIds { get; set; }
-		public List<int> CodeIds { get; set; }
-	}
-
-	public class CategoryEntity
-	{
-		public int CategoryId { get; set; }
-		public string CategoryName { get; set; }
-		public bool Active { get; set; }
-	}
-
-	public class CodeEntry
-	{
-		public int CodeId { get; set; }
-		public string CodeValue { get; set; }
-		public List<int> CodeAttributeIds { get; set; }
-	}
-
-	public class AttributeEntry
-	{
-		public int AttributeID { get; set; }
-		public string AttributeName { get; set; }
-		public List<int> AttributeValueIds { get; set; }
-	}
-
-	public class AttributeValueEntry
-	{
-		public int AttributeValueId { get; set; }
-		public string ValueName { get; set; }
-	}
-
-	#endregion
 }
