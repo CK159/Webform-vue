@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -26,8 +26,18 @@ namespace WebformVue.Util
 
 		public static void SaveToFile(object items, string filename)
 		{
-			string path = GetPath(filename);
-			File.WriteAllText(path, JsonConvert.SerializeObject(items));
+			//https://stackoverflow.com/a/39037146
+			using (var fs = File.Create(GetPath(filename)))
+			using (var sw = new StreamWriter(fs))
+			using (var jtw = new JsonTextWriter(sw)
+			{
+				Formatting = Formatting.Indented,
+				Indentation = 1,
+				IndentChar = '\t'
+			})
+			{
+				new JsonSerializer().Serialize(jtw, items);
+			}
 		}
 	}
 
