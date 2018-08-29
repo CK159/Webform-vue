@@ -54,7 +54,7 @@ Vue.mixin({
 				},
 				failHandler: function (message, details) {
 					console.log("Error: " + message, details);
-					if (typeof opt.done === "function") {
+					if (typeof opt.fail === "function") {
 						opt.fail(message, details);
 					}
 				},
