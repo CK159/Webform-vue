@@ -225,6 +225,55 @@ Vue.component("preview-detail", {
 		pageChange: function (page) {
 			this.currentPage = page;
 			this.previewLoad();
+		},
+		loadAdjacentDetail: function (shift) {
+			if (this.detailState !== "loaded") {
+				return;
+			}
+			
+			var vm = this;
+			var id = this.detail[this.pk];
+			var previewPosition = this.preview.findIndex(function(e){
+				return e[vm.pk] === id;
+			});
+			
+			if (previewPosition < 0) {
+				return;
+			}
+			
+			previewPosition += shift;
+			
+			if (previewPosition >= 0 && previewPosition < this.preview.length) {
+				this.detailLoad(this.preview[previewPosition][this.pk]);
+			}
+		},
+		keypressManager: function (e) {
+			//All hotkeys require pressing Ctrl
+			if (!e.ctrlKey) {
+				return;
+			}
+
+			//Ctrl-S
+			if (e.keyCode === 83) {
+				e.preventDefault();
+				this.detailSave();
+			}
+			//Ctrl-G (Ctrl-N is reserved by browsers)
+			if (e.keyCode === 71) {
+				e.preventDefault();
+				this.detailNew();
+			}
+			//Ctrl-Up
+			if (e.keyCode === 38) {
+				e.preventDefault();
+				this.loadAdjacentDetail(-1);
+			}
+			//Ctrl-Down
+			if (e.keyCode === 40) {
+				e.preventDefault();
+				this.loadAdjacentDetail(1);
+			}
+			//TODO: Ctrl-D
 		}
 	},
 	watch: {
@@ -238,5 +287,9 @@ Vue.component("preview-detail", {
 		//Populate detail with default data to prevent undefined data references
 		this.detail = Object.assign({}, this.newDetail);
 		this.previewLoad();
+
+		var vm = this;
+		window.addEventListener('keydown', this.keypressManager);
+		this.$once('hook:beforeDestroy', this.keypressManager);
 	}
 });

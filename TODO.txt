@@ -20,3 +20,16 @@ API authentication
 Vue CLI
 Delete record confirmation popup
 Date search from beginning of start day to end of end day - no timezone weirdness
+Update Select API to return [{"key": key, "val": val}, ...] instead of {key: val, ...}
+
+Hotkey support:
+DONE - CTRL-S to save page
+DONE - CTRL-G to create new empty record (can't use CTRL-N as browsers reserve it)
+    CTRL-D to copy current record data to new record
+DONE - CTRL-Up + CTRL-Down to change to previous / next item in list 
+    Auto-switch result page if at end of page
+    Info message when at start / end of results
+
+CSS animation to flash background light shade of Green, Red, Blue when performing action
+Mini status message popups up at bottom of page on error or certain events (send events using vuex?)
+Add tooltip popups / popovers
