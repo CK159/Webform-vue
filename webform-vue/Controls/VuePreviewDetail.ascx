@@ -1,7 +1,7 @@
 ﻿<%@ Control %>
 
 <link rel="stylesheet" href="/Content/site-vue.css"/>
-<link rel="stylesheet" href="/Content/v-tooltip.css"/>
+<link rel="stylesheet" href="/Content/plugins/v-tooltip.css"/>
 <br/>
 <br/>
 
@@ -135,10 +135,10 @@
 </div>
 
 <%--Dependencies--%>
-<script src="/Scripts/vue.js"></script>
-<script src="/Scripts/utilities.js"></script>
-<script src="/Scripts/vuejs-datepicker.js"></script>
-<script src="/Scripts/v-tooltip.min.js"></script>
+<script src="/Content/vue/vue.js"></script>
+<script src="/Content/utilities.js"></script>
+<script src="/Content/plugins/vuejs-datepicker.js"></script>
+<script src="/Content/plugins/v-tooltip.min.js"></script>
 <!--#include file="~/ControlsView/PreviewDetail.html"-->
 <!--#include file="~/ControlsView/ClearBtn.html"-->
 <!--#include file="~/ControlsView/MyDatepicker.html"-->

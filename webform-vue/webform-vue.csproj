@@ -84,15 +84,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\ApiObjects.cs" />
-    <Compile Include="Application\ApiSelectController.cs" />
     <Compile Include="Application\ApiThingy.asmx.cs" />
-    <Compile Include="Application\ApiThingyController.cs" />
     <Compile Include="Application\Util.cs" />
     <Compile Include="Application\VuePage.aspx.cs" />
-    <Compile Include="Application\VuexSelectController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ApiSelectController.cs" />
+    <Compile Include="Controllers\ApiThingyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\VuexSelectController.cs" />
     <Compile Include="Controls\VueControl.ascx.cs" />
     <Compile Include="Global.asax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,17 +103,36 @@
     <Content Include=".editorconfig" />
     <Content Include="Application\ApiThingy.asmx" />
     <Content Include="Application\VuePage.aspx" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap\bootstrap.css" />
+    <Content Include="Content\bootstrap\bootstrap.css.map" />
+    <Content Include="Content\bootstrap\bootstrap.js" />
+    <Content Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap\bootstrap.min.js" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\jQuery\jquery-3.3.1-vsdoc.js" />
+    <Content Include="Content\jQuery\jquery-3.3.1.js" />
+    <Content Include="Content\jQuery\jquery-3.3.1.min.js" />
+    <Content Include="Content\jQuery\jquery-3.3.1.slim.js" />
+    <Content Include="Content\jQuery\jquery-3.3.1.slim.min.js" />
+    <Content Include="Content\plugins\v-tooltip.css" />
+    <Content Include="Content\plugins\v-tooltip.min.js" />
+    <Content Include="Content\plugins\vuejs-datepicker.js" />
     <Content Include="Content\site-vue.css" />
     <Content Include="Content\site.css" />
-    <Content Include="Content\v-tooltip.css" />
+    <Content Include="Content\site.js" />
+    <Content Include="Content\utilities.js" />
+    <Content Include="Content\vue\vue.js" />
+    <Content Include="Content\vue\vue.min.js" />
+    <Content Include="Content\vue\vuex.js" />
     <Content Include="ControlsView\AsyncDropdown.html" />
     <Content Include="ControlsView\AsyncDropdown.html.js" />
     <Content Include="ControlsView\ClearBtn.html" />
@@ -139,11 +158,6 @@
     <Content Include="Controls\VueAsyncDropdown.ascx" />
     <Content Include="Controls\VueAsyncDropdown.ascx.js" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Global.asax" />
     <Content Include="nosql-db\attribute-value.json" />
     <Content Include="nosql-db\attribute.json" />
@@ -153,20 +167,6 @@
     <Content Include="nosql-db\code.json" />
     <Content Include="nosql-db\records.json" />
     <Content Include="packages.config" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-3.3.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <Content Include="Scripts\utilities.js" />
-    <Content Include="Scripts\site.js" />
-    <Content Include="Scripts\v-tooltip.min.js" />
-    <Content Include="Scripts\vue.js" />
-    <Content Include="Scripts\vue.min.js" />
-    <Content Include="Scripts\vuejs-datepicker.js" />
-    <Content Include="Scripts\vuex.js" />
     <Content Include="SPVPBE\README.md" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -181,8 +181,8 @@
     <Folder Include="Models" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\jquery-3.3.1.min.map" />
-    <None Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <None Include="Content\jQuery\jquery-3.3.1.min.map" />
+    <None Include="Content\jQuery\jquery-3.3.1.slim.min.map" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

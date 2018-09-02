@@ -82,9 +82,8 @@
 </div>
 
 <%--Dependencies--%>
-<script src="/Scripts/vue.js"></script>
-<script src="/Scripts/vuex.js"></script>
-<script src="/Scripts/utilities.js"></script>
+<script src="/Content/vue/vue.js"></script>
+<script src="/Content/utilities.js"></script>
 <!--#include file="~/ControlsView/AsyncDropdown.html"-->
 
 <%--Page-specific resources--%>

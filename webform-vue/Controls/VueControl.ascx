@@ -253,12 +253,14 @@
 	</div>
 </div>
 
-<script src="/Scripts/vue.js"></script>
-<script src="/Scripts/utilities.js"></script>
-<script src="/Scripts/vuejs-datepicker.js"></script>
+<%--Dependencies--%>
+<script src="/Content/vue/vue.js"></script>
+<script src="/Content/utilities.js"></script>
+<script src="/Content/plugins/vuejs-datepicker.js"></script>
 <script src="/ControlsView/themeChanger.js"></script>
 <!--#include file="~/ControlsView/modal.html"-->
 <!--#include file="~/ControlsView/MyCheckbox.html"-->
 <!--#include file="~/ControlsView/MyMultiInput.html"-->
 
+<%--Page-specific resources--%>
 <script src="/Controls/VueControl.ascx.js"></script>

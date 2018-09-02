@@ -1,14 +1,13 @@
 ﻿<%@ Page Language="C#" CodeBehind="VuePage.aspx.cs" Inherits="WebformVue.VuePage" AutoEventWireup="true" %>
-<%@ Register TagPrefix="cc" TagName="vueControl" Src="../Controls/VueControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
 	<title>Vue.js In Webforms</title>
-	<link rel="stylesheet" href="/Content/bootstrap.css">
-	<link rel="stylesheet" href="/Content/bootstrap-theme.css" data-id="bootstrap-theme-css">
+	<link rel="stylesheet" href="/Content/bootstrap/bootstrap.css">
+	<link rel="stylesheet" href="/Content/bootstrap/bootstrap-theme.css" data-id="bootstrap-theme-css">
 	
-	<script type="text/javascript" src="/Scripts/jquery-3.3.1.js"></script>
-	<script type="text/javascript" src="/Scripts/bootstrap.js"></script>
+	<script type="text/javascript" src="/Content/jQuery/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="/Content/bootstrap/bootstrap.js"></script>
 </head>
 <body>
 <form id="form1" runat="server">
