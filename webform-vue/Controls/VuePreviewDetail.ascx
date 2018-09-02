@@ -53,14 +53,7 @@
 						<div class="col-md-4">
 							<label>Active</label>
 							<clear-btn v-bind:value.sync="search.active" v-bind:default="true"></clear-btn>
-							<div class="form-group">
-								<label class="checkbox-inline">
-									<input type="checkbox" v-model="isActive"> Active
-								</label>
-								<label class="checkbox-inline">
-									<input type="checkbox" v-model="isInactive"> Inactive
-								</label>
-							</div>
+							<dual-checkboxes v-bind:value.sync="search.active"></dual-checkboxes>
 							
 							<button type="button" class="btn btn-danger btn-xs pull-right" @click="resetSearch">Clear</button>
 							<label>&nbsp;</label>
@@ -150,6 +143,7 @@
 <!--#include file="~/ControlsView/PreviewDetail.html"-->
 <!--#include file="~/ControlsView/ClearBtn.html"-->
 <!--#include file="~/ControlsView/MyDatepicker.html"-->
+<!--#include file="~/ControlsView/DualCheckboxes.html"-->
 
 <%--Page-specific resources--%>
 <script src="/Controls/VuePreviewDetail.ascx.js"></script>
