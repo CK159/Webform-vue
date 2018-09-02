@@ -32,4 +32,7 @@ DONE - CTRL-Up + CTRL-Down to change to previous / next item in list
 
 CSS animation to flash background light shade of Green, Red, Blue when performing action
 Mini status message popups up at bottom of page on error or certain events (send events using vuex?)
-Add tooltip popups / popovers
+Change api select urls to api/select/{varname}Select
+Organize scripts and Content with folders
+Create colored check component (green check, red X)
+Use scoped slots to pass active item id to preview

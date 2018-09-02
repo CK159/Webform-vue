@@ -1,6 +1,7 @@
 ﻿<%@ Control %>
 
 <link rel="stylesheet" href="/Content/site-vue.css"/>
+<link rel="stylesheet" href="/Content/v-tooltip.css"/>
 <br/>
 <br/>
 
@@ -67,34 +68,34 @@
 				<div slot="preview">
 					<table class="table table-hover table-bordered table-striped table-condensed pd-preview-table">
 						<thead>
-						<tr>
-							<th>Date</th>
-							<th>ID</th>
-							<th>Name</th>
-							<th>Categories</th>
-							<th>Code</th>
-							<th>Active</th>
-						</tr>
+							<tr>
+								<th>Date</th>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Categories</th>
+								<th>Code</th>
+								<th>Active</th>
+							</tr>
 						</thead>
 						<tbody>
-						<tr
-							class="pointer"
-							v-for="item in preview"
-							:key="item.PreviewDetailId"
-							v-on:click="detailLoad(item.PreviewDetailId)"
-							<%--Highlight active row--%>
-							v-bind:class="{'info': itemActive(item.PreviewDetailId)}">
-
-							<td>{{item.Date | formatDate}}</td> <%--Use custom formatter to display date as standard mm/dd/yyyy--%>
-							<td>{{item.PreviewDetailId}}</td>
-							<td>{{item.Name}}</td>
-							<td>{{item.Categories.join(", ")}}</td>
-							<td>{{item.Codes.join(", ")}}</td>
-							<td>
-								<span class="text-success" v-if="item.Active">&#10004;</span>
-								<span class="text-danger" v-if="!item.Active">&#10008;</span>
-							</td>
-						</tr>
+							<tr
+								class="pointer"
+								v-for="item in preview"
+								:key="item.PreviewDetailId"
+								v-on:click="detailLoad(item.PreviewDetailId)"
+								<%--Highlight active row--%>
+								v-bind:class="{'info': itemActive(item.PreviewDetailId)}">
+	
+								<td>{{item.Date | formatDate}}</td> <%--Use custom formatter to display date as standard mm/dd/yyyy--%>
+								<td>{{item.PreviewDetailId}}</td>
+								<td>{{item.Name}}</td>
+								<td>{{item.Categories.join(", ")}}</td>
+								<td>{{item.Codes.join(", ")}}</td>
+								<td>
+									<span class="text-success" v-if="item.Active">&#10004;</span>
+									<span class="text-danger" v-if="!item.Active">&#10008;</span>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -140,6 +141,7 @@
 <script src="/Scripts/vue.js"></script>
 <script src="/Scripts/utilities.js"></script>
 <script src="/Scripts/vuejs-datepicker.js"></script>
+<script src="/Scripts/v-tooltip.min.js"></script>
 <!--#include file="~/ControlsView/PreviewDetail.html"-->
 <!--#include file="~/ControlsView/ClearBtn.html"-->
 <!--#include file="~/ControlsView/MyDatepicker.html"-->

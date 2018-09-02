@@ -52,11 +52,17 @@
 		<div class="pd-actions">
 			<p>
 				<button type="button" class="btn btn-danger pull-right" v-on:click="detailDelete">Delete</button>
-				<button type="button" class="btn btn-info" v-on:click="detailNew">New</button>
+				<button type="button" class="btn btn-info"
+						v-on:click="detailNew" v-tooltip="'Hotkey: Ctrl-G'">
+					New
+				</button>
 			</p>
 			<div class="row">
 				<div class="col-lg-10 col-md-9 col-sm-8">
-					<button type="button" class="btn btn-success btn-block" v-on:click="detailSave">Save</button>
+					<button type="button" class="btn btn-success btn-block" 
+							v-on:click="detailSave" v-tooltip="'Hotkey: Ctrl-S'">
+						Save
+					</button>
 				</div>
 				<div class="col-lg-2 col-md-3 col-sm-4">
 					<button type="button" class="btn btn-danger btn-block" v-on:click="detailCancel">Cancel</button>

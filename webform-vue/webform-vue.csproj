@@ -155,6 +155,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\utilities.js" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\v-tooltip.min.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\vuejs-datepicker.js" />
