@@ -1,0 +1,14 @@
+<div id="colored-check-template" class="vue-template">
+	<div class="colored-check-container">
+		<span class="text-success" v-if="value">&#10004;</span>
+		<span class="text-danger" v-if="!value">&#10008;</span>
+	</div>
+</div>
+<script>
+	Vue.component("colored-check", {
+		template: "#colored-check-template",
+		props: {
+			value: Boolean
+		}
+	});
+</script>

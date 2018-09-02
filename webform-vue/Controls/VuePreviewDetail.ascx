@@ -91,10 +91,7 @@
 								<td>{{item.Name}}</td>
 								<td>{{item.Categories.join(", ")}}</td>
 								<td>{{item.Codes.join(", ")}}</td>
-								<td>
-									<span class="text-success" v-if="item.Active">&#10004;</span>
-									<span class="text-danger" v-if="!item.Active">&#10008;</span>
-								</td>
+								<td><colored-check :value="item.Active"></colored-check></td>
 							</tr>
 						</tbody>
 					</table>
@@ -146,6 +143,7 @@
 <!--#include file="~/ControlsView/ClearBtn.html"-->
 <!--#include file="~/ControlsView/MyDatepicker.html"-->
 <!--#include file="~/ControlsView/DualCheckboxes.html"-->
+<!--#include file="~/ControlsView/ColoredCheck.html"-->
 
 <%--Page-specific resources--%>
 <script src="/Controls/VuePreviewDetail.ascx.js"></script>

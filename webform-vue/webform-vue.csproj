@@ -114,6 +114,7 @@
     <Content Include="Content\site.css" />
     <Content Include="ControlsView\ClearBtn.html" />
     <Content Include="ControlsView\ClearBtn.html.js" />
+    <Content Include="ControlsView\ColoredCheck.html" />
     <Content Include="ControlsView\DualCheckboxes.html" />
     <Content Include="ControlsView\DualCheckboxes.html.js" />
     <Content Include="ControlsView\modal.html" />
