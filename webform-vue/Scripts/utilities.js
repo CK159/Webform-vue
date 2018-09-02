@@ -27,6 +27,19 @@ Vue.filter("formatDate", function (value) {
 
 Vue.mixin({
 	methods: {
+		componentDataReset: function (key) {
+			//https://stackoverflow.com/a/43643407
+			var origData = this.$options.data.call(this);
+			
+			if (!key){
+				//Reset data entirely
+				Object.assign(this.$data, origData);
+			}
+			else {
+				//Reset one data key only
+				Object.assign(this.$data[key], origData[key]);
+			}
+		},
 		api: function (argOpts) {
 			var opt = $.extend({
 				/*Common properties*/
