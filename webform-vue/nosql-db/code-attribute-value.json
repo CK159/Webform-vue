@@ -1,0 +1,77 @@
+[
+	{
+		"CodeAttributeValueId": 1,
+		"CodeAttributeId": 1,
+		"AttributeValueId": 1
+	},
+	{
+		"CodeAttributeValueId": 2,
+		"CodeAttributeId": 1,
+		"AttributeValueId": 2
+	},
+	{
+		"CodeAttributeValueId": 3,
+		"CodeAttributeId": 2,
+		"AttributeValueId": 6
+	},
+	{
+		"CodeAttributeValueId": 4,
+		"CodeAttributeId": 3,
+		"AttributeValueId": 11
+	},
+	{
+		"CodeAttributeValueId": 5,
+		"CodeAttributeId": 3,
+		"AttributeValueId": 12
+	},
+	{
+		"CodeAttributeValueId": 6,
+		"CodeAttributeId": 3,
+		"AttributeValueId": 13
+	},
+	{
+		"CodeAttributeValueId": 7,
+		"CodeAttributeId": 3,
+		"AttributeValueId": 14
+	},
+	{
+		"CodeAttributeValueId": 8,
+		"CodeAttributeId": 3,
+		"AttributeValueId": 15
+	},
+	{
+		"CodeAttributeValueId": 9,
+		"CodeAttributeId": 3,
+		"AttributeValueId": 16
+	},
+	{
+		"CodeAttributeValueId": 10,
+		"CodeAttributeId": 3,
+		"AttributeValueId": 17
+	},
+	{
+		"CodeAttributeValueId": 11,
+		"CodeAttributeId": 3,
+		"AttributeValueId": 18
+	},
+	{
+		"CodeAttributeValueId": 12,
+		"CodeAttributeId": 4,
+		"AttributeValueId": 20
+	},
+	{
+		"CodeAttributeValueId": 13,
+		"CodeAttributeId": 4,
+		"AttributeValueId": 13
+	},
+	{
+		"CodeAttributeValueId": 14,
+		"CodeAttributeId": 4,
+		"AttributeValueId": 14
+	},
+	{
+		"CodeAttributeValueId": 15,
+		"CodeAttributeId": 5,
+		"AttributeValueId": 18
+	}
+]

@@ -6,6 +6,10 @@
 	cursor: pointer;
 }
 
+.no-margin {
+	margin: 0;
+}
+
 /*Vue.js animations*/
 .fade-enter-active {
 	transition: opacity .2s;

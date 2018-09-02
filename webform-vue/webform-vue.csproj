@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -84,11 +84,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\ApiObjects.cs" />
-    <Compile Include="Application\ApiSelect.cs" />
+    <Compile Include="Application\ApiSelectController.cs" />
     <Compile Include="Application\ApiThingy.asmx.cs" />
     <Compile Include="Application\ApiThingyController.cs" />
     <Compile Include="Application\Util.cs" />
     <Compile Include="Application\VuePage.aspx.cs" />
+    <Compile Include="Application\VuexSelectController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -112,6 +113,9 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\site-vue.css" />
     <Content Include="Content\site.css" />
+    <Content Include="Content\v-tooltip.css" />
+    <Content Include="ControlsView\AsyncDropdown.html" />
+    <Content Include="ControlsView\AsyncDropdown.html.js" />
     <Content Include="ControlsView\ClearBtn.html" />
     <Content Include="ControlsView\ClearBtn.html.js" />
     <Content Include="ControlsView\ColoredCheck.html" />
@@ -132,8 +136,8 @@
     <Content Include="Controls\VueControl.ascx" />
     <Content Include="Controls\VueControl.ascx.js" />
     <Content Include="Controls\VuePreviewDetail.ascx.js" />
-    <Content Include="Controls\VuexSelect.ascx" />
-    <Content Include="Controls\VuexSelect.ascx.js" />
+    <Content Include="Controls\VueAsyncDropdown.ascx" />
+    <Content Include="Controls\VueAsyncDropdown.ascx.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -144,6 +148,8 @@
     <Content Include="nosql-db\attribute-value.json" />
     <Content Include="nosql-db\attribute.json" />
     <Content Include="nosql-db\category.json" />
+    <Content Include="nosql-db\code-attribute-value.json" />
+    <Content Include="nosql-db\code-attribute.json" />
     <Content Include="nosql-db\code.json" />
     <Content Include="nosql-db\records.json" />
     <Content Include="packages.config" />

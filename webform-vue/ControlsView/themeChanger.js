@@ -37,7 +37,7 @@ Vue.component("my-theme-changer", {
 	},
 	methods: {
 		themeChange: function (shift) {
-			this.theme = this.modulo(this.theme + shift, 7);
+			this.theme = this.modulo(this.theme + shift, this.themes.length);
 		},
 		modulo: function (dividend, divisor) {
 			return ((dividend%divisor)+divisor)%divisor;

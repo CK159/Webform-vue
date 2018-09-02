@@ -15,7 +15,7 @@ namespace WebformVue
 	    {
 		    {"control", "VueControl.ascx"},
 		    {"pd", "VuePreviewDetail.ascx"},
-		    {"select", "VuexSelect.ascx"}
+		    {"select", "VueAsyncDropdown.ascx"}
 	    };
 	    
 	    protected override void OnInit(EventArgs e)

@@ -1,0 +1,6 @@
+<div id="async-dropdown-template" class="vue-template">
+	<select v-bind:class="inputClass" v-model="innerValue">
+		<option v-for="item in options" :value="item.key">{{item.val}}</option>
+	</select>
+</div>
+<script src="/ControlsView/asyncDropdown.html.js"></script>

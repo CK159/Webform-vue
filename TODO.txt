@@ -1,7 +1,3 @@
-Simple dropdown component
-    Pass array of data and selected value
-    Handles if unknown selected value is passed
-Dropdown that loads options based on selection of another dropdown
 Advanced dropdown component
     Can look up values from API
     Can specifically request unknown value from API by ID
@@ -35,3 +31,5 @@ Mini status message popups up at bottom of page on error or certain events (send
 Change api select urls to api/select/{varname}Select
 Organize scripts and Content with folders
 Use scoped slots to pass active item id to preview
+Make save button light up or visibly change when data is modified
+Add ability to sort by columns in preview component
