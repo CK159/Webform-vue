@@ -6,8 +6,8 @@ using WebformVue.Util;
 
 namespace WebformVue
 {
-	[RoutePrefix("api/VuexSelect")]
-	public class VuexSelectController : ApiController
+	[RoutePrefix("api/SimpleSelect")]
+	public class SimpleSelectController : ApiController
 	{
 		[HttpGet, HttpPost, MultiParameterSupport]
 		[Route("GetCodeAttributes")]

@@ -50,12 +50,12 @@
 		
 						<div class="panel-body">
 							<p>
-								Code Attribute Values ({{codeAttributeValues[codeAttr.CodeAttributeId].length}})
+								Code Attribute Values ({{safeCodeAttrVal(codeAttr.CodeAttributeId).length}})
 								<button type="button" class="btn btn-primary btn-xs">+ Code Attribute Value</button>
 							</p>
 							
-							<div 
-								v-for="cav in codeAttributeValues[codeAttr.CodeAttributeId]"
+							<div
+								v-for="cav in safeCodeAttrVal(codeAttr.CodeAttributeId)"
 								:key="cav.CodeAttributeValueId">
 						
 								<div class="form-group">

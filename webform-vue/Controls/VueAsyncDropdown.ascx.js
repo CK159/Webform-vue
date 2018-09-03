@@ -8,40 +8,43 @@ var vueApp = new Vue({
 		};
 	},
 	methods: {
-		getCodeAttributes: function () {
+		loadCodeAttributes: function () {
 			var vm = this;
 			vm.api({
-				action: "/api/VuexSelect/GetCodeAttributes",
+				action: "/api/SimpleSelect/GetCodeAttributes",
 				formData: {CodeId: vm.codeId},
 				done: function (data) {
 					vm.codeAttributes = data;
 				}
 			});
 		},
-		getCodeAttributeValues: function (codeAttributeId) {
+		loadCodeAttributeValues: function (codeAttributeId) {
 			var vm = this;
 			vm.api({
-				action: "/api/VuexSelect/GetCodeAttributeValues",
+				action: "/api/SimpleSelect/GetCodeAttributeValues",
 				formData: {CodeAttributeId: codeAttributeId},
 				done: function (data) {
 					//Vue can't detect direct changes to arrays by index. Use helper method.
 					Vue.set(vm.codeAttributeValues, codeAttributeId, data);
 				}
 			});
+		},
+		safeCodeAttrVal: function (CodeAttributeId) {
+			return this.codeAttributeValues[CodeAttributeId] || [];
 		}
 	},
 	watch: {
 		codeId: function (newVal) {
-			this.getCodeAttributes();
+			this.loadCodeAttributes();
 		},
 		codeAttributes: function (newVal) {
 			this.codeAttributeValues = {};
 			for (var i = 0; i < newVal.length; i++) {
-				this.getCodeAttributeValues(newVal[i].CodeAttributeId);
+				this.loadCodeAttributeValues(newVal[i].CodeAttributeId);
 			}
 		}
 	},
 	created: function () {
-		this.getCodeAttributes();
+		this.loadCodeAttributes();
 	}
 });

@@ -93,7 +93,7 @@
     <Compile Include="Controllers\ApiSelectController.cs" />
     <Compile Include="Controllers\ApiThingyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\VuexSelectController.cs" />
+    <Compile Include="Controllers\SimpleSelectController.cs" />
     <Compile Include="Controls\VueControl.ascx.cs" />
     <Compile Include="Global.asax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
