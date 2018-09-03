@@ -51,47 +51,32 @@ Vue.component("async-dropdown", {
 		options: function () {
 			//Handle awaiting data
 			if (this.status === "loading") {
-				return [{key: this.value, val: "Loading..."}];
+				return [{value: this.value, name: "Loading..."}];
 			}
 			
 			//Handle any strange error conditions
 			if (this.status !== "loaded") {
-				return [{key: this.value, val: this.status}];
+				return [{value: this.value, name: this.status}];
 			}
 			
-			var opt = [];
-
-			//TODO: update API to make this step unnecessary
-			//Translate {key: val} to [{"key": key, "val": val}] so sort order can be asserted
-			for (var prop in this.rawData) {
-				if (this.rawData.hasOwnProperty(prop)) {
-					opt.push({key: this.toNullInt(prop), val: this.rawData[prop]});
-				}
-			}
-			
-			//Sort by val text
-			//TODO: Sort on server
-			opt.sort(function(a, b) {
-				var textA = a.val.toUpperCase();
-				var textB = b.val.toUpperCase();
-				return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-			});
+			//Shallow copy the source data so that more elements can be added
+			var opt = this.rawData.slice();
 			
 			if (opt.length === 0) {
 				//No data
-				opt.push({key: this.value, val: "No " + this.friendlyName + " available"});
+				opt.push({value: this.value, name: "No " + this.friendlyName + " available"});
 			}
 
 			if (opt.length > 0 && this.showDefault) {
 				//Default option - Put at top of list
 				var defaultTextExt = this.defaultText == null ? "--Select " + this.friendlyName + "--" : this.defaultText;
-				opt.unshift({key: this.defaultValue, val: defaultTextExt});
+				opt.unshift({value: this.defaultValue, name: defaultTextExt});
 			}
 			
 			if (opt.length > 0 && !this.hasSelected(opt)) {
 				//Selected item not in data - Put dummy option at very start of list
 				//TODO: Have way to keep this value in list after user makes a different selection to allow them to set it back to this
-				opt.unshift({key: this.value, val: "Unknown " + this.friendlyName + "ID: " + this.value});
+				opt.unshift({value: this.value, name: "Unknown " + this.friendlyName + "ID: " + this.value});
 			}
 			
 			return opt;
@@ -100,7 +85,7 @@ Vue.component("async-dropdown", {
 	methods: {
 		hasSelected: function (data) {
 			for (var i = 0; i < data.length; i++) {
-				if (data[i].key === this.value || (data[i].key === null && this.value === null)){
+				if (data[i].value === this.value || (data[i].value === null && this.value === null)){
 					return true;
 				}
 			}
@@ -141,16 +126,16 @@ Vue.component("async-dropdown", {
 	},
 	watch: {
 		apiUrl: function (newVal, oldVal) {
-			console.log("apiUrl changed:", newVal, oldVal);
+			console.log("apiUrl changed:", newVal, oldVal); //TODO: remove
 			this.queueData();
 		},
 		apiKey: function (newVal, oldVal) {
-			console.log("apiKey changed:", newVal, oldVal);
+			console.log("apiKey changed:", newVal, oldVal); //TODO: remove
 			this.queueData();
 		},
 		apiData: {
 			handler: function (newVal, oldVal) {
-				console.log("apiData changed:", newVal, oldVal);
+				console.log("apiData changed:", newVal, oldVal); //TODO: remove
 				this.queueData();
 			},
 			deep: true

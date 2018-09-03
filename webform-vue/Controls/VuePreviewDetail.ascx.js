@@ -55,7 +55,7 @@ var vueApp = new Vue({
 		var vm = this;
 
 		this.api({
-			action: "/api/category/select",
+			action: "/api/select/categorySelect",
 			done: function (data) {
 				vm.categories = data;
 			}

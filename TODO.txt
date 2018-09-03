@@ -16,7 +16,6 @@ API authentication
 Vue CLI
 Delete record confirmation popup
 Date search from beginning of start day to end of end day - no timezone weirdness
-Update Select API to return [{"key": key, "val": val}, ...] instead of {key: val, ...}
 
 Hotkey support:
 DONE - CTRL-S to save page
@@ -28,8 +27,7 @@ DONE - CTRL-Up + CTRL-Down to change to previous / next item in list
 
 CSS animation to flash background light shade of Green, Red, Blue when performing action
 Mini status message popups up at bottom of page on error or certain events (send events using vuex?)
-Change api select urls to api/select/{varname}Select
 Use scoped slots to pass active item id to preview
 Make save button light up or visibly change when data is modified
 Add ability to sort by columns in preview component
-Block direct access to ControlsView folder with web.config
+Test out es6 modules

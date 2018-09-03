@@ -76,16 +76,54 @@ namespace WebformVue.Util
 		}
 	}
 
-	public class SimpleSelectResult : Dictionary<int?, string>
+	public class SimpleSelect : List<SimpleSelectItem>
 	{
-		public SimpleSelectResult()
+		public SimpleSelect()
 		{
-			
 		}
 
-		public SimpleSelectResult(Dictionary<int?, string> src) : base(src)
+		public SimpleSelect(List<SimpleSelectItem> src) : base(src)
 		{
+		}
+	}
+
+	public class SimpleSelectItem
+	{
+		public int? value { get; set; }
+		public string name { get; set; }
+	}
+
+	public static class LINQExtension
+	{
+		//Based on System.Linq.ToDictionary()
+		public static SimpleSelect ToSimpleSelect<T>(this IEnumerable<T> source,
+			Func<T, int?> valueSelector, Func<T, string> nameSelector)
+		{
+			if (source == null)
+				throw new ArgumentNullException(nameof (source));
+			if (valueSelector == null)
+				throw new ArgumentNullException(nameof (valueSelector));
+			if (nameSelector == null)
+				throw new ArgumentNullException(nameof (nameSelector));
 			
+			SimpleSelect s = new SimpleSelect();
+			foreach (T item in source)
+			{
+				s.Add(new SimpleSelectItem
+				{
+					value = valueSelector(item),
+					name = nameSelector(item)
+				});
+			}
+
+			return s;
+		}
+
+		public static SimpleSelect ToSimpleSelect<T>(this IEnumerable<T> source,
+			Func<T, int> valueSelector, Func<T, string> nameSelector)
+		{
+			Func<T, int?> valNull = (e => (int?)valueSelector(e));
+			return source.ToSimpleSelect(valNull, nameSelector);
 		}
 	}
 }

@@ -123,7 +123,7 @@
 							<div class="form-group">
 								<label>Categories</label>
 								<select class="form-control" v-model="detail.CategoryIds" multiple>
-									<option v-for="item in categories" :value="item.CategoryId">{{item.CategoryName}}</option>
+									<option v-for="item in categories" :value="item.value">{{item.name}}</option>
 								</select>
 							</div>
 						</div>

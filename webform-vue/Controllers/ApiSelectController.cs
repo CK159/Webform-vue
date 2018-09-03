@@ -10,27 +10,28 @@ namespace WebformVue
 	public class ApiSelectController : ApiController
 	{
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("category/select")]
-		public List<CategoryEntity> GetCategorySelect(int? CategoryID, bool? Single)
+		[Route("select/categorySelect")]
+		public SimpleSelect GetCategorySelect(int? CategoryID, bool? Single)
 		{
 			return Loader.LoadFromFile<List<CategoryEntity>>("category")
 				.Where(e => (!Single.GetValueOrDefault() && e.Active) || e.CategoryId == CategoryID)
-				.OrderBy(e => e.CategoryName).ToList();
+				.OrderBy(e => e.CategoryName)
+				.ToSimpleSelect(a => a.CategoryId, a => a.CategoryName);
 		}
 		
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("code/select")]
-		public SimpleSelectResult GetCodeSelect(int? CodeId, bool? Single)
+		[Route("select/codeSelect")]
+		public SimpleSelect GetCodeSelect(int? CodeId, bool? Single)
 		{
-			return new SimpleSelectResult(Loader.LoadFromFile<List<CodeEntry>>("code")
+			return Loader.LoadFromFile<List<CodeEntry>>("code")
 				.Where(e => !Single.GetValueOrDefault() || e.CodeId == CodeId)
 				.OrderBy(e => e.CodeValue)
-				.ToDictionary(a => (int?)a.CodeId, a => a.CodeValue));
+				.ToSimpleSelect(a => a.CodeId, a => a.CodeValue);
 		}
 		
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("codeAttribute/select")]
-		public SimpleSelectResult GetCodeAttributeSelect(int? CodeId, int? CodeAttributeId, bool? Single)
+		[Route("select/codeAttributeSelect")]
+		public SimpleSelect GetCodeAttributeSelect(int? CodeId, int? CodeAttributeId, bool? Single)
 		{
 			var x = (from c in Loader.LoadFromFile<List<CodeAttributeEntry>>("code-attribute")
 				join a in Loader.LoadFromFile<List<AttributeEntry>>("attribute") on c.AttributeId equals a.AttributeId
@@ -41,18 +42,17 @@ namespace WebformVue
 					a.AttributeName
 				});
 			
-			return new SimpleSelectResult(x
-				.Where(e => 
+			return x.Where(e => 
 					(CodeAttributeId != null && e.CodeAttributeId == CodeAttributeId)
 					|| (!Single.GetValueOrDefault() && (CodeId == null || e.CodeId == CodeId))
 				)
 				.OrderBy(e => e.CodeAttributeId)
-				.ToDictionary(a => (int?)a.CodeAttributeId, a => a.AttributeName));
+				.ToSimpleSelect(a => a.CodeAttributeId, a => a.AttributeName);
 		}
 		
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("codeAttributeValue/select")]
-		public SimpleSelectResult GetCodeAttributeValueSelect(int? CodeAttributeId, int? CodeAttributeValueId, bool? Single)
+		[Route("select/codeAttributeValueSelect")]
+		public SimpleSelect GetCodeAttributeValueSelect(int? CodeAttributeId, int? CodeAttributeValueId, bool? Single)
 		{
 			var x = (from cav in Loader.LoadFromFile<List<CodeAttributeValueEntry>>("code-attribute-value")
 				join av in Loader.LoadFromFile<List<AttributeValueEntry>>("attribute-value") on cav.AttributeValueId equals av.AttributeValueId
@@ -63,36 +63,35 @@ namespace WebformVue
 					av.ValueName
 				});
 			
-			return new SimpleSelectResult(x
-				.Where(e => 
+			return x.Where(e => 
 					(CodeAttributeValueId != null && e.CodeAttributeValueId == CodeAttributeValueId)
 					|| (!Single.GetValueOrDefault() && (CodeAttributeId == null || e.CodeAttributeId == CodeAttributeId))
 				)
 				.OrderBy(e => e.CodeAttributeId)
-				.ToDictionary(a => (int?)a.CodeAttributeValueId, a => a.ValueName));
+				.ToSimpleSelect(a => a.CodeAttributeValueId, a => a.ValueName);
 		}
 		
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("attribute/select")]
-		public SimpleSelectResult GetAttributeSelect(int? AttributeId, bool? Single)
+		[Route("select/attributeSelect")]
+		public SimpleSelect GetAttributeSelect(int? AttributeId, bool? Single)
 		{
-			return new SimpleSelectResult(Loader.LoadFromFile<List<AttributeEntry>>("attribute")
+			return Loader.LoadFromFile<List<AttributeEntry>>("attribute")
 				.Where(e => !Single.GetValueOrDefault() || e.AttributeId == AttributeId)
 				.OrderBy(e => e.AttributeName)
-				.ToDictionary(a => (int?)a.AttributeId, a => a.AttributeName));
+				.ToSimpleSelect(a => a.AttributeId, a => a.AttributeName);
 		}
 		
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("attributeValue/select")]
-		public SimpleSelectResult GetAttributeValueSelect(int? AttributeId, int? AttributeValueId, bool? Single)
+		[Route("select/attributeValueSelect")]
+		public SimpleSelect GetAttributeValueSelect(int? AttributeId, int? AttributeValueId, bool? Single)
 		{
-			return new SimpleSelectResult(Loader.LoadFromFile<List<AttributeValueEntry>>("attribute-value")
+			return Loader.LoadFromFile<List<AttributeValueEntry>>("attribute-value")
 				.Where(e => 
 					(AttributeValueId != null && e.AttributeValueId == AttributeValueId)
 					|| (!Single.GetValueOrDefault() && (AttributeId == null || e.AttributeId == AttributeId))
 				)
 				.OrderBy(e => e.ValueName)
-				.ToDictionary(a => (int?)a.AttributeValueId, a => a.ValueName));
+				.ToSimpleSelect(a => a.AttributeValueId, a => a.ValueName);
 		}
 	}
 }

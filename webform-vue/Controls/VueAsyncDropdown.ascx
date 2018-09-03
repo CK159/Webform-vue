@@ -21,7 +21,7 @@
 				<async-dropdown 
 					v-model="codeId"
 					friendly-name="Code"
-					api-url="/api/code/select"
+					api-url="/api/select/codeSelect"
 					api-key="codeId">
 					<%--apiData=""--%>
 				</async-dropdown>
@@ -67,7 +67,7 @@
 									<async-dropdown 
 										v-model="cav.AttributeValueId"
 										friendly-name="Attribute Value"
-										api-url="/api/attributeValue/select"
+										api-url="/api/select/attributeValueSelect"
 										api-key="AttributeValueId"
 										:apiData="{AttributeId: cav.AttributeId}">
 									</async-dropdown>
