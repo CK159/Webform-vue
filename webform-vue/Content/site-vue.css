@@ -10,6 +10,10 @@
 	margin: 0;
 }
 
+.inline-block {
+	display: inline-block;
+}
+
 /*Vue.js animations*/
 .fade-enter-active {
 	transition: opacity .2s;

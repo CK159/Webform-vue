@@ -134,6 +134,7 @@ Vue.component("async-dropdown", {
 			this.queueData();
 		},
 		apiData: {
+			//TODO: This is triggering even when data does not change - Detect and prevent that
 			handler: function (newVal, oldVal) {
 				console.log("apiData changed:", newVal, oldVal); //TODO: remove
 				this.queueData();

@@ -10,6 +10,7 @@ Model validation
 Ability to edit categories
 Ability to edit attributes
 Use Entity framework
+    Store, Catalog, Product schema
 Use Automapper
 API error handling
 API authentication
@@ -31,3 +32,4 @@ Use scoped slots to pass active item id to preview
 Make save button light up or visibly change when data is modified
 Add ability to sort by columns in preview component
 Test out es6 modules
+Async Dropdown apiData watcher triggering more than necessary
