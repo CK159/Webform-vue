@@ -31,9 +31,14 @@
 							</div>
 							<div class="form-group">
 								<label>Category ID</label>
-								<clear-btn v-bind:value.sync="search.categoryID"></clear-btn>
-								<%--TODO: Make dropdown--%>
-								<input class="form-control" type="number" min="1" v-model.number="search.categoryID"/>
+								<clear-btn v-bind:value.sync="search.categoryID" v-bind:default="null"></clear-btn>
+								<async-dropdown 
+									v-model="search.categoryID"
+									friendly-name="Category"
+									default-text="All Categories"
+									api-url="/api/select/categorySelect"
+									api-key="CategoryID">
+								</async-dropdown>
 							</div>
 						</div>
 
@@ -144,6 +149,7 @@
 <!--#include file="~/ControlsView/MyDatepicker.html"-->
 <!--#include file="~/ControlsView/DualCheckboxes.html"-->
 <!--#include file="~/ControlsView/ColoredCheck.html"-->
+<!--#include file="~/ControlsView/AsyncDropdown.html"-->
 
 <%--Page-specific resources--%>
 <script src="/Controls/VuePreviewDetail.ascx.js"></script>
