@@ -36,8 +36,10 @@ Vue.component("async-dropdown", {
 	data: function () {
 		return {
 			status: "unloaded", //unloaded, pending, loading, loaded, error
-			rawData: {}
+			rawData: {},
+			oldApiJSON: "{}"
 		}
+		
 	},
 	computed: {
 		innerValue:	{
@@ -85,7 +87,7 @@ Vue.component("async-dropdown", {
 	methods: {
 		hasSelected: function (data) {
 			for (var i = 0; i < data.length; i++) {
-				if (data[i].value === this.value || (data[i].value === null && this.value === null)){
+				if (data[i].value === this.value){
 					return true;
 				}
 			}
@@ -122,27 +124,64 @@ Vue.component("async-dropdown", {
 		},
 		toNullInt: function (str) {
 			return isNaN(parseInt(str)) ? null: parseInt(str);
+		},
+		//http://adripofjavascript.com/blog/drips/object-equality-in-javascript.html
+		basicIsEquivalent: function (a, b) {
+			// Create arrays of property names
+			var aProps = Object.getOwnPropertyNames(a);
+			var bProps = Object.getOwnPropertyNames(b);
+			
+			// If number of properties is different,
+			// objects are not equivalent
+			if (aProps.length != bProps.length) {
+				return false;
+			}
+		
+			for (var i = 0; i < aProps.length; i++) {
+				var propName = aProps[i];
+		
+				// If values of same property are not equal,
+				// objects are not equivalent
+				if (a[propName] !== b[propName]) {
+					return false;
+				}
+			}
+		
+			// If we made it this far, objects
+			// are considered equivalent
+			return true;
+		},
+		setOldApiData: function (newData) {
+			this.oldApiJSON = JSON.stringify(newData);
 		}
 	},
 	watch: {
-		apiUrl: function (newVal, oldVal) {
-			console.log("apiUrl changed:", newVal, oldVal); //TODO: remove
+		apiUrl: function () {
 			this.queueData();
 		},
-		apiKey: function (newVal, oldVal) {
-			console.log("apiKey changed:", newVal, oldVal); //TODO: remove
+		apiKey: function () {
 			this.queueData();
 		},
+		//Deep change watchers can fire even when theres no modifications to watched data
+		//https://github.com/vuejs/vue/issues/5776
+		//Make a copy of the old data then use a basic comparison between new and old to see if anything actually changed
+		//Keep old copy stored as JSON string so that vue.js does not add hidden properties to object and mess up comparison
 		apiData: {
-			//TODO: This is triggering even when data does not change - Detect and prevent that
-			handler: function (newVal, oldVal) {
-				console.log("apiData changed:", newVal, oldVal); //TODO: remove
-				this.queueData();
+			handler: function (newData) {
+				var oldData = JSON.parse(this.oldApiJSON);
+				//console.log("apiData potential change:", newData, oldData);
+				
+				if (!this.basicIsEquivalent(newData, oldData)) {
+					//console.log("apiData changed:", JSON.stringify(newData), JSON.stringify(oldData));
+					this.setOldApiData(newData);
+					this.queueData();
+				}
 			},
 			deep: true
 		}
 	},
 	created: function () {
+		this.setOldApiData(this.apiData);
 		this.queueData();
 	}
 });
