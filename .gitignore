@@ -14,6 +14,8 @@
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 
+.vs
+*.user
 .idea/**/contentModel.xml
 /.idea/config/applicationhost.config
 /packages

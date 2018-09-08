@@ -77,6 +77,7 @@ namespace DataModel
     {
         public int FileId { get; set; }
         public int FileName { get; set; }
+        public string MimeType { get; set; }
         public string FilePath { get; set; }
         public byte[] Content { get; set; }
     }
