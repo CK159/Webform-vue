@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201809081916414_MimeType.Designer.cs">
       <DependentUpon>201809081916414_MimeType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809091649111_AddRelated.cs" />
+    <Compile Include="Migrations\201809091649111_AddRelated.Designer.cs">
+      <DependentUpon>201809091649111_AddRelated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -70,6 +74,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809081916414_MimeType.resx">
       <DependentUpon>201809081916414_MimeType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809091649111_AddRelated.resx">
+      <DependentUpon>201809091649111_AddRelated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

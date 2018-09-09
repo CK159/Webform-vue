@@ -39,6 +39,7 @@ namespace DataModel
         public string Description { get; set; }
         public string Owner { get; set; }
         public bool Active { get; set; }
+        public bool DateCreated { get; set; }
     }
 
     public class Product
@@ -49,11 +50,13 @@ namespace DataModel
         public string ProductRichDesc { get; set; }
         public virtual ProductType Type { get; set; }
         public bool Active { get; set; }
+        public virtual ICollection<ProductResource> ProductResources { get; set; }
     }
 
     public class ProductResource
     {
         public int ProductResourceId { get; set; }
+        public virtual Product Product { get; set; }
         public string ResourceName { get; set; }
         public string ResourceInfo { get; set; }
         public int SortOrder { get; set; }
@@ -69,8 +72,16 @@ namespace DataModel
         public string CatalogName { get; set; }
         public string CatalogDesc { get; set; }
         public string InternalName { get; set; }
-        public virtual List<Product> Products { get; set; }
         public bool Active { get; set; }
+        public virtual ICollection<CatalogProduct> CatalogProducts { get; set; }
+    }
+
+    public class CatalogProduct
+    {
+        public int CatalogProductId { get; set; }
+        public virtual Catalog Catalog { get; set; }
+        public virtual Product Product { get; set; }
+        public int SortOrder { get; set; }
     }
 
     public class File
