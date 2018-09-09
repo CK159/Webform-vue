@@ -109,7 +109,6 @@
     <Compile Include="SPVPBE\SimplePostModelBinding.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".editorconfig" />
     <Content Include="Application\ApiThingy.asmx" />
     <Content Include="Application\VuePage.aspx" />
     <Content Include="Content\bootstrap\bootstrap-theme.css" />
@@ -185,9 +184,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\jQuery\jquery-3.3.1.min.map" />
