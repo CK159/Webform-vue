@@ -69,10 +69,7 @@ namespace WebformVue
 			items = items.OrderBy(o => o.Name);
 
 			// 5. Page
-			return PagedResult<PreviewDetailDTO>.AutoPage(
-				items,
-				currentPage ?? 0,
-				pageSize);
+			return PagedResult<PreviewDetailDTO>.AutoPage(items, currentPage, pageSize);
 		}
 
 		[HttpGet, HttpPost, MultiParameterSupport]

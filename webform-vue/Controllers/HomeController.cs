@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace webform_vue.Controllers
+namespace WebformVue
 {
     public class HomeController : Controller
     {

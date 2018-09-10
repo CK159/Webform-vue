@@ -32,7 +32,6 @@ Add ability to sort by columns in preview component
 Test out es6 modules
 
 Entity framework
-    Date created columns (datetime2)
     Required columns
     How to migrate existing data when making incompatible changes (null > not null, etc.)
     Seed data

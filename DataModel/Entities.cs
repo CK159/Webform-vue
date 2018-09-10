@@ -80,6 +80,7 @@ namespace DataModel
         public string CatalogDesc { get; set; }
         public string InternalName { get; set; }
         public bool Active { get; set; }
+	    public virtual ICollection<CatalogProduct> CatalogProducts { get; set; }
 	    [Required, Column(TypeName = "datetime2"), DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 	    public DateTime DateCreated { get; set; }
     }

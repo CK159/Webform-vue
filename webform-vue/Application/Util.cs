@@ -57,7 +57,7 @@ namespace WebformVue.Util
 			this.recordCount = recordCount;
 		}
 
-		public static PagedResult<IQueryable<U>> AutoPage<U>(IQueryable<U> q, int currentPage, int? pageSize)
+		public static PagedResult<IQueryable<U>> AutoPage<U>(IQueryable<U> q, int? currentPage, int? pageSize)
 		{
 			//TODO: Generic way to not evaluate query twice?
 			//Like https://stackoverflow.com/questions/7767409/better-way-to-query-a-page-of-data-and-get-total-count-in-entity-framework-4-1
@@ -69,10 +69,10 @@ namespace WebformVue.Util
 				int ps = pageSize.GetValueOrDefault();
 				pages = (int) Math.Ceiling((double) recordCount / ps);
 				//Paged result set
-				q = q.Skip(currentPage * ps).Take(ps);
+				q = q.Skip((currentPage ?? 0) * ps).Take(ps);
 			}
 
-			return new PagedResult<IQueryable<U>>(q, currentPage, pages, recordCount);
+			return new PagedResult<IQueryable<U>>(q, currentPage ?? 0, pages, recordCount);
 		}
 	}
 
