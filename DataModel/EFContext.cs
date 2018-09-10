@@ -11,6 +11,7 @@ namespace DataModel
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductResource> ProductResources { get; set; }
         public DbSet<Catalog> Catalogs { get; set; }
+        public DbSet<CatalogProduct> CatalogProducts { get; set; }
         public DbSet<File> Files { get; set; }
     }
 }

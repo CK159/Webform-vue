@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
 namespace DataModel
@@ -33,13 +35,14 @@ namespace DataModel
     public class Store
     {
         public int StoreId { get; set; }
-        public int StoreName { get; set; }
+        public string StoreName { get; set; }
         public virtual StoreStatus Status { get; set; }
         public int ImportantConfigId { get; set; }
         public string Description { get; set; }
         public string Owner { get; set; }
         public bool Active { get; set; }
-        public bool DateCreated { get; set; }
+	    [Required, Column(TypeName = "datetime2"), DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime DateCreated { get; set; }
     }
 
     public class Product
@@ -50,6 +53,8 @@ namespace DataModel
         public string ProductRichDesc { get; set; }
         public virtual ProductType Type { get; set; }
         public bool Active { get; set; }
+	    [Required, Column(TypeName = "datetime2"), DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+	    public DateTime DateCreated { get; set; }
         public virtual ICollection<ProductResource> ProductResources { get; set; }
     }
 
@@ -63,6 +68,8 @@ namespace DataModel
         public virtual ResourceType Type { get; set; }
         public virtual File Resource { get; set; }
         public bool Active { get; set; }
+	    [Required, Column(TypeName = "datetime2"), DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+	    public DateTime DateCreated { get; set; }
     }
 
     public class Catalog
@@ -73,7 +80,8 @@ namespace DataModel
         public string CatalogDesc { get; set; }
         public string InternalName { get; set; }
         public bool Active { get; set; }
-        public virtual ICollection<CatalogProduct> CatalogProducts { get; set; }
+	    [Required, Column(TypeName = "datetime2"), DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+	    public DateTime DateCreated { get; set; }
     }
 
     public class CatalogProduct
@@ -82,6 +90,8 @@ namespace DataModel
         public virtual Catalog Catalog { get; set; }
         public virtual Product Product { get; set; }
         public int SortOrder { get; set; }
+	    [Required, Column(TypeName = "datetime2"), DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+	    public DateTime DateCreated { get; set; }
     }
 
     public class File
@@ -91,5 +101,7 @@ namespace DataModel
         public string MimeType { get; set; }
         public string FilePath { get; set; }
         public byte[] Content { get; set; }
+	    [Required, Column(TypeName = "datetime2"), DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+	    public DateTime DateCreated { get; set; }
     }
 }
