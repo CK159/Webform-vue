@@ -15,6 +15,7 @@ API authentication
 Vue CLI
 Delete record confirmation popup
 Date search from beginning of start day to end of end day - no timezone weirdness
+PreviewDetail apiEndpoints default values for previewLoad: "Preview", detailLoad: "Load", detailSave: "Save", detailDelete: "Delete"
 
 Hotkey support:
 DONE - CTRL-S to save page
@@ -30,6 +31,12 @@ Use scoped slots to pass active item id to preview
 Make save button light up or visibly change when data is modified
 Add ability to sort by columns in preview component
 Test out es6 modules
+
+Make vue shuffle box control > The SuperMover
+	Hotkey support (left-right arrows to move selection, shift-left, shift-right to move all?)
+	HTML-based instead of select? (support for links and rich text in control?)
+	Client-side sorting
+		With configurable filter (match, doesn't match)
 
 Entity framework
     Required columns

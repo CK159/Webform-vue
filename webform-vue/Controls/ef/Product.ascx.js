@@ -3,33 +3,32 @@ var vueApp = new Vue({
 	data: function () {
 		return {
 			search: {
-				name: null, //string
-				categoryID: null, //int
-				active: true, //null, true, false
-				startDate: null,
-				endDate: null
+				productName: null,
+				productDesc: null,
+				catalogId: null,
+				active: true
 			},
 			preview: [],
 			detail: {},
 			//Default values used when user creates new record TODO: easier way? Lazy-load from server?
 			newDetail: {
-				"PreviewDetailId": -1,
-				"Name": "",
-				"Description": "",
-				"Active": true,
+				"ProductId": -1,
+				"ProductName": "",
+				"ProductDesc": "",
+				"ProductRichDesc": "",
+				"Type": null, //TODO: figure this out
 				"Date": "0001-01-01T00:00:00",
-				"CategoryIds": [],
-				"CodeIds": []
+				"Active": true,
+				"ProductResources": [] //TODO: figure this out
 			},
-			pk: "PreviewDetailId",
+			pk: "ProductId",
 			apiEndpoints: {
-				baseURL: "/ApiThingyController.cs/PreviewDetail/",
+				baseURL: "/api/Product/",
 				previewLoad: "Preview",
 				detailLoad: "Load",
 				detailSave: "Save",
 				detailDelete: "Delete",
-			},
-			categories: []
+			}
 		}
 	},
 	methods: {
@@ -48,17 +47,7 @@ var vueApp = new Vue({
 		},
 		resetSearch: function () {
 			this.componentDataReset("search");
-			this.refreshSearch();	
+			this.refreshSearch();
 		},
-	},
-	created: function () {
-		var vm = this;
-
-		this.api({
-			action: "/api/select/categorySelect",
-			done: function (data) {
-				vm.categories = data;
-			}
-		});
 	}
 });

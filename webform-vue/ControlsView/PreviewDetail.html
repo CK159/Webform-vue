@@ -20,7 +20,7 @@
 			
 			<slot class="pd-preview" name="preview">Preview Area</slot>
 			
-			<div class="pd-pager">
+			<div class="pd-pager clearfix">
 				<div class="pd-page-count text-muted">
 					{{recordCount}} record{{recordCount == 1 ? "" : "s"}}.
 					Page {{Math.min(currentPage + 1, pages)}} of {{pages}}.

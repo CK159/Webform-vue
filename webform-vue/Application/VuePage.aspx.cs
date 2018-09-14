@@ -15,7 +15,10 @@ namespace WebformVue
 	    {
 		    {"control", "VueControl.ascx"},
 		    {"pd", "VuePreviewDetail.ascx"},
-		    {"select", "VueAsyncDropdown.ascx"}
+		    {"select", "VueAsyncDropdown.ascx"},
+		    {"product", "ef/Product.ascx"},
+		    {"catalog", "ef/Catalog.ascx"},
+		    {"store", "ef/Store.ascx"}
 	    };
 	    
 	    protected override void OnInit(EventArgs e)

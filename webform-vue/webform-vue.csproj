@@ -111,6 +111,7 @@
     <Compile Include="Controllers\ApiThingyController.cs" />
     <Compile Include="Controllers\ef\CatalogController.cs" />
     <Compile Include="Controllers\ef\ProductController.cs" />
+    <Compile Include="Controllers\ef\EfSelectController.cs" />
     <Compile Include="Controllers\ef\StoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SimpleSelectController.cs" />
@@ -171,6 +172,8 @@
     <Content Include="ControlsView\PreviewDetail.html.js" />
     <Content Include="ControlsView\themeChanger.js" />
     <Content Include="ControlsView\modal.html.css" />
+    <Content Include="Controls\ef\Product.ascx" />
+    <Content Include="Controls\ef\Product.ascx.js" />
     <Content Include="Controls\VuePreviewDetail.ascx" />
     <Content Include="Controls\VueControl.ascx" />
     <Content Include="Controls\VueControl.ascx.js" />

@@ -6,11 +6,11 @@ using WebformVue.Util;
 
 namespace WebformVue
 {
-	[RoutePrefix("api")]
+	[RoutePrefix("api/select")]
 	public class ApiSelectController : ApiController
 	{
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("select/categorySelect")]
+		[Route("categorySelect")]
 		public SimpleSelect GetCategorySelect(int? CategoryID, bool? Single)
 		{
 			return Loader.LoadFromFile<List<CategoryEntity>>("category")
@@ -20,7 +20,7 @@ namespace WebformVue
 		}
 		
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("select/codeSelect")]
+		[Route("codeSelect")]
 		public SimpleSelect GetCodeSelect(int? CodeId, bool? Single)
 		{
 			return Loader.LoadFromFile<List<CodeEntry>>("code")
@@ -30,7 +30,7 @@ namespace WebformVue
 		}
 		
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("select/codeAttributeSelect")]
+		[Route("codeAttributeSelect")]
 		public SimpleSelect GetCodeAttributeSelect(int? CodeId, int? CodeAttributeId, bool? Single)
 		{
 			var x = (from c in Loader.LoadFromFile<List<CodeAttributeEntry>>("code-attribute")
@@ -51,7 +51,7 @@ namespace WebformVue
 		}
 		
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("select/codeAttributeValueSelect")]
+		[Route("codeAttributeValueSelect")]
 		public SimpleSelect GetCodeAttributeValueSelect(int? CodeAttributeId, int? CodeAttributeValueId, bool? Single)
 		{
 			var x = (from cav in Loader.LoadFromFile<List<CodeAttributeValueEntry>>("code-attribute-value")
@@ -72,7 +72,7 @@ namespace WebformVue
 		}
 		
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("select/attributeSelect")]
+		[Route("attributeSelect")]
 		public SimpleSelect GetAttributeSelect(int? AttributeId, bool? Single)
 		{
 			return Loader.LoadFromFile<List<AttributeEntry>>("attribute")
@@ -82,7 +82,7 @@ namespace WebformVue
 		}
 		
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("select/attributeValueSelect")]
+		[Route("attributeValueSelect")]
 		public SimpleSelect GetAttributeValueSelect(int? AttributeId, int? AttributeValueId, bool? Single)
 		{
 			return Loader.LoadFromFile<List<AttributeValueEntry>>("attribute-value")
