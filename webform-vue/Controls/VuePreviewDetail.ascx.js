@@ -22,13 +22,7 @@ var vueApp = new Vue({
 				"CodeIds": []
 			},
 			pk: "PreviewDetailId",
-			apiEndpoints: {
-				baseURL: "/ApiThingyController.cs/PreviewDetail/",
-				previewLoad: "Preview",
-				detailLoad: "Load",
-				detailSave: "Save",
-				detailDelete: "Delete",
-			},
+			apiUrl: "/ApiThingyController.cs/PreviewDetail/",
 			categories: []
 		}
 	},

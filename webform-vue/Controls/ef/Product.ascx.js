@@ -22,13 +22,7 @@ var vueApp = new Vue({
 				"ProductResources": [] //TODO: figure this out
 			},
 			pk: "ProductId",
-			apiEndpoints: {
-				baseURL: "/api/Product/",
-				previewLoad: "Preview",
-				detailLoad: "Load",
-				detailSave: "Save",
-				detailDelete: "Delete",
-			}
+			apiUrl: "/api/Product/"
 		}
 	},
 	methods: {

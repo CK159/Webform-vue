@@ -8,9 +8,15 @@ Vue.component("preview-detail", {
 		search: Object, //Search and filter fields to pass to preview load api
 		newDetail: Object, //What should be assigned to the detailData when 'new' button is clicked
 		pk: String, //The primary key in the detail object (for loading and saving details)
-		apiEndpoints: Object, //{baseURL: "", previewLoad: "", detailLoad: "", detailSave: "", detailDelete: ""}
+		apiUrl: String, //Base URL to call for loading and saving
+		//Optionally override default URL actions. See defaultApiEndpoints.
+		//{previewLoad: "", detailLoad: "", detailSave: "", detailDelete:
+		apiEndpoints: {
+			default: function () {return {};},
+			type: Object
+		},
 
-		//Total page buttons shown. Up to 4 will be for first / last page + jump foward / back buttons
+		//Total page buttons shown. Up to 4 will be for first / last page + jump forward / back buttons
 		pagesShown: {default: 14, type: Number},
 		//Adjust how far forward / back the current page will appear in the page button list
 		selectionOffset: {default: 1, type: Number}
@@ -25,7 +31,13 @@ Vue.component("preview-detail", {
 			pages: 1,
 			recordCount: 0,
 			pageSize: 10,
-			pageSizes: [10, 20, 50, 100, 250, null]
+			pageSizes: [10, 20, 50, 100, 250, null],
+			defaultApiEndpoints: {
+				previewLoad: "Preview",
+				detailLoad: "Load",
+				detailSave: "Save",
+				detailDelete: "Delete"
+			}
 		}
 	},
 	computed: {
@@ -34,6 +46,9 @@ Vue.component("preview-detail", {
 				currentPage: this.currentPage,
 				pageSize: this.pageSize
 			});
+		},
+		finalAction: function () {
+			return Object.assign({}, this.defaultApiEndpoints, this.apiEndpoints);
 		},
 		shownPages: function () {
 			var start = this.currentPage - Math.ceil(this.pagesShown / 2) + this.selectionOffset;
@@ -126,8 +141,8 @@ Vue.component("preview-detail", {
 			this.previewState = "loading";
 
 			this.api({
-				baseURL: this.apiEndpoints.baseURL,
-				action: this.apiEndpoints.previewLoad,
+				baseURL: this.apiUrl,
+				action: this.finalAction.previewLoad,
 				formData: this.fullPreviewData,
 				done: function (data) {
 					vm.preview = data.result;
@@ -146,8 +161,8 @@ Vue.component("preview-detail", {
 			this.detailState = "loading";
 
 			this.api({
-				baseURL: this.apiEndpoints.baseURL,
-				action: this.apiEndpoints.detailLoad,
+				baseURL: this.apiUrl,
+				action: this.finalAction.detailLoad,
 				formData: {[this.pk]: id},
 				done: function (data) {
 					vm.detail = data;
@@ -169,8 +184,8 @@ Vue.component("preview-detail", {
 			var saveLoad = vm.detail[vm.pk] <= 0 ? " created." : " saved.";
 
 			this.api({
-				baseURL: this.apiEndpoints.baseURL,
-				action: this.apiEndpoints.detailSave,
+				baseURL: this.apiUrl,
+				action: this.finalAction.detailSave,
 				jsonData: vm.detail,
 				done: function (data) {
 					vm.showMessage("success", "Item " + data[vm.pk] + saveLoad);
@@ -201,8 +216,8 @@ Vue.component("preview-detail", {
 			this.detailState = "loading";
 
 			this.api({
-				baseURL: this.apiEndpoints.baseURL,
-				action: this.apiEndpoints.detailDelete,
+				baseURL: this.apiUrl,
+				action: this.finalAction.detailDelete,
 				formData: {[vm.pk]: vm.detail[vm.pk]},
 				dataType: "text", //No response content is returned, cant be set to json
 				done: function (data) {

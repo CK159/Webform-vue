@@ -18,7 +18,7 @@
 				v-bind:detail.sync="detail"
 				v-bind:new-detail="newDetail"
 				v-bind:pk="pk"
-				v-bind:api-endpoints="apiEndpoints"
+				v-bind:api-url="apiUrl"
 				ref="pdRef">
 
 				<div slot="search">

@@ -15,7 +15,6 @@ API authentication
 Vue CLI
 Delete record confirmation popup
 Date search from beginning of start day to end of end day - no timezone weirdness
-PreviewDetail apiEndpoints default values for previewLoad: "Preview", detailLoad: "Load", detailSave: "Save", detailDelete: "Delete"
 
 Hotkey support:
 DONE - CTRL-S to save page
