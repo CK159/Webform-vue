@@ -12,7 +12,7 @@ namespace WebformVue
 	{
 		[HttpGet, HttpPost, MultiParameterSupport]
 		[Route("Preview")]
-		public PagedResult<IQueryable<ProductPreviewDTO>> ProductPreview(
+		public PagedResult<IQueryable<ProductPreviewDto>> ProductPreview(
 			int? currentPage,
 			int? pageSize,
 			string productName,
@@ -22,11 +22,12 @@ namespace WebformVue
 		{
 			// 0. Load data / data source
 			EfContext context = new EfContext();
-			
+
 			// 1. Project
 			var qry = (from p in context.Products
 				from catprod in context.CatalogProducts.Where(e => e.Product == p).DefaultIfEmpty()
-				group catprod.Catalog by p into grp
+				group catprod.Catalog by p
+				into grp
 				select new
 				{
 					Product = grp.Key,
@@ -36,9 +37,10 @@ namespace WebformVue
 			// 2. Filter
 			if (!string.IsNullOrEmpty(productName))
 				qry = qry.Where(e => e.Product.ProductName.Contains(productName));
-			
+
 			if (!string.IsNullOrEmpty(productDesc))
-				qry = qry.Where(e => e.Product.ProductDesc.Contains(productDesc) || e.Product.ProductRichDesc.Contains(productDesc));
+				qry = qry.Where(e =>
+					e.Product.ProductDesc.Contains(productDesc) || e.Product.ProductRichDesc.Contains(productDesc));
 
 			if (catalogId != null)
 				qry = qry.Where(e => e.Catalogs.Where(w => w != null).Any(f => f.CatalogId == catalogId));
@@ -47,7 +49,7 @@ namespace WebformVue
 				qry = qry.Where(e => e.Product.Active == active);
 
 			// 3. Select to DTO
-			var items = qry.Select(q => new ProductPreviewDTO
+			var items = qry.Select(q => new ProductPreviewDto
 			{
 				ProductId = q.Product.ProductId,
 				ProductName = q.Product.ProductName,
@@ -65,19 +67,79 @@ namespace WebformVue
 			return PagedResult<PreviewDetailDTO>.AutoPage(items, currentPage, pageSize);
 		}
 
-		public class ProductPreviewDTO
+		public class ProductPreviewDto
 		{
 			public int ProductId { get; set; }
 			public string ProductName { get; set; }
 			public bool Active { get; set; }
 			public List<string> Catalogs { get; set; }
 		}
-		
+
 		[HttpGet, HttpPost, MultiParameterSupport]
 		[Route("Load")]
-		public Product ProductLoad(int productId)
+		public ProductDto ProductLoad(int productId)
 		{
-			return new EfContext().Products.FirstOrDefault(e => e.ProductId == productId);
+			EfContext context = new EfContext();
+
+			var qry = from p in context.Products
+				join cp in context.CatalogProducts on p equals cp.Product
+				group cp by p into grp
+				select new ProductDto
+				{
+					ProductId = grp.Key.ProductId,
+					ProductName = grp.Key.ProductName,
+					ProductDesc = grp.Key.ProductDesc,
+					ProductRichDesc = grp.Key.ProductRichDesc,
+					Type = grp.Key.Type,
+					Active = grp.Key.Active,
+					Resources = grp.Key.ProductResources.Select(r => new ProductResourceDto
+					{
+						ProductResourceId = r.ProductResourceId,
+						ProductId = grp.Key.ProductId,
+						Active = r.Active,
+						DateCreated = r.DateCreated,
+						SortOrder = r.SortOrder,
+						File = new UploadableFileDto
+						{
+							FileId = r.Resource.FileId,
+							FileName = r.Resource.FileName,
+							DateCreated = r.Resource.DateCreated
+						}
+					}).OrderBy(o => o.ProductResourceId).ToList(),
+					Catalogs = context.Catalogs.Select(c => new ProductCatalogDto
+					{
+						Assigned = grp.Any(g => g.Catalog == c),
+						CatalogId = c.CatalogId,
+						CatalogName = c.CatalogName,
+						Active = c.Active,
+						StoreId = c.Store.StoreId,
+						StoreName = c.Store.StoreName
+					}).OrderBy(o => o.CatalogName).ToList()
+				};
+
+			return qry.FirstOrDefault(e => e.ProductId == productId);
+		}
+
+		public class ProductDto
+		{
+			public int ProductId { get; set; }
+			public string ProductName { get; set; }
+			public string ProductDesc { get; set; }
+			public string ProductRichDesc { get; set; }
+			public ProductType Type { get; set; }
+			public bool Active { get; set; }
+			public List<ProductResourceDto> Resources { get; set; }
+			public List<ProductCatalogDto> Catalogs { get; set; }
+		}
+
+		public class ProductCatalogDto
+		{
+			public bool Assigned { get; set; }
+			public int CatalogId { get; set; }
+			public string CatalogName { get; set; }
+			public bool Active { get; set; }
+			public int StoreId { get; set; }
+			public string StoreName { get; set; }
 		}
 	}
 }

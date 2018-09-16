@@ -41,3 +41,11 @@ Entity framework
     Required columns
     How to migrate existing data when making incompatible changes (null > not null, etc.)
     Seed data
+
+Image Upload
+	Wrap image component so that it can display images from URL + local data images not uploaded yet
+	Green border around new not-uploaded images
+	Image table component that allows adding, changing, deleting images
+	Support multi-file selection actions
+	Send image content over JSON
+	Server-side structure to identify new images and store them

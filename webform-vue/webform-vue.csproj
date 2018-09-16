@@ -110,6 +110,8 @@
     <Compile Include="Controllers\ApiSelectController.cs" />
     <Compile Include="Controllers\ApiThingyController.cs" />
     <Compile Include="Controllers\ef\CatalogController.cs" />
+    <Compile Include="Controllers\ef\FileController.cs" />
+    <Compile Include="Controllers\ef\FileManager.cs" />
     <Compile Include="Controllers\ef\ProductController.cs" />
     <Compile Include="Controllers\ef\EfSelectController.cs" />
     <Compile Include="Controllers\ef\StoreController.cs" />
