@@ -30,8 +30,8 @@ Vue.mixin({
 		componentDataReset: function (key) {
 			//https://stackoverflow.com/a/43643407
 			var origData = this.$options.data.call(this);
-			
-			if (!key){
+
+			if (!key) {
 				//Reset data entirely
 				Object.assign(this.$data, origData);
 			}
@@ -192,5 +192,36 @@ function DatesToISO8601(obj) {
 				obj[prop] = obj[prop].toISOString();
 			}
 		}
+	}
+}
+
+//https://stackoverflow.com/a/52311051
+function file2Base64(file) {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = () => {
+			let encoded = reader.result.replace(/^.*;base64,/, '');
+			if ((encoded.length % 4) > 0) {
+				encoded += '='.repeat(4 - (encoded.length % 4));
+			}
+			resolve(encoded);
+		};
+		reader.onerror = error => reject(error);
+	});
+}
+
+var nextNewId = (function () {
+	var counter = -1;
+	return function () {
+		return counter--;
+	}
+})();
+
+function fixSortOrder(arr, key) {
+	key = key || "SortOrder";
+
+	for (var i = 0; i < arr.length; i++) {
+		arr[i][key] = i + 1;
 	}
 }

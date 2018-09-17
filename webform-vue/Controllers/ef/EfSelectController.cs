@@ -17,5 +17,15 @@ namespace WebformVue
 				.OrderBy(e => e.CatalogName)
 				.ToSimpleSelect(a => a.CatalogId, a => a.CatalogName);
 		}
+		
+		[HttpGet, HttpPost, MultiParameterSupport]
+		[Route("productTypeSelect")]
+		public SimpleSelect GetProductTypeSelect(int? ProductTypeId, bool? Single)
+		{
+			return new EfContext().ProductTypes
+				.Where(e => !(Single ?? false) || e.ProductTypeId == ProductTypeId)
+				.OrderBy(e => e.ProductTypeName)
+				.ToSimpleSelect(a => a.ProductTypeId, a => a.ProductTypeName);
+		}
 	}
 }

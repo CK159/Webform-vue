@@ -16,10 +16,10 @@ var vueApp = new Vue({
 				"ProductName": "",
 				"ProductDesc": "",
 				"ProductRichDesc": "",
-				"Type": null, //TODO: figure this out
-				"Date": "0001-01-01T00:00:00",
+				"ProductTypeId": null,
 				"Active": true,
-				"ProductResources": [] //TODO: figure this out
+				"Resources": [],
+				"Catalogs": []
 			},
 			pk: "ProductId",
 			apiUrl: "/api/Product/"
@@ -43,5 +43,60 @@ var vueApp = new Vue({
 			this.componentDataReset("search");
 			this.refreshSearch();
 		},
+		fileAdded: function (e) {
+			console.log("fileAdded", e.target.files.length);
+			var vm = this;
+			var chain = Promise.resolve();
+			var newResources = [];
+
+			for (var i = 0; i < e.target.files.length; i++) {
+				var file = e.target.files[i];
+
+				(function (f) {
+					chain = chain.then(function () {
+						return file2Base64(f);
+					}).then(function (b64) {
+						console.log(f, b64);
+						newResources.push(vm.createNewProductResource(f, b64));
+					});
+				})(file);
+
+				console.log(i, file);
+			}
+
+			chain = chain.then(function () {
+				vm.detail.Resources = newResources.concat(vm.detail.Resources);
+				fixSortOrder(vm.detail.Resources);
+				
+				//Reset file input
+				e.target.value = null;
+			});
+
+			chain.catch(function (e) {
+				console.log("fileAdded failure", e)
+			});
+		},
+		createNewProductResource: function (file, b64) {
+			return {
+				ProductResourceId: nextNewId(),
+				ProductId: this.detail.ProductId,
+				File: {
+					FileId: nextNewId(),
+					FileName: file.name,
+					MimeType: file.type,
+					Content: b64,
+					DateCreated: new Date().toISOString()
+				},
+				SortOrder: 0,
+				Active: true,
+				DateCreated: new Date().toISOString()
+			};
+		},
+		smartSrc: function (fileDto){
+			if (fileDto.Content) {
+				return "data:" + fileDto.MimeType + ";base64," + fileDto.Content;
+			}
+			return "/api/File/" + fileDto.FileId;
+		}
 	}
 });

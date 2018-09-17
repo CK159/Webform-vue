@@ -79,9 +79,9 @@
 								class="pointer"
 								v-for="item in preview"
 								:key="item.ProductId"
-								v-on:click="detailLoad(item.ProductId)"
+								@click="detailLoad(item.ProductId)"
 								<%--Highlight active row--%>
-								v-bind:class="{'info': itemActive(item.ProductId)}">
+								:class="{'info': itemActive(item.ProductId)}">
 	
 								<td>{{item.ProductId}}</td> <%--Use custom formatter to display date as standard mm/dd/yyyy--%>
 								<td>{{item.ProductName}}</td>
@@ -113,19 +113,53 @@
 									</label>
 								</div>
 							</div>
+							<div class="form-group">
+								<label>Product Type</label>
+								<async-dropdown 
+									v-model="detail.ProductTypeId"
+									friendly-name="Product Type"
+									api-url="/api/select/productTypeSelect"
+									api-key="ProductTypeId">
+								</async-dropdown>
+							</div>
 						</div>
 
 						<div class="col-md-6">
-							<%--<div class="form-group">
-								<label>Categories</label>
-								<select class="form-control" v-model="detail.CategoryIds" multiple>
-									<option v-for="item in categories" :value="item.value">{{item.name}}</option>
-								</select>
-							</div>--%>
-							<div class="form-group">
-								<label>Date Created</label>
-								<input class="form-control" v-model="detail.DateCreated" disabled/>
-							</div>
+							<table class="table table-hover table-bordered table-striped table-condensed">
+								<thead>
+									<tr>
+										<th>Catalog</th>
+										<th>Store</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="item in detail.Catalogs" :key="item.CatalogId">
+										<td>
+											<div class="checkbox no-margin" :class="{'text-muted': !item.Active}">
+												<label>
+													<input type="checkbox" v-model="item.Assigned"/>
+													{{item.Active ? "" : "(inactive)"}}
+													{{item.CatalogName}}
+												</label>
+											</div>
+										</td>
+										<td>{{item.StoreName}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+					<h3>Product Image Resources ({{detail.Resources ? detail.Resources.length : 0}})</h3>
+					<div class="form-group">
+						Add Resources <input type="file" multiple @change="fileAdded"/>
+					</div>
+					
+					<div class="row">
+						<div class="col-lg-3 col-md-4 col-sm-6"
+						     v-for="item in detail.Resources"
+						     :key="item.ProductTypeId">
+							<img class="img-responsive" :src="smartSrc(item.File)" />
 						</div>
 					</div>
 				</div>

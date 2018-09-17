@@ -90,7 +90,7 @@ namespace WebformVue
 					ProductName = grp.Key.ProductName,
 					ProductDesc = grp.Key.ProductDesc,
 					ProductRichDesc = grp.Key.ProductRichDesc,
-					Type = grp.Key.Type,
+					ProductTypeId = grp.Key.Type.ProductTypeId,
 					Active = grp.Key.Active,
 					Resources = grp.Key.ProductResources.Select(r => new ProductResourceDto
 					{
@@ -103,6 +103,7 @@ namespace WebformVue
 						{
 							FileId = r.Resource.FileId,
 							FileName = r.Resource.FileName,
+							MimeType = r.Resource.MimeType,
 							DateCreated = r.Resource.DateCreated
 						}
 					}).OrderBy(o => o.ProductResourceId).ToList(),
@@ -126,7 +127,7 @@ namespace WebformVue
 			public string ProductName { get; set; }
 			public string ProductDesc { get; set; }
 			public string ProductRichDesc { get; set; }
-			public ProductType Type { get; set; }
+			public int ProductTypeId { get; set; }
 			public bool Active { get; set; }
 			public List<ProductResourceDto> Resources { get; set; }
 			public List<ProductCatalogDto> Catalogs { get; set; }
