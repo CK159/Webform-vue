@@ -77,70 +77,57 @@ namespace WebformVue
 
 		[HttpGet, HttpPost, MultiParameterSupport]
 		[Route("Load")]
-		public ProductDto ProductLoad(int productId)
+		public ProductManager.ProductDto ProductLoad(int productId)
+		{
+			return ProductManager.GetProductDto().FirstOrDefault(e => e.ProductId == productId);
+		}
+
+		[HttpGet, HttpPost]
+		[Route("Save")]
+		public ProductManager.ProductDto ProductSave(ProductManager.ProductDto dto)
 		{
 			EfContext context = new EfContext();
+			Product product = ProductManager.ProductDto2Product(dto, context);
+			ProductManager.ProductDto2Resources(dto, product, context);
+			ProductManager.ProductDto2Catalogs(dto, product, context);
+			context.SaveChanges();
 
-			var qry = from p in context.Products
-				join cp in context.CatalogProducts on p equals cp.Product
-				group cp by p into grp
-				select new ProductDto
-				{
-					ProductId = grp.Key.ProductId,
-					ProductName = grp.Key.ProductName,
-					ProductDesc = grp.Key.ProductDesc,
-					ProductRichDesc = grp.Key.ProductRichDesc,
-					ProductTypeId = grp.Key.Type.ProductTypeId,
-					Active = grp.Key.Active,
-					Resources = grp.Key.ProductResources.Select(r => new ProductResourceDto
-					{
-						ProductResourceId = r.ProductResourceId,
-						ProductId = grp.Key.ProductId,
-						Active = r.Active,
-						DateCreated = r.DateCreated,
-						SortOrder = r.SortOrder,
-						File = new UploadableFileDto
-						{
-							FileId = r.Resource.FileId,
-							FileName = r.Resource.FileName,
-							MimeType = r.Resource.MimeType,
-							DateCreated = r.Resource.DateCreated
-						}
-					}).OrderBy(o => o.ProductResourceId).ToList(),
-					Catalogs = context.Catalogs.Select(c => new ProductCatalogDto
-					{
-						Assigned = grp.Any(g => g.Catalog == c),
-						CatalogId = c.CatalogId,
-						CatalogName = c.CatalogName,
-						Active = c.Active,
-						StoreId = c.Store.StoreId,
-						StoreName = c.Store.StoreName
-					}).OrderBy(o => o.CatalogName).ToList()
-				};
-
-			return qry.FirstOrDefault(e => e.ProductId == productId);
+			return ProductManager.GetProductDto().FirstOrDefault(e => e.ProductId == product.ProductId);
 		}
 
-		public class ProductDto
+		[HttpGet, HttpPost, MultiParameterSupport]
+		[Route("Delete")]
+		public void ProductSave(int productId)
 		{
-			public int ProductId { get; set; }
-			public string ProductName { get; set; }
-			public string ProductDesc { get; set; }
-			public string ProductRichDesc { get; set; }
-			public int ProductTypeId { get; set; }
-			public bool Active { get; set; }
-			public List<ProductResourceDto> Resources { get; set; }
-			public List<ProductCatalogDto> Catalogs { get; set; }
+			EfContext context = new EfContext();
+			Product p = context.Products.Find(productId);
+
+			context.ProductResources.RemoveRange(context.ProductResources.Where(e => e.Product.ProductId == p.ProductId));
+			context.CatalogProducts.RemoveRange(context.CatalogProducts.Where(e => e.Product.ProductId == p.ProductId));
+			context.Products.Remove(p);
+			context.SaveChanges();
 		}
 
-		public class ProductCatalogDto
+		//TODO: way of annotating default value on DTOs themselves and having generic method to return default
+		[HttpGet, HttpPost, MultiParameterSupport]
+		[Route("New")]
+		public Dictionary<string, object> ProductNew()
 		{
-			public bool Assigned { get; set; }
-			public int CatalogId { get; set; }
-			public string CatalogName { get; set; }
-			public bool Active { get; set; }
-			public int StoreId { get; set; }
-			public string StoreName { get; set; }
+			Dictionary<string, object> dict = new Dictionary<string, object>();
+			var context = new EfContext();
+			
+			dict.Add("Product", new ProductManager.ProductDto
+			{
+				Active = true,
+				ProductTypeId = context.ProductTypes.FirstOrDefault(x => x.ProductTypeCode == "PHYS")?.ProductTypeId ?? 0
+			});
+			dict.Add("Resource", new ProductResourceDto
+			{
+				File = new UploadableFileDto()
+			});
+			dict.Add("Catalog", new ProductManager.ProductCatalogDto());
+			
+			return dict;
 		}
 	}
 }

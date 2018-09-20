@@ -85,7 +85,6 @@
 	
 								<td>{{item.ProductId}}</td> <%--Use custom formatter to display date as standard mm/dd/yyyy--%>
 								<td>{{item.ProductName}}</td>
-								<td>{{item.Name}}</td>
 								<td>{{item.Catalogs.join(", ")}}</td>
 								<td><colored-check :value="item.Active"></colored-check></td>
 							</tr>
