@@ -44,7 +44,6 @@ var vueApp = new Vue({
 			this.refreshSearch();
 		},
 		fileAdded: function (e) {
-			console.log("fileAdded", e.target.files.length);
 			var vm = this;
 			var chain = Promise.resolve();
 			var newResources = [];
@@ -56,12 +55,9 @@ var vueApp = new Vue({
 					chain = chain.then(function () {
 						return file2Base64(f);
 					}).then(function (b64) {
-						console.log(f, b64);
 						newResources.push(vm.createNewProductResource(f, b64));
 					});
 				})(file);
-
-				console.log(i, file);
 			}
 
 			chain = chain.then(function () {
@@ -73,7 +69,7 @@ var vueApp = new Vue({
 			});
 
 			chain.catch(function (e) {
-				console.log("fileAdded failure", e)
+				console.log("fileAdded failure", e);
 			});
 		},
 		createNewProductResource: function (file, b64) {
