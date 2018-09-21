@@ -119,7 +119,9 @@ namespace WebformVue
 			dict.Add("Product", new ProductManager.ProductDto
 			{
 				Active = true,
-				ProductTypeId = context.ProductTypes.FirstOrDefault(x => x.ProductTypeCode == "PHYS")?.ProductTypeId ?? 0
+				ProductTypeId = context.ProductTypes.FirstOrDefault(x => x.ProductTypeCode == "PHYS")?.ProductTypeId ?? 0,
+				Resources = new List<ProductResourceDto>(),
+				Catalogs = new List<ProductManager.ProductCatalogDto>()
 			});
 			dict.Add("Resource", new ProductResourceDto
 			{

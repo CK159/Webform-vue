@@ -47,5 +47,5 @@ Image Upload
 	Green border around new not-uploaded images
 	Image table component that allows adding, changing, deleting images
 	Support multi-file selection actions
-	Send image content over JSON
-	Server-side structure to identify new images and store them
+DONE - Send image content over JSON
+DONE - Server-side structure to identify new images and store them

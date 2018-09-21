@@ -131,24 +131,31 @@ Vue.mixin({
 	//https://jsfiddle.net/Herteby/daL40n19
 	beforeCreate() {
 		const sync = this.$options.sync;
-		if (sync) {
-			if (!this.$options.computed) {
-				this.$options.computed = {}
+		if (!sync)
+			return;
+		
+		if (!this.$options.computed) {
+			this.$options.computed = {}
+		}
+		const attrs = Object.keys(this.$attrs);
+		sync.forEach(key => {
+			var kebabKey = camelToKebab(key);
+			if (!attrs.includes(kebabKey)) {
+				Vue.util.warn(`Missing required sync-prop: "${kebabKey}"`, this)
 			}
-			const attrs = Object.keys(this.$attrs);
-			sync.forEach(key => {
-				if (!attrs.includes(key)) {
-					Vue.util.warn(`Missing required sync-prop: "${key}"`, this)
+			
+			this.$options.computed[key] = {
+				get() {
+					return this.$attrs[kebabKey];
+				},
+				set(val) {
+					this.$emit('update:' + key, val);
 				}
-				this.$options.computed[key] = {
-					get() {
-						return this.$attrs[key]
-					},
-					set(val) {
-						this.$emit('update:' + key, val)
-					}
-				}
-			})
+			};
+		});
+
+		function camelToKebab(input) {
+			return input.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 		}
 	}
 });

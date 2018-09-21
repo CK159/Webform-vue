@@ -2,15 +2,16 @@ Vue.component("preview-detail", {
 	template: "#preview-detail-template",
 	sync: [
 		"preview", //Array of items to show in preview section
-		"detail" //Object to display in details section
+		"detail", //Object to display in details section
+		"newDto" //Object of default objects to use when new entities need to be created
 	],
 	props: {
 		search: Object, //Search and filter fields to pass to preview load api
-		newDetail: Object, //What should be assigned to the detailData when 'new' button is clicked
-		pk: String, //The primary key in the detail object (for loading and saving details)
+		pk: String, //The primary key field in the detail object (for loading and saving details)
+		newDetailKey: String, //Field in newDto which will be used for creating new record
 		apiUrl: String, //Base URL to call for loading and saving
 		//Optionally override default URL actions. See defaultApiEndpoints.
-		//{previewLoad: "", detailLoad: "", detailSave: "", detailDelete:
+		//{previewLoad: "", detailLoad: "", detailSave: "", detailDelete: "", dtoNew: ""}
 		apiEndpoints: {
 			default: function () {return {};},
 			type: Object
@@ -27,6 +28,7 @@ Vue.component("preview-detail", {
 			detailState: "unloaded", //unloaded, loading, loaded, new
 			messageType: "none", //none, success, error
 			messageText: "", //Displayed in message box when messageType != "none"
+			initialLoad: false, //Whether initial data from server (newDto data) is loaded
 			currentPage: 0, //First page is page 0
 			pages: 1,
 			recordCount: 0,
@@ -36,7 +38,8 @@ Vue.component("preview-detail", {
 				previewLoad: "Preview",
 				detailLoad: "Load",
 				detailSave: "Save",
-				detailDelete: "Delete"
+				detailDelete: "Delete",
+				dtoNew: "New"
 			}
 		}
 	},
@@ -204,7 +207,7 @@ Vue.component("preview-detail", {
 		detailNew: function () {
 			this.clearMessage();
 			this.detailState = "new";
-			this.detail = Object.assign({}, this.newDetail);
+			this.detail = Object.assign({}, this.newDto[this.newDetailKey]);
 		},
 		detailDelete: function () {
 			this.clearMessage();
@@ -299,11 +302,22 @@ Vue.component("preview-detail", {
 		}
 	},
 	created: function () {
-		//Populate detail with default data to prevent undefined data references
-		this.detail = Object.assign({}, this.newDetail);
+		var vm = this;
+		this.api({
+			baseURL: this.apiUrl,
+			action: this.finalAction.dtoNew,
+			//formData: {[vm.pk]: vm.detail[vm.pk]},
+			done: function (data) {
+				vm.newDto = data;
+				
+				//Populate detail with default data to prevent undefined data references
+				vm.detail = Object.assign({}, vm.newDto[vm.newDetailKey]);
+				vm.$emit("initialLoad")
+			}
+		});
+		
 		this.previewLoad();
 
-		var vm = this;
 		window.addEventListener('keydown', this.keypressManager);
 		this.$once('hook:beforeDestroy', this.keypressManager);
 	}

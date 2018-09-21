@@ -10,19 +10,11 @@ var vueApp = new Vue({
 			},
 			preview: [],
 			detail: {},
-			//Default values used when user creates new record TODO: easier way? Lazy-load from server?
-			newDetail: {
-				"ProductId": -1,
-				"ProductName": "",
-				"ProductDesc": "",
-				"ProductRichDesc": "",
-				"ProductTypeId": null,
-				"Active": true,
-				"Resources": [],
-				"Catalogs": []
-			},
+			newDto: {},
 			pk: "ProductId",
-			apiUrl: "/api/Product/"
+			newDetailKey: "Product",
+			apiUrl: "/api/Product/",
+			//initialLoad: false
 		}
 	},
 	methods: {
@@ -63,7 +55,7 @@ var vueApp = new Vue({
 			chain = chain.then(function () {
 				vm.detail.Resources = newResources.concat(vm.detail.Resources);
 				fixSortOrder(vm.detail.Resources);
-				
+
 				//Reset file input
 				e.target.value = null;
 			});
@@ -73,22 +65,25 @@ var vueApp = new Vue({
 			});
 		},
 		createNewProductResource: function (file, b64) {
-			return {
+			//Resources contain files. Create new extended file then put it in new extended resource
+			var fileDto = Object.assign({}, this.newDto["Resource"].File, {
+				FileId: nextNewId(),
+				FileName: file.name,
+				MimeType: file.type,
+				Content: b64,
+				DateCreated: new Date().toISOString()
+			});
+			
+			return Object.assign({}, this.newDto["Resource"], {
 				ProductResourceId: nextNewId(),
 				ProductId: this.detail.ProductId,
-				File: {
-					FileId: nextNewId(),
-					FileName: file.name,
-					MimeType: file.type,
-					Content: b64,
-					DateCreated: new Date().toISOString()
-				},
+				File: fileDto,
 				SortOrder: 0,
 				Active: true,
 				DateCreated: new Date().toISOString()
-			};
+			});
 		},
-		smartSrc: function (fileDto){
+		smartSrc: function (fileDto) {
 			if (fileDto.Content) {
 				return "data:" + fileDto.MimeType + ";base64," + fileDto.Content;
 			}
