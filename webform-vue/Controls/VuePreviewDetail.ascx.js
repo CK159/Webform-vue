@@ -11,17 +11,9 @@ var vueApp = new Vue({
 			},
 			preview: [],
 			detail: {},
-			//Default values used when user creates new record TODO: easier way? Lazy-load from server?
-			newDetail: {
-				"PreviewDetailId": -1,
-				"Name": "",
-				"Description": "",
-				"Active": true,
-				"Date": "0001-01-01T00:00:00",
-				"CategoryIds": [],
-				"CodeIds": []
-			},
+			newDto: {},
 			pk: "PreviewDetailId",
+			newDetailKey: "PreviewDetail",
 			apiUrl: "/ApiThingyController.cs/PreviewDetail/",
 			categories: []
 		}

@@ -109,7 +109,7 @@ namespace WebformVue
 		}
 
 		//TODO: way of annotating default value on DTOs themselves and having generic method to return default
-		[HttpGet, HttpPost, MultiParameterSupport]
+		[HttpGet, HttpPost]
 		[Route("New")]
 		public Dictionary<string, object> ProductNew()
 		{

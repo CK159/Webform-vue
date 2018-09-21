@@ -16,8 +16,9 @@
 				v-bind:search="search"
 				v-bind:preview.sync="preview"
 				v-bind:detail.sync="detail"
-				v-bind:new-detail="newDetail"
+				v-bind:new-dto.sync="newDto"
 				v-bind:pk="pk"
+				v-bind:new-detail-key="newDetailKey"
 				v-bind:api-url="apiUrl"
 				ref="pdRef">
 

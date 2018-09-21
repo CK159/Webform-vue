@@ -7,11 +7,11 @@ using WebformVue.Util;
 
 namespace WebformVue
 {
-	[RoutePrefix("ApiThingyController.cs")]
+	[RoutePrefix("ApiThingyController.cs/PreviewDetail")]
 	public class ApiThingyController : ApiController
 	{
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("PreviewDetail/Preview")]
+		[Route("Preview")]
 		public PagedResult<IQueryable<PreviewDetailDTO>> PreviewDetailPreview(
 			int? currentPage,
 			int? pageSize,
@@ -73,7 +73,7 @@ namespace WebformVue
 		}
 
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("PreviewDetail/Load")]
+		[Route("Load")]
 		public PreviewDetailEntity PreviewDetailLoad(int PreviewDetailId)
 		{
 			return Loader.LoadFromFile<List<PreviewDetailEntity>>("preview-detail")
@@ -82,7 +82,7 @@ namespace WebformVue
 
 		//TODO: Find how to make this a generic method that supports validation and error messages
 		[HttpGet, HttpPost]
-		[Route("PreviewDetail/Save")]
+		[Route("Save")]
 		public PreviewDetailEntity PreviewDetailSave(PreviewDetailEntity entity)
 		{
 			var all = Loader.LoadFromFile<List<PreviewDetailEntity>>("preview-detail");
@@ -109,12 +109,33 @@ namespace WebformVue
 		}
 
 		[HttpGet, HttpPost, MultiParameterSupport]
-		[Route("PreviewDetail/Delete")]
+		[Route("Delete")]
 		public void PreviewDetailDelete(int PreviewDetailId)
 		{
 			var all = Loader.LoadFromFile<List<PreviewDetailEntity>>("preview-detail")
 				.Where(e => e.PreviewDetailId != PreviewDetailId);
 			Loader.SaveToFile(all, "preview-detail");
+		}
+		
+		//TODO: way of annotating default value on DTOs themselves and having generic method to return default
+		[HttpGet, HttpPost]
+		[Route("New")]
+		public Dictionary<string, object> PreviewDetailNew()
+		{
+			Dictionary<string, object> dict = new Dictionary<string, object>();
+			
+			dict.Add("PreviewDetail", new Dictionary<string, object>
+			{
+				{"PreviewDetailId", -1},
+				{"Name", ""},
+				{"Description", ""},
+				{"Active", true},
+				{"Date", "0001-01-01T00:00:00"},
+				{"CategoryIds", new List<int>()},
+				{"CodeIds", new List<int>()}
+			});
+			
+			return dict;
 		}
 	}
 }
