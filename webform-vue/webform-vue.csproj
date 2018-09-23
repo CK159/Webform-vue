@@ -159,6 +159,8 @@
     <Content Include="Content\vue\vue.js" />
     <Content Include="Content\vue\vue.min.js" />
     <Content Include="Content\vue\vuex.js" />
+    <Content Include="ControlsView\AlertPopup.html" />
+    <Content Include="ControlsView\AlertPopup.html.js" />
     <Content Include="ControlsView\AsyncDropdown.html" />
     <Content Include="ControlsView\AsyncDropdown.html.js" />
     <Content Include="ControlsView\ClearBtn.html" />

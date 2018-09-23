@@ -1,4 +1,5 @@
 //Helper functions
+var globalAjaxDelay = 350;
 
 //Get random int in range [min, max] -> Can include min and max values in result
 function getRandomInt(min, max) {
@@ -47,8 +48,8 @@ Vue.mixin({
 				formData: null,
 				jsonData: null,
 				done: null,
-				fail: function (message, details) {
-					alert("Error: " + message);
+				fail: function (messages, details) {
+					alert(messages.join("\n"));
 				},
 				always: null,
 
@@ -58,22 +59,51 @@ Vue.mixin({
 				method: "POST",
 				formDataDateConverter: true,
 				doneHandler: function (data) {
-					if (typeof data !== "undefined" && data.hasOwnProperty("error") && data.error === false) {
+					/*if (typeof data !== "undefined" && data.hasOwnProperty("error") && data.error === false) {
 						opt.failHandler(data.message, data)
 					}
 					else if (typeof opt.done === "function") {
 						opt.done(data);
+					}*/
+					if (typeof opt.done === "function") {
+						opt.done(data);
 					}
 				},
-				failHandler: function (message, details) {
-					console.log("Error: " + message, details);
+				failHandler: function (jqXHR) {
+					var messages = jqXHR.statusText;
+					var details = jqXHR.responseText;
+
+					if (jqXHR.responseJSON) {
+						var response = jqXHR.responseJSON;
+
+						//Custom error response format {Messages: [], Details: []}
+						//generously provided by GlobalLocalLiveDebugMessagingDetailsExceptionHandlerMKⅫ
+						if (response.hasOwnProperty("Messages")) {
+							messages = response.Messages;
+						}
+						if (response.hasOwnProperty("Details")) {
+							details = response.Details;
+						}
+
+						//Web API standard error response format {Message: "", MessageDetail: ""}
+						if (response.hasOwnProperty("Message")) {
+							messages = [response.Message];
+						}
+						if (response.hasOwnProperty("MessageDetail")) {
+							details = response.MessageDetail;
+						}
+					}
+
+					var logStr = "API Error:\n" + messages.join("\n");
+					//Ensures text part ends with new line so that details part starts on its own line in browser console
+					logStr += logStr.endsWith("\n") ? "" : "\n";
+					console.log(logStr, details);
 					if (typeof opt.fail === "function") {
-						opt.fail(message, details);
+						opt.fail(messages, details);
 					}
 				},
-				//Minimum time in ms to complete AJAX request. 
-				//Delay will be added if request is shorter than this - for local testing
-				delay: 350
+				//Extra time in ms added to delay AJAX requests.
+				delay: globalAjaxDelay || 0
 			}, argOpts);
 
 			var finalData = null;
@@ -116,7 +146,7 @@ Vue.mixin({
 				})
 					.done(opt.doneHandler)
 					.fail(function (jqXHR, textStatus) {
-						opt.failHandler(textStatus, jqXHR); //Reverse the arguments for standardization
+						opt.failHandler(jqXHR);
 					})
 					.always(function () {
 						if (typeof opt.always === "function") {
@@ -126,14 +156,15 @@ Vue.mixin({
 			}
 		}
 	},
-	//Allows specifying sync: ["prop1", "prop2"] on components for automatic 2-way data binding
+	//Allows specifying sync: ["prop1", "prop2", ...] on components for automatic 2-way data binding of each prop
 	//Parent component just need to use v-bind.sync
 	//https://jsfiddle.net/Herteby/daL40n19
+	//Now also correctly translates prop-names kebab-case in templates to propNames camelCase in JS
 	beforeCreate() {
 		const sync = this.$options.sync;
 		if (!sync)
 			return;
-		
+
 		if (!this.$options.computed) {
 			this.$options.computed = {}
 		}
@@ -143,7 +174,7 @@ Vue.mixin({
 			if (!attrs.includes(kebabKey)) {
 				Vue.util.warn(`Missing required sync-prop: "${kebabKey}"`, this)
 			}
-			
+
 			this.$options.computed[key] = {
 				get() {
 					return this.$attrs[kebabKey];
