@@ -10,7 +10,6 @@ Model validation
 Ability to edit categories
 Ability to edit attributes
 Use Automapper
-IN PROGRESS - API error handling
 API authentication
 Vue CLI
 Delete record confirmation popup

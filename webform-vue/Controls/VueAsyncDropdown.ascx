@@ -139,14 +139,18 @@
 			<button type="button" class="btn btn-primary" @click="addAttrClick(modal.addAttributeId)">Add Attribute</button>
 		</span>
 	</modal>
+	
+	<%--Will display any messages or errors passed to it via popup-alert, popup-error, popup-validation events--%>
+	<alert-popup></alert-popup>
 </div>
 
 <%--Dependencies--%>
 <script src="/Content/vue/vue.js"></script>
 <script src="/Content/utilities.js"></script>
 <script src="/Content/plugins/v-tooltip.min.js"></script>
-<!--#include file="~/ControlsView/AsyncDropdown.html"-->
+<!--#include file="~/ControlsView/AlertPopup.html"-->
 <!--#include file="~/ControlsView/modal.html"-->
+<!--#include file="~/ControlsView/AsyncDropdown.html"-->
 
 <%--Page-specific resources--%>
 <script src="/Controls/VueAsyncDropdown.ascx.js"></script>

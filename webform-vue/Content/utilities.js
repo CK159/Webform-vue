@@ -47,9 +47,11 @@ Vue.mixin({
 				action: "",
 				formData: null,
 				jsonData: null,
-				done: null,
+				done: function (data) {
+					//Define custom success action
+				},
 				fail: function (messages, details) {
-					alert(messages.join("\n"));
+					//Define custom failure action
 				},
 				always: null,
 
@@ -57,6 +59,9 @@ Vue.mixin({
 				dataType: "json",
 				baseURL: "",
 				method: "POST",
+				//Turn on or off standard failure messaging behavior
+				//If enabled, this will run IN ADDITION TO fail() callback. See failDefault()
+				failDefaultEnabled: true, 
 				formDataDateConverter: true,
 				doneHandler: function (data) {
 					/*if (typeof data !== "undefined" && data.hasOwnProperty("error") && data.error === false) {
@@ -100,6 +105,22 @@ Vue.mixin({
 					console.log(logStr, details);
 					if (typeof opt.fail === "function") {
 						opt.fail(messages, details);
+					}
+					if (opt.failDefaultEnabled) {
+						opt.failDefault(messages, details);
+					}
+				},
+				//Displays error messages in fancy Vue modal popup if available or simple alert otherwise
+				failDefault: function (messages, details) {
+					if (EventBus) {
+						//Fail Fancy
+						EventBus.$emit("popup-error", {
+							body: messages
+						});
+					}
+					else {
+						//Fail boring
+						alert(messages.join("\n"));
 					}
 				},
 				//Extra time in ms added to delay AJAX requests.

@@ -1,8 +1,8 @@
 <div id="alert-popup-template" class="vue-template">
-	<modal class="alert-modal" v-if="modal.showPopup" v-on:close="modal.showPopup = false">
+	<modal class="alert-modal" v-if="showPopup" v-on:close="showPopup = false">
 		<h3 slot="header">{{finalHeader}}</h3>
 		<div slot="body">
-			<div v-if="!isHtml">{{body}}</div>
+			<div v-if="!isHtml" v-for="item in body">{{item}}</div>
 			<div v-if="isHtml" v-html="bodyHtml"></div>
 		</div>
 		<!--<span slot="footer">

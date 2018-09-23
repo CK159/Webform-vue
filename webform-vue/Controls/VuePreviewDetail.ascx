@@ -138,6 +138,9 @@
 			</preview-detail>
 		</div>
 	</div>
+	
+	<%--Will display any messages or errors passed to it via popup-alert, popup-error, popup-validation events--%>
+	<alert-popup></alert-popup>
 </div>
 
 <%--Dependencies--%>
@@ -145,6 +148,8 @@
 <script src="/Content/utilities.js"></script>
 <script src="/Content/plugins/vuejs-datepicker.js"></script>
 <script src="/Content/plugins/v-tooltip.min.js"></script>
+<!--#include file="~/ControlsView/AlertPopup.html"-->
+<!--#include file="~/ControlsView/modal.html"-->
 <!--#include file="~/ControlsView/PreviewDetail.html"-->
 <!--#include file="~/ControlsView/ClearBtn.html"-->
 <!--#include file="~/ControlsView/MyDatepicker.html"-->

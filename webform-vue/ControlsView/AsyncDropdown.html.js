@@ -117,7 +117,6 @@ Vue.component("async-dropdown", {
 				},
 				fail: function (message) {
 					vm.status = "error";
-					alert("Error: " + message);
 				}
 			});
 		},
