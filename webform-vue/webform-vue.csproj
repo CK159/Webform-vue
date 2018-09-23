@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -107,7 +107,10 @@
     <Compile Include="Application\ef\ProductManager.cs" />
     <Compile Include="Application\Util.cs" />
     <Compile Include="Application\VuePage.aspx.cs" />
+    <Compile Include="App_Start\ExceptionFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SPVPBE\MultiParameterSupportAttribute.cs" />
+    <Compile Include="App_Start\SPVPBE\SimplePostModelBinding.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ApiSelectController.cs" />
     <Compile Include="Controllers\ApiThingyController.cs" />
@@ -121,12 +124,11 @@
     <Compile Include="Controls\VueControl.ascx.cs" />
     <Compile Include="Global.asax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SPVPBE\MultiParameterSupportAttribute.cs" />
-    <Compile Include="SPVPBE\SimplePostModelBinding.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Application\ApiThingy.asmx" />
     <Content Include="Application\VuePage.aspx" />
+    <Content Include="App_Start\SPVPBE\README.md" />
     <Content Include="Content\bootstrap\bootstrap-theme.css" />
     <Content Include="Content\bootstrap\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
@@ -193,7 +195,6 @@
     <Content Include="nosql-db\code.json" />
     <Content Include="nosql-db\records.json" />
     <Content Include="packages.config" />
-    <Content Include="SPVPBE\README.md" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

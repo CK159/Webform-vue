@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 
 namespace WebformVue
 {
@@ -33,6 +34,10 @@ namespace WebformVue
 			GlobalConfiguration.Configuration
 				.ParameterBindingRules
 				.Insert(0, SimplePostVariableParameterBinding.HookupParameterBinding);
+
+			//Set up custom error handler 
+			config.Services.Replace(typeof(IExceptionHandler),
+				new GlobalLocalLiveDebugMessagingDetailsExceptionHandlerMKⅫ());
 		}
 	}
 }

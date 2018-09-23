@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Data.Entity;
 using System.Linq;
 using DataModel;
 
